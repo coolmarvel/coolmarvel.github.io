@@ -45,7 +45,7 @@ const Portfolio = memo(({ refs }) => {
           </div>
         </div>
         {/* 2번 */}
-        <div className="portfolio-info-area">
+        {/* <div className="portfolio-info-area">
           <div className="portfolio-info">
             <div className="picture-area">
               <img
@@ -75,8 +75,9 @@ const Portfolio = memo(({ refs }) => {
               publish link
             </a>
           </div>
-        </div>
-        <div className="portfolio-info-area">
+        </div> */}
+        {/* 3번 */}
+        {/* <div className="portfolio-info-area">
           <div className="portfolio-info">
             <div className="picture-area">
               <img src={note} alt="죄송합니다 이미지를 불러오지 못했습니다." />
@@ -103,8 +104,9 @@ const Portfolio = memo(({ refs }) => {
               publish link
             </a>
           </div>
-        </div>
-        <div className="portfolio-info-area">
+        </div> */}
+        {/* 4번 */}
+        {/* <div className="portfolio-info-area">
           <div className="portfolio-info">
             <div className="picture-area">
               <img
@@ -129,8 +131,9 @@ const Portfolio = memo(({ refs }) => {
               github link
             </a>
           </div>
-        </div>
-        <div className="portfolio-info-area">
+        </div> */}
+        {/* 5번 */}
+        {/* <div className="portfolio-info-area">
           <div className="portfolio-info">
             <div className="picture-area">
               <img src={paint} alt="죄송합니다 이미지를 불러오지 못했습니다." />
@@ -149,7 +152,8 @@ const Portfolio = memo(({ refs }) => {
               github link
             </a>
           </div>
-        </div>
+        </div> */}
+        {/* 6번 */}
         <div className="portfolio-info-area">
           <div className="portfolio-info">
             <div className="picture-area">
