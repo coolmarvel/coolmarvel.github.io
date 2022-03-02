@@ -1,9 +1,7 @@
 import React, { memo } from "react";
 
 import "../styles/portfolio.scss";
-import paint from "../images/paint.png";
-import pickup from "../images/pickups.png";
-import note from "../images/note.gif";
+import mining from "../images/mining.png"
 import picker from "../images/picker.gif";
 import gangstertalk from "../images/gangstertalk.png"
 import popol from "../images/popol.png";
@@ -45,37 +43,44 @@ const Portfolio = memo(({ refs }) => {
           </div>
         </div>
         {/* 2번 */}
-        {/* <div className="portfolio-info-area">
+        <div className="portfolio-info-area">
           <div className="portfolio-info">
             <div className="picture-area">
               <img
-                src={picker}
+                src={mining}
                 alt="죄송합니다 이미지를 불러오지 못했습니다."
               />
             </div>
-            <div className="title">Color Picker</div>
+            <div className="title">Blockchain 채굴 체험</div>
             <div className="contents">
-              개인 프로젝트
+              팀 프로젝트
               <br />
+              참여 인원 : 3 명 <br />
+              담당 업무 : WEB SOKCET, Blockchain 구조 구현,
+              <br /> SERVER 배포
               <br />
-              평소 웹 서핑을 하다가 색상 코드가 궁금한 경우가 있었는데 그런 경우
-              그림판을 이용하거나 다른 프로그램을 이용하여 생삭 코드를 알아낼 수
-              있지만 간편하지 않다고 생각이 되어 직접 만들었습니다.
+              blockChain에 대해 공부하고 Block구조 및 Transaction을
+              <br />
+              local환경에서 ws(webSocket)을 활용하여 체험해봤습니다.
+              <br />
+              heroku를 통해 배포를 하였지만 ws특성상 확인을 하려면 로컬로 실행해야
+              <br />
+              정상적으로 테스트 할 수 있는걸 확인하였습니다.
             </div>
             <a
               className="button"
-              href="https://github.com/hubblin/color-picker-vanilla"
+              href="https://github.com/coolmarvel/mimicoin-app"
             >
               github link
             </a>
             <a
               className="button"
-              href="https://sad-heyrovsky-5a07d8.netlify.app/"
+              href="https://https://mimicoin-app.herokuapp.com/"
             >
               publish link
             </a>
           </div>
-        </div> */}
+        </div>
         {/* 3번 */}
         {/* <div className="portfolio-info-area">
           <div className="portfolio-info">
