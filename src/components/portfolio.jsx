@@ -20,6 +20,7 @@ const Portfolio = memo(({ refs }) => {
             <div className="title">MERN SNS APP</div>
             <div className="contents">
               <br />
+              팀 프로젝트
               참여 인원 : 4 명 <br />
               담당 업무 : WEB SOKCET, WEB RTC 구현,
               <br /> SERVER 배포
@@ -53,6 +54,7 @@ const Portfolio = memo(({ refs }) => {
             </div>
             <div className="title">Blockchain 채굴 체험</div>
             <div className="contents">
+              <br />
               팀 프로젝트
               <br />
               참여 인원 : 3 명 <br />
@@ -73,43 +75,48 @@ const Portfolio = memo(({ refs }) => {
             >
               github link
             </a>
-            <a
+            {/* <a
               className="button"
               href="https://https://mimicoin-app.herokuapp.com/"
             >
               publish link
-            </a>
+            </a> */}
           </div>
         </div>
         {/* 3번 */}
-        {/* <div className="portfolio-info-area">
+        <div className="portfolio-info-area">
           <div className="portfolio-info">
             <div className="picture-area">
               <img src={note} alt="죄송합니다 이미지를 불러오지 못했습니다." />
             </div>
-            <div className="title">Note app</div>
+            <div className="title">DAITZO-SHOP</div>
             <div className="contents">
-              개인 프로젝트
+              <br />
+              팀 프로젝트<br />
+              참여 인원 : 4 명 <br />
+              담당 업무 : MERN(MongoDB, Express, React, NodeJS)
               <br />
               <br />
-              html, css, javascript를 공부하면서 익숙해지기 위해 홀로 실습해본
-              노트 앱입니다. 위 세가지 기술만을 사용하였으며 디자인은
-              핀터레스트를 참고했습니다.
+              학원에서 한 초창기 프로젝트로 React와 NodeJS(API), DB에 대해
+              <br />
+              공부하며 익숙해지기 위해 한 프로젝트입니다.
+              <br />
+              
             </div>
             <a
               className="button"
-              href="https://github.com/hubblin/note_app_vanilla"
+              href="https://github.com/coolmarvel/daitzo-shop"
             >
               github link
             </a>
-            <a
+            {/* <a
               className="button"
               href="https://mystifying-mayer-0e6bfd.netlify.app"
             >
               publish link
-            </a>
+            </a> */}
           </div>
-        </div> */}
+        </div>
         {/* 4번 */}
         {/* <div className="portfolio-info-area">
           <div className="portfolio-info">
