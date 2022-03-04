@@ -2,7 +2,6 @@ import React, { memo } from "react";
 
 import "../styles/portfolio.scss";
 import mining from "../images/mining.png"
-import picker from "../images/picker.gif";
 import gangstertalk from "../images/gangstertalk.png"
 import popol from "../images/popol.png";
 import shop from "../images/shop.png"
