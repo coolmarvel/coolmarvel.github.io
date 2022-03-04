@@ -5,6 +5,7 @@ import mining from "../images/mining.png"
 import picker from "../images/picker.gif";
 import gangstertalk from "../images/gangstertalk.png"
 import popol from "../images/popol.png";
+import shop from "../images/shop.png"
 
 const Portfolio = memo(({ refs }) => {
   return (
@@ -87,7 +88,7 @@ const Portfolio = memo(({ refs }) => {
         <div className="portfolio-info-area">
           <div className="portfolio-info">
             <div className="picture-area">
-              <img src={note} alt="죄송합니다 이미지를 불러오지 못했습니다." />
+              <img src={shop} alt="죄송합니다 이미지를 불러오지 못했습니다." />
             </div>
             <div className="title">DAITZO-SHOP</div>
             <div className="contents">
