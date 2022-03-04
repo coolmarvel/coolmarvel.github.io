@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/static/css/main.d9b1a507.chunk.css",
-    "main.js": "/static/js/main.757f4ceb.chunk.js",
-    "main.js.map": "/static/js/main.757f4ceb.chunk.js.map",
+    "main.js": "/static/js/main.68f22372.chunk.js",
+    "main.js.map": "/static/js/main.68f22372.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.c31726b3.js",
     "runtime-main.js.map": "/static/js/runtime-main.c31726b3.js.map",
     "static/js/2.31bdc521.chunk.js": "/static/js/2.31bdc521.chunk.js",
@@ -16,13 +16,13 @@
     "static/media/gangstertalk.67f22ff7.png": "/static/media/gangstertalk.67f22ff7.png",
     "static/media/mining.6a7254a3.png": "/static/media/mining.6a7254a3.png",
     "static/media/myficture.305b6bad.jpg": "/static/media/myficture.305b6bad.jpg",
-    "static/media/picker.ce8b8c49.gif": "/static/media/picker.ce8b8c49.gif",
-    "static/media/popol.efe7ff10.png": "/static/media/popol.efe7ff10.png"
+    "static/media/popol.efe7ff10.png": "/static/media/popol.efe7ff10.png",
+    "static/media/shop.a7712ace.png": "/static/media/shop.a7712ace.png"
   },
   "entrypoints": [
     "static/js/runtime-main.c31726b3.js",
     "static/js/2.31bdc521.chunk.js",
     "static/css/main.d9b1a507.chunk.css",
-    "static/js/main.757f4ceb.chunk.js"
+    "static/js/main.68f22372.chunk.js"
   ]
 }
