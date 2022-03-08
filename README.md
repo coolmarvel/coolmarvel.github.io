@@ -14,10 +14,10 @@
 ## 개요
 
 - 서비스 : 웹 포트폴리오
-- 개발 환경 : visual code
-- 개발 언어 : javascript
+- 개발 도구 : Visual Code
+- 개발 언어 : Javascript
 - 기타 환경 : Git
-- 외부 자원 : react.js, simple icons, react icons
+- 외부 자원 : react.js, simple icons, react icons, node.js
 
 <br/>
 
