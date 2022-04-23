@@ -13,9 +13,11 @@ import {
   Express,
   Solidity,
   Mysql,
-  R,
+  Linux,
   Mariadb,
   Mongodb,
+  Ubuntu,
+  Amazonaws
 } from "@icons-pack/react-simple-icons";
 
 const Skills = memo(({ refs }) => {
@@ -90,6 +92,18 @@ const Skills = memo(({ refs }) => {
             </div>
             <p className="skill-info">Solidity</p>
           </div>
+          <div className="skill-group">
+            <div className="skill">
+              <Linux color="#000000" size={50} />
+            </div>
+            <p className="skill-info">Linux</p>
+          </div>
+          <div className="skill-group">
+            <div className="skill">
+              <Ubuntu color="red" size={50} />
+            </div>
+            <p className="skill-info">Ubuntu</p>
+          </div>
         </div>
         {/* 데이터베이스 */}
         <h3 className="skill-title">data</h3>
@@ -111,6 +125,12 @@ const Skills = memo(({ refs }) => {
               <Mongodb color="#47A248" size={50} />
             </div>
             <p className="skill-info">MongoDB</p>
+          </div>
+          <div className="skill-group">
+            <div className="skill">
+              <Amazonaws color="#000000" size={50} />
+            </div>
+            <p className="skill-info">AWS</p>
           </div>
         </div>
       </div>
