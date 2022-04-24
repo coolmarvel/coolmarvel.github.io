@@ -8,6 +8,17 @@ $ruler: 16px;
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 120px;
+    .portfolio-title {
+      font-weight: 600;
+      font-size: 25px;
+      text-align: center;
+      margin-top: 30px;
+    }
+    .portfolio-infos {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
 
     .portfolio-info-area {
       min-height: 200px;
