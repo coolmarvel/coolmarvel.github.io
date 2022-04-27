@@ -6,11 +6,14 @@ $ruler: 16px;
 .skills-section {
   margin-bottom: 120px;
   .skills-content {
+    color: black;
     .skill-title {
       font-weight: 600;
       font-size: 25px;
-      text-align: center;
       margin-top: 30px;
+      text-align: center;
+      // align-items: center;
+      display: flex;
     }
     .skills-infos {
       display: flex;
@@ -18,9 +21,10 @@ $ruler: 16px;
       justify-content: center;
       .skill-group {
         .skill {
-          width: 100px;
-          height: 100px;
+          width: 70px;
+          height: 70px;
           margin: 20px;
+          margin-top: -27px;
           box-sizing: border-box;
           box-shadow: -4px -4px 13px $color-white, 4px 4px 13px $color-shadow;
           display: flex;

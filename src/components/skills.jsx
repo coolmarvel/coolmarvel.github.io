@@ -12,12 +12,13 @@ import {
   Nodedotjs,
   Express,
   Solidity,
+  Go,
   Mysql,
   Linux,
   Mariadb,
   Mongodb,
   Ubuntu,
-  Amazonaws
+  Amazonaws,
 } from "@icons-pack/react-simple-icons";
 
 const Skills = memo(({ refs }) => {
@@ -91,6 +92,12 @@ const Skills = memo(({ refs }) => {
               <Solidity color="#000000" size={50} />
             </div>
             <p className="skill-info">Solidity</p>
+          </div>
+          <div className="skill-group">
+            <div className="skill">
+              <Go color="#61DAFB" size={50} />
+            </div>
+            <p className="skill-info">Go</p>
           </div>
           <div className="skill-group">
             <div className="skill">
