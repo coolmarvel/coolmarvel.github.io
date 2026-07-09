@@ -19,10 +19,10 @@ export const profile = {
     "기술 자체보다 비즈니스 문제 해결에 집중하며, 새로운 산업에 빠르게 적응하여 최적의 시스템을 설계하고 구현하는 것을 강점으로 가지고 있습니다. AI 기술을 적극적으로 활용하여 서비스 생산성과 품질 향상을 추구하고 있습니다.",
   ],
   highlights: [
-    { label: "총 경력", value: "3년 10개월", badge: "재직중" },
-    { label: "재직 회사", value: "5개사", badge: "의료 · 커머스 · 블록체인" },
-    { label: "수행 프로젝트", value: "14+", badge: "설계 → 운영" },
-    { label: "AI 협업 개발", value: "Claude Code", badge: "Harness Engineering" },
+    { label: "총 경력", value: "3년 10개월", badge: "재직중", href: "/experience" },
+    { label: "재직 회사", value: "5개사", badge: "의료 · 커머스 · 블록체인", href: "/experience" },
+    { label: "수행 프로젝트", value: "14+", badge: "설계 → 운영", href: "/projects" },
+    { label: "AI 협업 개발", value: "Claude Code", badge: "Harness Engineering", href: "/ai-workflow" },
   ],
 };
 

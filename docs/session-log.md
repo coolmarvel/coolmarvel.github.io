@@ -2,7 +2,31 @@
 
 > 최신 세션이 맨 위. 각 블록은 "무엇을 했나 / 어떤 결정을 했나 / 다음에 뭘 하면 되나"를 담는다.
 
-## 2026-07-09 — 포트폴리오 전면 재구축 + 배포 + 문서 하네스 구축
+## 2026-07-09 (2차) — 프로젝트 상세 페이지 + 라이브 스크린샷 캡처
+
+**한 일**
+- 사용자 스크린샷 피드백 2장(루트 → `docs/feedback-archive/2026-07-09-project-detail-request/`) 반영:
+  대시보드 메트릭 카드 4개를 각 페이지로 링크, 프로젝트 카드 → 상세 페이지 이동.
+- `/projects/[slug]` 상세 페이지 신설 (12개 SSG) — 담당 역할·배경과 문제·아키텍처·AI 활용·핵심 성과·
+  스크린샷 갤러리·라이브 데모 박스·기술 스택 섹션. 데이터는 `src/data/projectDetails.ts` (신규 SSOT).
+- **라이브 스크린샷 직접 캡처** (playwright-core + chromium-1229, `~/pdf-editor/node_modules` 차용):
+  - cm_groupware: https://chungmu.xyz 에 demo/123456 로그인 → login·dashboard·approval-box·schedule·meetings 5장.
+    빈 화면(칸반·근무표)은 제외. **데모 계정(demo/123456)은 공개 허용** — 기능 차단된 열람용 계정 (사용자 확인).
+  - voice_server: 내부망 http://210.110.80.137:8000 → home(업로드+암호화 UI)·jobs(처리 이력) 2장.
+  - pdf-editor: Electron 앱을 `_electron.launch`로 직접 구동(WSLg DISPLAY=:0) → landing·editor·text-edit 3장.
+  - 저장 위치: `public/images/projects/{slug}/*.jpg` (JPEG q80~85).
+- pdf-editor 릴리스 준비: `~/pdf-editor/scripts/upload-release.sh` 작성 (v1.4.3 태그 + 103MB 인스톨러 업로드).
+  **토큰이 필요해 사용자가 직접 실행해야 함** — `! GH_TOKEN=<token> bash scripts/upload-release.sh` (pdf-editor에서).
+- 검증: 빌드 18페이지 통과, 로컬 서빙 상세 라우트·이미지 200, 상세 페이지 스크린샷 확인.
+
+**결정**
+- 스크린샷 피드백 루프 컨벤션 도입 (pdf-editor 방식) — 부팅 프로토콜 4단계로 CLAUDE.md에 추가.
+- 프로젝트 상세 콘텐츠는 `projectDetails.ts`로 분리 (카드용 `projects.ts`와 역할 구분).
+
+**다음 세션에서**
+- pdf-editor GitHub Release 업로드 여부 확인 (릴리스가 생기면 상세 페이지 링크는 이미 releases로 연결됨).
+
+## 2026-07-09 (1차) — 포트폴리오 전면 재구축 + 배포 + 문서 하네스 구축
 
 **한 일**
 - Bootstrap 통짜 HTML(index.html + portfolio-*.html 14개)을 전부 제거하고

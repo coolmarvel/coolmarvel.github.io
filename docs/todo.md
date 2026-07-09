@@ -7,6 +7,9 @@
       사용자가 https://github.com/settings/tokens 에서 삭제했는지 확인하고 이 항목을 지울 것.
 
 ## P2
+- [ ] **pdf-editor GitHub Release 업로드** — 사용자가 pdf-editor 디렉토리에서
+      `! GH_TOKEN=<token> bash scripts/upload-release.sh` 실행 필요 (v1.4.3, 103MB).
+      완료되면 상세 페이지의 releases 링크가 살아난다.
 - [ ] 대시보드 수치 사용자 검토 — 스킬 게이지 %(`skills.ts`), "수행 프로젝트 14+"·핵심 지표(`profile.ts`)는
       Claude 산정 임의값. 사용자 감각에 맞게 조정.
 - [ ] 파비콘 없음 — `src/app/` 에 favicon/icon 추가 (현재 브라우저 기본 아이콘).
