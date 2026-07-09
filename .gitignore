@@ -1,0 +1,23 @@
+# dependencies
+/node_modules
+
+# next.js
+/.next/
+/out/
+
+# misc
+.DS_Store
+*.pem
+npm-debug.log*
+.env*
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# TailAdmin Pro template (licensed — do not publish source)
+/tailadmin-nextjs-pro-225/
+
+# original source assets (copies live in public/)
+/이성현_반명함.jpg
+/풀스택 개발자 메디컬 · 커머스 · 블록체인.pdf
