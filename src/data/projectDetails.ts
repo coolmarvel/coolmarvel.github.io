@@ -131,7 +131,7 @@ export const projectDetails: Record<string, ProjectDetail> = {
     ],
     links: [
       { label: "GitHub 저장소", href: "https://github.com/coolmarvel/pdf-editor" },
-      { label: "Windows 인스톨러 다운로드 (v1.4.3)", href: "https://github.com/coolmarvel/pdf-editor/releases" },
+      { label: "Windows 인스톨러 다운로드 (v1.4.3)", href: "https://github.com/coolmarvel/pdf-editor/releases/download/v1.4.3/PDF-Editor-Setup-1.4.3.exe" },
     ],
   },
 

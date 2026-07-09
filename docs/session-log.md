@@ -24,7 +24,8 @@
 - 프로젝트 상세 콘텐츠는 `projectDetails.ts`로 분리 (카드용 `projects.ts`와 역할 구분).
 
 **다음 세션에서**
-- pdf-editor GitHub Release 업로드 여부 확인 (릴리스가 생기면 상세 페이지 링크는 이미 releases로 연결됨).
+- (완료) pdf-editor GitHub Release v1.4.3 업로드됨 — 상세 페이지 링크를 직접 다운로드 URL로 갱신.
+- todo.md P2 나머지(수치 검토·파비콘·OG 태그)부터 이어가면 됨.
 
 ## 2026-07-09 (1차) — 포트폴리오 전면 재구축 + 배포 + 문서 하네스 구축
 
