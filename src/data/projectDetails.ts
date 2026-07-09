@@ -74,6 +74,8 @@ export const projectDetails: Record<string, ProjectDetail> = {
     ],
     screenshots: [
       { src: "/images/projects/cm-groupware/meetings.jpg", caption: "그룹웨어 회의록 목록 — 자동 수신된 회의별 '할 일 후보 N건 대기' 표시" },
+      { src: "/images/projects/cm-groupware/meeting-encrypted.jpg", caption: "회의록 상세 — 암호화 보관 상태와 수신 정보(KDF 600,000 iter). 패스워드 입력 시 1회성으로만 평문 표시" },
+      { src: "/images/projects/cm-groupware/meeting-decrypted.jpg", caption: "데모 계정의 복호화 시도 — 읽기 전용 가드가 실제로 차단하는 모습" },
     ],
   },
 
@@ -98,6 +100,8 @@ export const projectDetails: Record<string, ProjectDetail> = {
     screenshots: [
       { src: "/images/projects/voice-server/home.jpg", caption: "업로드 — 회의록 보호 패스워드(암호화)와 WhisperX 원격 설정 패널" },
       { src: "/images/projects/voice-server/jobs.jpg", caption: "처리 이력 — 실제 부서장 회의 50건+ 처리 로그 (완료/실패 상태)" },
+      { src: "/images/projects/voice-server/job-detail.jpg", caption: "잡 상세 — 5단계 파이프라인 타임라인, 암호화된 본문 게이트, LLM이 추출한 할 일 50건·10개 부서 (내용은 블러 처리)" },
+      { src: "/images/projects/voice-server/job-detail-decrypted.jpg", caption: "패스워드 복호화 후 요약본 — 이 세션에서만 표시, DOCX/MD/JSON 내보내기 (본문 블러 처리)" },
     ],
     demo: {
       note: "병원 내부망 전용 시스템이라 외부 접속은 불가합니다. 위 스크린샷은 실제 운영 화면입니다.",
@@ -149,8 +153,11 @@ export const projectDetails: Record<string, ProjectDetail> = {
     aiUsage: [
       "cm_groupware의 문서/하네스 표준을 경량 스택(FastAPI+React)에 이식 — 프로젝트 로컬 Skills 5종을 skills-lock.json 해시로 고정, MCP(playwright·context7)도 프로젝트 로컬 격리",
     ],
+    screenshots: [
+      { src: "/images/projects/pt-schedule/schedule.jpg", caption: "치료사별 일일 시간표 — 직책별 색상 헤더, 시간대별 환자 배정 (환자·치료사 성명은 블러 처리)" },
+    ],
     demo: {
-      note: "병원 내부망 전용 시스템입니다 (그룹웨어 사이드바 '물리치료실' 메뉴로 연동).",
+      note: "실제 병원 운영 시스템으로, 환자 정보 보호를 위해 로그인 계정은 공개하지 않습니다. 위 스크린샷은 관리자 화면을 개인정보 블러 처리 후 캡처한 것입니다.",
     },
   },
 
