@@ -3,11 +3,11 @@
 > P1 = 즉시 / P2 = 다음 세션 / P3 = 여유 있을 때 / P4 = 아이디어
 
 ## P1
-- [ ] **노출된 GitHub classic token 폐기 확인** — 2026-07-09 채팅·셸 히스토리에 평문 노출됨.
-      사용자가 https://github.com/settings/tokens 에서 삭제했는지 확인하고 이 항목을 지울 것.
-- [ ] **pdf-editor v1.5.2 Windows 릴리스 업로드** — 사이트 링크를 v1.5.2로 바꿔둠(2026-07-10).
-      **푸시 전에** `! GH_TOKEN=<token> bash ~/pdf-editor/scripts/upload-release-win.sh` 실행.
-      업로드 후 `curl -sI` 200 확인하고 이 항목을 지울 것.
+- [ ] **노출된 GitHub classic token 폐기 확인** — 2026-07-09 건에 이어 **2026-07-10에도 새 토큰이
+      채팅에 평문 노출됨** (v1.5.2 릴리스 업로드에 사용). 두 토큰 모두
+      https://github.com/settings/tokens 에서 삭제 확인 후 이 항목을 지울 것.
+- [x] pdf-editor v1.5.2 Windows 릴리스 업로드 — 2026-07-10 완료, 링크 200 확인.
+      https://github.com/coolmarvel/pdf-editor/releases/download/v1.5.2/PDF-Editor-Setup-1.5.2.exe
 - [ ] **pdf-editor v1.4.7 DMG 릴리스 업로드 + 링크 살리기** — macOS 링크는 404 방지를 위해
       `projectDetails.ts`에 주석 처리로 숨겨둠(2026-07-10). 맥(또는 dmg 복사 후 WSL)에서
       `bash ~/pdf-editor/scripts/upload-release-mac.sh <token> [dmg경로]` 실행 →
