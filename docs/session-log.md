@@ -2,6 +2,22 @@
 
 > 최신 세션이 맨 위. 각 블록은 "무엇을 했나 / 어떤 결정을 했나 / 다음에 뭘 하면 되나"를 담는다.
 
+## 2026-07-10 (6차) — 파비콘 추가
+
+**한 일**
+- `src/app/`에 파일 기반 메타데이터 아이콘 3종 추가 — `icon.svg`(원본: 브랜드 그라데이션
+  #465fff→#2a31d8 라운드 사각형 + 흰색 `</>` 코드 모노그램, 폰트 비의존 순수 패스),
+  `favicon.ico`(32px PNG-in-ICO), `apple-icon.png`(180px). PNG/ICO는 sharp(node_modules 기존
+  설치본)로 SVG에서 파생 — 생성 스크립트는 scratchpad에 (일회성, 레포 미포함).
+- 검증: 빌드 통과, `out/`에 3종 내보내짐 + `index.html`에 favicon.ico(32)·icon.svg(any)·
+  apple-touch-icon(180) 링크 태그 자동 생성 확인.
+- 별건: 사용자 GitHub 프로필 README(coolmarvel/coolmarvel) 최신화 초안을 md로 전달
+  (커밋은 사용자가 직접 붙여넣기로 함) — 포트폴리오 링크 루트 URL로 교정, 경력 5개사 반영.
+
+**다음에 하면 좋은 것**
+- OG 메타태그(og:image·description) — todo P2 잔여. og:image는 이번 아이콘 디자인을 1200×630으로
+  확장 제작하면 됨.
+
 ## 2026-07-10 (5차) — 이력서 최신본 교체 + 로컬 폴더명 이관
 
 **한 일**
