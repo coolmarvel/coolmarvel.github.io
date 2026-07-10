@@ -2,6 +2,22 @@
 
 > 최신 세션이 맨 위. 각 블록은 "무엇을 했나 / 어떤 결정을 했나 / 다음에 뭘 하면 되나"를 담는다.
 
+## 2026-07-10 — pdf-editor macOS DMG 다운로드 링크 추가
+
+**한 일**
+- 사용자가 맥에서 구운 **v1.4.7 arm64 DMG**(사용자 확인)를 프로젝트에 반영:
+  - `projectDetails.ts` pdf-editor links에 "macOS 인스톨러 다운로드 (v1.4.7, Apple Silicon)" 추가.
+    URL은 `.../releases/download/v1.4.7/PDF-Editor-1.4.7-arm64.dmg` (exe와 같은 ASCII 리네임 컨벤션).
+  - architecture에 macOS DMG 파이프라인 항목 추가 (한글 번들명 크래시 회피 → ASCII 내부명 + ad-hoc 서명 + hdiutil).
+  - `projects.ts` 카드 highlights를 "Windows(NSIS)·macOS(DMG) 멀티플랫폼 배포"로 갱신, "v1.4.0까지" → "v1.4.x".
+- `~/pdf-editor/scripts/upload-release-mac.sh` 작성 (upload-release.sh와 동일 방식, v1.4.7 태그 + DMG 업로드).
+  DMG는 사용자 맥 바탕화면에 있음 — **맥에서 실행하거나 dmg를 WSL로 복사 후 실행 필요** (토큰 필요).
+- 검증: `npm run build` 통과 (18페이지 정상).
+
+**결정**
+- Windows(v1.4.3)와 macOS(v1.4.7) 버전이 다른 것은 사용자 인지 상태 — 라벨에 버전을 명시해 혼동 방지.
+- **주의**: DMG가 릴리스에 업로드되기 전까지 사이트의 macOS 링크는 404. 업로드가 P1.
+
 ## 2026-07-09 (3차) — 회의록/잡 상세·pt_schedule 캡처 추가 (PII 블러)
 
 **한 일**

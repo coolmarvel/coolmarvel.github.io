@@ -121,6 +121,7 @@ export const projectDetails: Record<string, ProjectDetail> = {
       "순수 로직(src/core: objects/pages/history)을 node --test로 보호, undo/redo는 스냅샷 스택(상한 100)",
       "기존 PDF 텍스트를 자동 인식해 박스 편집하는 텍스트 수정 세션 모드 — 버퍼링 후 종료 시 저장 선택",
       "WSL + Wine 크로스 컴파일로 Windows NSIS 인스톨러 자동 생성 (electron-builder)",
+      "macOS(Apple Silicon) DMG 파이프라인 — 한글 번들명 크래시를 피하려 내부 제품명을 ASCII로 빌드 후 표시명만 한글 유지, ad-hoc 서명 + hdiutil로 DMG 생성",
     ],
     aiUsage: [
       "스크린샷 피드백 루프 — 사용자가 스크린샷을 지정 디렉토리에 넣으면 AI가 요구사항으로 해석·구현하고 처리 후 아카이브로 이동",
@@ -136,6 +137,7 @@ export const projectDetails: Record<string, ProjectDetail> = {
     links: [
       { label: "GitHub 저장소", href: "https://github.com/coolmarvel/pdf-editor" },
       { label: "Windows 인스톨러 다운로드 (v1.4.3)", href: "https://github.com/coolmarvel/pdf-editor/releases/download/v1.4.3/PDF-Editor-Setup-1.4.3.exe" },
+      { label: "macOS 인스톨러 다운로드 (v1.4.7, Apple Silicon)", href: "https://github.com/coolmarvel/pdf-editor/releases/download/v1.4.7/PDF-Editor-1.4.7-arm64.dmg" },
     ],
   },
 

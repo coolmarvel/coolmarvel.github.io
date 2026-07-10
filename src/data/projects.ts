@@ -117,8 +117,8 @@ export const projects: Project[] = [
     highlights: [
       "참조 기반 페이지 연산 — 원본 PDF 바이트 불변 유지",
       "저장 시 오버레이 평탄화 + 링크/노트는 실제 PDF 주석으로 삽입",
-      "WSL + Wine 크로스 컴파일로 Windows NSIS 인스톨러 자동 생성",
-      "v1.4.0까지 릴리스, Playwright 시각 자가검증",
+      "Windows(NSIS)·macOS(DMG, Apple Silicon) 멀티플랫폼 인스톨러 배포",
+      "v1.4.x 릴리스 지속, Playwright 시각 자가검증",
     ],
   },
   {
