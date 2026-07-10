@@ -2,6 +2,16 @@
 
 > 최신 세션이 맨 위. 각 블록은 "무엇을 했나 / 어떤 결정을 했나 / 다음에 뭘 하면 되나"를 담는다.
 
+## 2026-07-10 (7차) — pdf-editor v1.5.2 macOS DMG 링크 추가
+
+**한 일**
+- `projectDetails.ts`의 pdf-editor 링크에 v1.5.2 macOS DMG 2종 추가:
+  `PDF-Editor-1.5.2-x64.dmg`, `PDF-Editor-1.5.2-arm64.dmg`.
+- 로컬 DMG 위치 확인: `/Users/iseonghyeon/Desktop/cm_hospital/pdf-editor/release/`.
+- `gh auth login` 웹 인증으로 CLI 토큰 갱신 후, v1.5.2 GitHub Release에 x64/arm64 DMG 업로드 완료.
+- 검증: `npm run build` 통과, 로컬 상세 페이지에 Windows/x64/Apple Silicon 다운로드 버튼 렌더 확인,
+  x64/arm64 DMG URL 모두 200 확인.
+
 ## 2026-07-10 (6차) — 파비콘 추가
 
 **한 일**

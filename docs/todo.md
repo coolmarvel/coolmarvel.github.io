@@ -8,11 +8,11 @@
       https://github.com/settings/tokens 에서 삭제 확인 후 이 항목을 지울 것.
 - [x] pdf-editor v1.5.2 Windows 릴리스 업로드 — 2026-07-10 완료, 링크 200 확인.
       https://github.com/coolmarvel/pdf-editor/releases/download/v1.5.2/PDF-Editor-Setup-1.5.2.exe
-- [ ] **pdf-editor v1.4.7 DMG 릴리스 업로드 + 링크 살리기** — macOS 링크는 404 방지를 위해
-      `projectDetails.ts`에 주석 처리로 숨겨둠(2026-07-10). 맥(또는 dmg 복사 후 WSL)에서
-      `bash ~/pdf-editor/scripts/upload-release-mac.sh <token> [dmg경로]` 실행 →
-      `curl -sI` 200 확인 → 주석 해제 후 이 항목을 지울 것.
-      ※ Windows가 1.5.2로 올라가서 dmg도 맥에서 1.5.2로 재빌드하는 게 더 깔끔할 수 있음.
+- [x] pdf-editor v1.5.2 DMG 릴리스 업로드 — 2026-07-10 완료, x64/arm64 링크 200 확인.
+      `projectDetails.ts`에는 x64/arm64 DMG 링크를 추가함. 로컬 파일:
+      `/Users/iseonghyeon/Desktop/cm_hospital/pdf-editor/release/PDF편집기-1.5.2-x64.dmg`,
+      `/Users/iseonghyeon/Desktop/cm_hospital/pdf-editor/release/PDF편집기-1.5.2-arm64.dmg`.
+      업로드 자산명은 각각 `PDF-Editor-1.5.2-x64.dmg`, `PDF-Editor-1.5.2-arm64.dmg`.
 
 ## P2
 - [x] pdf-editor GitHub Release 업로드 — 2026-07-09 완료.
