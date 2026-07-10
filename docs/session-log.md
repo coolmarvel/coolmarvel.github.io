@@ -23,6 +23,15 @@
   apple-touch-icon(180) 링크 태그 자동 생성 확인.
 - 별건: 사용자 GitHub 프로필 README(coolmarvel/coolmarvel) 최신화 초안을 md로 전달
   (커밋은 사용자가 직접 붙여넣기로 함) — 포트폴리오 링크 루트 URL로 교정, 경력 5개사 반영.
+- **프로필 README 후속**: 채팅 복사-붙여넣기로 URL이 깨져(문자 유실) 배지 다수 미렌더링
+  (피드백 스크린샷: feedback-archive/2026-07-10-profile-readme-badges/). 해결책으로 프로필 레포를
+  scratchpad에 클론해 파일로 직접 커밋(8e9dc2f), 푸시는 사용자 몫. 검증하며 알게 된 것:
+  - simple-icons에서 **AWS·Azure·OpenAI 로고 제거됨**(상표권) → AWS·Azure는 구버전
+    simple-icons@9 SVG를 브랜드색 입혀 base64 data-URI로 배지에 내장, OpenAI는 huggingface로 대체.
+  - **github-readme-stats.vercel.app 공개 인스턴스 DEPLOYMENT_PAUSED**(영구 중단 상태) →
+    streak-stats.demolab.com + github-profile-summary-cards.vercel.app 조합으로 교체.
+  - readme-typing-svg는 URL의 비ASCII `·`에 400 → %C2%B7 인코딩. 배지 라벨의 괄호도 %28%29 인코딩.
+  - 전 이미지 URL을 curl로 200 + 로고 `<image>` 포함까지 일괄 검증 완료.
 
 **다음에 하면 좋은 것**
 - OG 메타태그(og:image·description) — todo P2 잔여. og:image는 이번 아이콘 디자인을 1200×630으로
