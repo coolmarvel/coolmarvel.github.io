@@ -26,7 +26,8 @@
 
 ## 이 프로젝트가 뭔가
 
-**이성현(coolmarvel)의 개발자 포트폴리오** — https://coolmarvel.github.io/coolmarvel_portfolio/
+**이성현(coolmarvel)의 개발자 포트폴리오** — https://coolmarvel.github.io/
+(2026-07-10에 프로젝트 페이지에서 **사용자 사이트 레포(coolmarvel.github.io)로 이관** — 레포 이름 교체 방식)
 
 2026-07-09에 Bootstrap 통짜 HTML에서 **TailAdmin 디자인 시스템 기반 Next.js 16 정적 사이트**로
 전면 재구축했다 (ADR-0001). 대시보드 스타일 UI, 다크모드, 반응형.
@@ -57,9 +58,9 @@
 1. **`tailadmin-nextjs-pro-225/`는 절대 커밋 금지** (gitignore 처리됨). TailAdmin Pro는 유료 라이선스로
    소스를 공개 레포에 올릴 수 없다. 디자인 토큰·idiom만 차용해 자체 컴포넌트로 작성한다.
    새 UI가 필요하면 이 폴더에서 **참고만** 하고 코드를 복사하지 않는다.
-2. **basePath 규칙**: production 빌드에서 `basePath: "/coolmarvel_portfolio"`가 붙는다 (`next.config.ts`).
-   - `<Link>`는 자동 처리되지만, `<img>`·PDF 등 정적 에셋 경로는 반드시 `src/lib/assets.ts`의
-     `asset()` 헬퍼를 거친다 (unoptimized 이미지는 basePath 자동 적용이 안 됨).
+2. **basePath 규칙**: 사용자 사이트(coolmarvel.github.io) 루트 배포라 **basePath 없음** (2026-07-10~).
+   - 단, `<img>`·PDF 등 정적 에셋 경로는 여전히 `src/lib/assets.ts`의 `asset()` 헬퍼를 거친다
+     (향후 basePath 재도입 시 한 곳만 고치면 되도록 유지하는 관례).
 3. 레포 루트의 `이성현_반명함.jpg`·`풀스택...pdf` 원본은 gitignore 상태 유지. 배포 사본은
    `public/images/profile.jpg`(압축본)·`public/resume.pdf`.
 4. 개인정보 주의: 이메일·전화번호는 사용자가 이력서에 공개한 범위만 사이트에 노출한다.
@@ -70,10 +71,9 @@
 npm run dev     # 로컬 개발 (basePath 없음, http://localhost:3000)
 npm run build   # 정적 내보내기 → out/  (커밋 전 필수 검증)
 
-# GitHub Pages 환경 재현 스모크 테스트
-mkdir -p /tmp/serve && ln -sfn "$PWD/out" /tmp/serve/coolmarvel_portfolio
-(cd /tmp/serve && python3 -m http.server 8931 &)
-curl -s -o /dev/null -w "%{http_code}" http://localhost:8931/coolmarvel_portfolio/
+# GitHub Pages 환경 재현 스모크 테스트 (루트 배포)
+(cd out && python3 -m http.server 8931 &)
+curl -s -o /dev/null -w "%{http_code}" http://localhost:8931/
 ```
 
 ## 문서 체계

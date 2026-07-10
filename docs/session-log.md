@@ -2,6 +2,25 @@
 
 > 최신 세션이 맨 위. 각 블록은 "무엇을 했나 / 어떤 결정을 했나 / 다음에 뭘 하면 되나"를 담는다.
 
+## 2026-07-10 (4차) — coolmarvel.github.io 사용자 사이트로 이관 준비 (basePath 제거)
+
+**한 일**
+- 배포 주소를 `coolmarvel.github.io/coolmarvel_portfolio` → **`coolmarvel.github.io` 루트**로 옮기기로 결정.
+  방식은 **레포 이름 교체**(기존 사용자 사이트 레포는 2022-05 마지막 푸시의 옛 React 포트폴리오 —
+  `portfolio-2022-legacy` 등으로 개명해 보존, 이 레포를 `coolmarvel.github.io`로 개명).
+- `next.config.ts` basePath 제거, `src/lib/assets.ts` basePath `""` (asset() 헬퍼는 관례로 유지).
+- CLAUDE.md(하드 제약 2번·스모크 테스트 명령·URL)·README 갱신. 소스 내 잔여 참조 grep 확인 0건.
+- 검증: 빌드 통과, 루트 경로 서빙 스모크(/,  /projects/, 상세, 이미지, resume.pdf 모두 200).
+- 별건: 라이브 사이트가 README를 보여주는 문제 원인 확인 — **Pages Source가 "Deploy from a branch"로
+  바뀌어 Jekyll 빌드가 서빙됨** (라이브 HTML에 Jekyll generator 확인). 이관 후 새 레포에서
+  Source=GitHub Actions로 설정하면 함께 해결. 피드백 스크린샷은 feedback-archive/2026-07-10-pages-source-readme/.
+
+**사용자가 해야 할 일 (순서 중요)**
+1. 옛 coolmarvel.github.io 레포 개명 (예: portfolio-2022-legacy)
+2. 이 레포(coolmarvel_portfolio)를 coolmarvel.github.io로 개명
+3. 개명된 레포 Settings → Pages → Source = **GitHub Actions**
+4. `git push` (개명 후에도 기존 remote URL은 GitHub이 리다이렉트)
+
 ## 2026-07-10 (3차) — 스크린샷 슬라이더 + pdf-editor 기능별 캡처 13장 + 웹 캡처 추가
 
 **한 일**

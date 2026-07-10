@@ -1,10 +1,8 @@
 import type { NextConfig } from "next";
 
-const isProd = process.env.NODE_ENV === "production";
-
 const nextConfig: NextConfig = {
   output: "export",
-  basePath: isProd ? "/coolmarvel_portfolio" : "",
+  // coolmarvel.github.io (사용자 사이트) 루트 배포 — basePath 없음
   trailingSlash: true,
   images: {
     unoptimized: true,

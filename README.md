@@ -1,6 +1,6 @@
-# coolmarvel_portfolio
+# coolmarvel.github.io
 
-이성현(coolmarvel)의 개발자 포트폴리오 — [coolmarvel.github.io/coolmarvel_portfolio](https://coolmarvel.github.io/coolmarvel_portfolio/)
+이성현(coolmarvel)의 개발자 포트폴리오 — [coolmarvel.github.io](https://coolmarvel.github.io/)
 
 TailAdmin 디자인 시스템을 기반으로 한 대시보드 스타일 포트폴리오입니다.
 
