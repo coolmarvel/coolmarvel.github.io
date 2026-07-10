@@ -32,6 +32,14 @@
     streak-stats.demolab.com + github-profile-summary-cards.vercel.app 조합으로 교체.
   - readme-typing-svg는 URL의 비ASCII `·`에 400 → %C2%B7 인코딩. 배지 라벨의 괄호도 %28%29 인코딩.
   - 전 이미지 URL을 curl로 200 + 로고 `<image>` 포함까지 일괄 검증 완료.
+- **프로필 README 2차 피드백**(스택 부족 + AWS 배지 깨짐, 스크린샷 같은 아카이브 폴더):
+  - AWS 깨짐 원인: 4KB SVG data-URI가 **GitHub camo 프록시 URL 길이 한도 초과**
+    (같은 방식의 Azure는 0.9KB라 정상). → sharp로 28px PNG(base64 1.5KB)로 재생성, b64의 `+`는
+    쿼리스트링에서 공백으로 풀리므로 %2B 인코딩. 커밋 a2c876c.
+  - 스택 확장: skills.ts 기준으로 Java·PHP·Python·WebSocket/Socket.IO·JS·Redux·Recoil·Zustand·
+    Livewire·Alpine.js·caver-js/ICON SDK·MariaDB·Cloudflare·Linux·Git·GitHub Actions·
+    Harness Engineering 배지 추가 (Zustand·caver-js는 simple-icons에 로고 없어 텍스트 배지).
+  - README 이미지 54개 전수 검증(200 + 로고 렌더 + shields URL 1900자 이내) 통과.
 
 **다음에 하면 좋은 것**
 - OG 메타태그(og:image·description) — todo P2 잔여. og:image는 이번 아이콘 디자인을 1200×630으로
