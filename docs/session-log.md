@@ -15,11 +15,11 @@
   바뀌어 Jekyll 빌드가 서빙됨** (라이브 HTML에 Jekyll generator 확인). 이관 후 새 레포에서
   Source=GitHub Actions로 설정하면 함께 해결. 피드백 스크린샷은 feedback-archive/2026-07-10-pages-source-readme/.
 
-**사용자가 해야 할 일 (순서 중요)**
-1. 옛 coolmarvel.github.io 레포 개명 (예: portfolio-2022-legacy)
-2. 이 레포(coolmarvel_portfolio)를 coolmarvel.github.io로 개명
-3. 개명된 레포 Settings → Pages → Source = **GitHub Actions**
-4. `git push` (개명 후에도 기존 remote URL은 GitHub이 리다이렉트)
+**이관 완료 (같은 날)**
+- 사용자가 레포 개명(옛 레포 → legacy, 이 레포 → coolmarvel.github.io) + Pages Source=GitHub Actions 설정 + 푸시.
+- 라이브 검증: https://coolmarvel.github.io/ 루트에서 Next.js 빌드 서빙 확인(타이틀 정상, Jekyll 아님),
+  /projects/·상세·이미지·resume.pdf 200. README만 보이던 문제도 함께 해소.
+- 잔여: 이력서·명함 등 외부에 적어둔 옛 URL(coolmarvel.github.io/coolmarvel_portfolio) 갱신은 사용자 몫.
 
 ## 2026-07-10 (3차) — 스크린샷 슬라이더 + pdf-editor 기능별 캡처 13장 + 웹 캡처 추가
 
