@@ -4,9 +4,9 @@ import { notFound } from "next/navigation";
 
 import Badge from "@/components/ui/Badge";
 import Card from "@/components/ui/Card";
+import ScreenshotSlider from "@/components/sections/ScreenshotSlider";
 import { projects } from "@/data/projects";
 import { projectDetails } from "@/data/projectDetails";
-import { asset } from "@/lib/assets";
 import { CheckIcon, ExternalLinkIcon, BotIcon, ChevronLeftIcon } from "@/icons";
 
 const domainColor = {
@@ -129,24 +129,7 @@ export default async function ProjectDetailPage({
       {/* 스크린샷 */}
       {detail?.screenshots && detail.screenshots.length > 0 && (
         <Card title="스크린샷" desc="실제 운영/실행 화면을 직접 캡처했습니다.">
-          <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
-            {detail.screenshots.map((shot) => (
-              <figure key={shot.src}>
-                <div className="overflow-hidden rounded-xl border border-gray-200 dark:border-gray-800">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={asset(shot.src)}
-                    alt={shot.caption}
-                    loading="lazy"
-                    className="w-full"
-                  />
-                </div>
-                <figcaption className="mt-2 text-theme-xs text-gray-500 dark:text-gray-400">
-                  {shot.caption}
-                </figcaption>
-              </figure>
-            ))}
-          </div>
+          <ScreenshotSlider shots={detail.screenshots} />
         </Card>
       )}
 
