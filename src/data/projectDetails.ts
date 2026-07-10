@@ -137,7 +137,8 @@ export const projectDetails: Record<string, ProjectDetail> = {
     links: [
       { label: "GitHub 저장소", href: "https://github.com/coolmarvel/pdf-editor" },
       { label: "Windows 인스톨러 다운로드 (v1.4.3)", href: "https://github.com/coolmarvel/pdf-editor/releases/download/v1.4.3/PDF-Editor-Setup-1.4.3.exe" },
-      { label: "macOS 인스톨러 다운로드 (v1.4.7, Apple Silicon)", href: "https://github.com/coolmarvel/pdf-editor/releases/download/v1.4.7/PDF-Editor-1.4.7-arm64.dmg" },
+      // DMG가 v1.4.7 릴리스에 업로드되면 주석 해제 (todo P1, upload-release-mac.sh)
+      // { label: "macOS 인스톨러 다운로드 (v1.4.7, Apple Silicon)", href: "https://github.com/coolmarvel/pdf-editor/releases/download/v1.4.7/PDF-Editor-1.4.7-arm64.dmg" },
     ],
   },
 
