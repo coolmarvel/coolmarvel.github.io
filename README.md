@@ -42,6 +42,6 @@ npm run build  # 정적 내보내기 → out/
 
 ## 배포
 
-`master` 브랜치에 push하면 GitHub Actions(`.github/workflows/deploy.yml`)가 정적 빌드 후 GitHub Pages로 배포합니다.
+`main` 브랜치에 push하면 GitHub Actions(`.github/workflows/deploy.yml`)가 정적 빌드 후 GitHub Pages로 배포합니다.
 
 > 최초 1회: 저장소 **Settings → Pages → Source**를 **GitHub Actions**로 설정해야 합니다.

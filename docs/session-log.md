@@ -2,6 +2,18 @@
 
 > 최신 세션이 맨 위. 각 블록은 "무엇을 했나 / 어떤 결정을 했나 / 다음에 뭘 하면 되나"를 담는다.
 
+## 2026-07-11 (1차) — git pull 분기 해소 + 기본 브랜치 master→main 전환
+
+**한 일**
+- `git pull` 에러(divergent branches) 해소: 로컬 문서 커밋 2개 vs 원격 커밋 1개(7차, DMG 링크)
+  분기 → `git pull --rebase`로 충돌 없이 정리.
+- 기본 브랜치 **master → main 전환**: 로컬 `git branch -m`, `deploy.yml` 트리거 브랜치,
+  CLAUDE.md·AGENTS.md·README.md의 master 참조를 main으로 일괄 교체.
+- GitHub 웹에서 기본 브랜치 전환(Settings → Branches)은 사용자 몫, 그 후 원격 master 삭제.
+
+**다음에**
+- 재발 방지로 `git config pull.rebase true` 권장 (아직 미설정).
+
 ## 2026-07-10 (7차) — pdf-editor v1.5.2 macOS DMG 링크 추가
 
 **한 일**

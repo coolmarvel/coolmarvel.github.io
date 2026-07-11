@@ -34,7 +34,7 @@
 
 - **스택**: Next.js 16 (App Router, `output: "export"`) · React 19 · TypeScript · Tailwind CSS 4
 - **페이지**: `/`(대시보드) · `/experience`(경력+스킬) · `/projects`(프로젝트 카드) · `/ai-workflow`(Harness Engineering 소개)
-- **배포**: master push → `.github/workflows/deploy.yml` → GitHub Pages (Source: GitHub Actions 방식)
+- **배포**: main push → `.github/workflows/deploy.yml` → GitHub Pages (Source: GitHub Actions 방식)
 
 ## 콘텐츠 SSOT — 여기만 고치면 된다
 
