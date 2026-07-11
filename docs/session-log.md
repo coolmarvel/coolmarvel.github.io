@@ -9,7 +9,9 @@
   분기 → `git pull --rebase`로 충돌 없이 정리.
 - 기본 브랜치 **master → main 전환**: 로컬 `git branch -m`, `deploy.yml` 트리거 브랜치,
   CLAUDE.md·AGENTS.md·README.md의 master 참조를 main으로 일괄 교체.
-- GitHub 웹에서 기본 브랜치 전환(Settings → Branches)은 사용자 몫, 그 후 원격 master 삭제.
+- GitHub 웹에서 사용자가 기본 브랜치 전환 후, 원격 master 삭제 + `git fetch --prune` 완료.
+- 첫 main 배포 실패: `github-pages` 환경 보호 규칙이 master만 허용 → 사용자가 웹에서 main으로
+  수정(스크린샷: feedback-archive/2026-07-11-pages-env-main/), 빈 커밋으로 재배포 → 성공, 사이트 200 확인.
 
 **다음에**
 - 재발 방지로 `git config pull.rebase true` 권장 (아직 미설정).
