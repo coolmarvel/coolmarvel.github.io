@@ -2,6 +2,33 @@
 
 > 최신 세션이 맨 위. 각 블록은 "무엇을 했나 / 어떤 결정을 했나 / 다음에 뭘 하면 되나"를 담는다.
 
+## 2026-07-13 (1차) — file-converter 프로젝트 추가 (카드 + 상세 + 기능별 스크린샷 10장)
+
+**한 일**
+- **file-converter(파일 변환기 v1.3.2) 프로젝트 추가** — `projects.ts` 카드(데스크톱/개인 프로젝트,
+  pdf-editor 다음 위치) + `projectDetails.ts` 상세(배경·아키텍처·AI 활용·스크린샷·링크).
+  - 배경 서사는 사용자 지시 그대로: "온라인 변환 서비스에 내 데이터를 주기 싫고, 무료처럼 쓰다
+    나중에 결제를 요구받는 게 싫어서 직접 만들었다" + AI 추론까지 완전 오프라인.
+  - AI 모델 명시: ISNet 계열 세그멘테이션(@imgly/background-removal 1.4.5, ONNX) +
+    onnxruntime-web wasm 354MB 번들, Electron `bgrm://` 프로토콜 서빙. 흰색→투명은 AI 아닌
+    픽셀 연산임을 구분해 기술.
+- **기능별 스크린샷 10장 캡처** — file-converter의 상설 E2E(test/e2e/full-regression.mjs) 하네스
+  패턴 재사용(Playwright `_electron`, 픽스처 자체 생성). 랜딩/변환 대시보드/리사이즈·회전/자르기/
+  워터마크/흰색→투명/AI 로딩/AI 결과(공개 프로필 사진 실추론)/PDF 미리보기/PDF 페이지 도구.
+  스크립트는 scratchpad(fc-capture*.mjs), sharp로 JPG 변환 → `public/images/projects/file-converter/`.
+  - 함정: ① PNG+JPG 혼합 추가 시 `commonKind='mixed'`라 변환 대상 버튼이 안 뜸 → 입력을 PNG로 통일
+    ② 클릭 직후 MUI 툴팁이 툴바를 가림 → 캡처 전 마우스를 여백으로 이동 ③ 회전은 미리보기에 시각 반영
+    안 됨(변환 시 적용) — 캡션에서 과장하지 않음.
+- **다운로드 링크**: Windows 인스톨러(v1.3.2) 링크 추가 — **릴리스는 아직 미업로드**(아래 P1).
+  macOS DMG 2종(x64/arm64)은 맥 빌드 환경이 없어 **주석 처리**로 준비만 해둠 (사용자 지시).
+  업로드용 ASCII명 사본 `File-Converter-Setup-1.3.2.exe`를 릴리스 폴더와 윈도우 바탕화면에 복사.
+- 검증: `npm run build` 통과(상세 페이지 13개 생성), 로컬 서빙 스모크(/, /projects/,
+  /projects/file-converter/, 이미지 200), 상세 페이지 라이트/다크/모바일 렌더 확인.
+
+**다음에**
+- 사용자가 GitHub Release v1.3.2 업로드 (todo P1) — 완료 후 다운로드 링크 200 확인.
+- 맥 빌드 후 DMG 업로드되면 `projectDetails.ts`의 주석 해제.
+
 ## 2026-07-11 (1차) — git pull 분기 해소 + 기본 브랜치 master→main 전환
 
 **한 일**

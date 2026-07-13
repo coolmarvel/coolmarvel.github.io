@@ -157,6 +157,49 @@ export const projectDetails: Record<string, ProjectDetail> = {
     ],
   },
 
+  "file-converter": {
+    role: "개인 프로젝트 — 설계·개발·릴리스 전 과정",
+    background: [
+      "온라인 파일 변환 서비스는 편하지만 두 가지가 싫었습니다. 변환하겠다고 개인 파일을 남의 서버에 업로드하는 것 자체가 내 데이터를 제3자에게 넘기는 일이라는 점, 그리고 무료처럼 쓰게 하다가 어느 순간 결제·구독을 요구하는 패턴이 반복된다는 점입니다. \"내 파일은 내 컴퓨터 밖으로 나가지 않고, 한 번 설치하면 계속 무료\"를 원칙으로 직접 만들었습니다.",
+      "배경 제거 같은 AI 기능조차 대부분 서비스가 서버 업로드 + 유료 크레딧으로 제공하기에, AI 추론까지 통째로 로컬에서 돌리는 것을 목표로 했습니다. 개발 중 PDF 편집 요구가 커지자 편집기는 pdf-editor 프로젝트로 분리하고, 이 앱은 변환에 특화했습니다.",
+    ],
+    architecture: [
+      "AI 배경 제거 완전 오프라인 서빙 — ISNet 계열 세그멘테이션 모델(@imgly/background-removal, ONNX)과 onnxruntime-web wasm 354MB를 인스톨러에 통째로 번들하고, Electron 커스텀 프로토콜(bgrm://)로 앱 내부에서 직접 서빙해 네트워크 요청이 한 번도 발생하지 않는 구조",
+      "흰색 → 투명 배경은 AI 없이 픽셀 연산(허용 오차 + feather)으로 즉시 처리 — 로고처럼 단색 배경은 모델 로드 없이 가볍게, 사진은 AI로 구분해 제공",
+      "입출력 포맷 — 입력: PNG·JPEG·WebP·BMP·HEIC·TIFF·ICO·SVG·PDF (+ Ctrl+V 클립보드), 출력: PNG·JPEG·WebP·BMP·ICO(멀티사이즈)·SVG(벡터화)·PDF. 다중 이미지 → 단일 PDF, PDF → 페이지별 이미지",
+      "WYSIWYG 파이프라인 — 리사이즈 → 회전 → 자르기 → 워터마크 순서를 미리보기와 실제 변환이 공유해 \"화면에 보이는 그대로\" 출력, 투명 영역은 체커보드로 표시, undo/redo(Ctrl+Z/Y) 스냅샷 이력",
+      "PDF 문서 도구 — 전체 병합·분할·회전·페이지 삭제·순서 변경, \"1,3-5\" 페이지 범위 파서",
+      "시작 청크 최적화 — pdf.js·pdf-lib·AI 모듈을 지연 로딩 청크로 분리해 초기 로드 2,389KB → 941KB",
+      "배포 소스 보호 — javascript-obfuscator 난독화를 빌드 파이프라인에 내장 (onnx·pdf.js 등 대형 공개 라이브러리 청크는 제외해 동작 리스크 차단)",
+    ],
+    aiUsage: [
+      "제품 기능으로서의 AI — 배경 제거 모델을 npm으로 배포되는 마지막 버전(1.4.5)에 고정해 오프라인 번들 가능성을 확보 (최신 버전은 자사 CDN 전용이라 오프라인 불가 — 버전 선택 자체가 아키텍처 결정)",
+      "스크린샷 피드백 루프 — 사용자가 스크린샷을 프로젝트 루트에 넣으면 AI가 요구사항으로 해석·구현 후 아카이브로 이동",
+      "세션 부팅 프로토콜 — CLAUDE.md가 session-log(진행 SSOT) → todo → 최근 plan 순으로 맥락 자동 복구",
+      "자동 검증 → 릴리스 파이프라인 — typecheck·test·build를 통과해야만 인스톨러를 굽는 규칙, Playwright _electron 전체 기능 회귀 E2E 24종 상설화 (AI 실추론 후 픽셀 alpha 검증 포함)",
+    ],
+    screenshots: [
+      { src: "/images/projects/file-converter/landing.jpg", caption: "시작 화면 — 드래그 앤 드롭, Ctrl+V 클립보드 붙여넣기 지원" },
+      { src: "/images/projects/file-converter/convert.jpg", caption: "변환 대시보드 — 파일 사이드바, 실시간 미리보기, 출력 포맷(JPEG·PNG·WebP·BMP·ICO·SVG·PDF) 선택" },
+      { src: "/images/projects/file-converter/resize-rotate.jpg", caption: "리사이즈·회전 — 비율 유지 리사이즈와 90° 회전, Ctrl+Z/Y undo·redo" },
+      { src: "/images/projects/file-converter/crop.jpg", caption: "자르기 — 미리보기 위에서 드래그로 영역 지정, 잘리는 범위를 그대로 표시" },
+      { src: "/images/projects/file-converter/watermark.jpg", caption: "워터마크 — 문구·대각선/바둑판/모서리 배치, 미리보기 실시간 합성" },
+      { src: "/images/projects/file-converter/transparent.jpg", caption: "흰색 → 투명 — 픽셀 연산(허용 오차+feather)으로 즉시 처리, 체커보드로 투명 표시" },
+      { src: "/images/projects/file-converter/ai-loading.jpg", caption: "AI 배경 제거 진행 — 번들된 ISNet 모델 로드·추론 로딩바 (네트워크 요청 0회)" },
+      { src: "/images/projects/file-converter/ai-result.jpg", caption: "AI 배경 제거 결과 — 인물 사진 배경을 로컬 ONNX 추론만으로 제거" },
+      { src: "/images/projects/file-converter/pdf-preview.jpg", caption: "PDF 변환 — 페이지별 이미지 추출·전체 병합, PDF 미리보기" },
+      { src: "/images/projects/file-converter/pdf-tools.jpg", caption: "PDF 페이지 도구 — 분할·회전·삭제·순서 변경, \"1-2,3\" 페이지 범위 문법" },
+    ],
+    links: [
+      { label: "GitHub 저장소", href: "https://github.com/coolmarvel/file-converter" },
+      { label: "Windows 인스톨러 다운로드 (v1.3.2)", href: "https://github.com/coolmarvel/file-converter/releases/download/v1.3.2/File-Converter-Setup-1.3.2.exe" },
+      // macOS DMG — 아직 맥 빌드 환경이 없어 미배포. 빌드 후 아래 주석 해제
+      // (빌드 방법: file-converter docs/guides/packaging.md — pdf-editor의 dist-mac 파이프라인 이식 가이드)
+      // { label: "macOS DMG 다운로드 (v1.3.2, Intel x64)", href: "https://github.com/coolmarvel/file-converter/releases/download/v1.3.2/File-Converter-1.3.2-x64.dmg" },
+      // { label: "macOS DMG 다운로드 (v1.3.2, Apple Silicon)", href: "https://github.com/coolmarvel/file-converter/releases/download/v1.3.2/File-Converter-1.3.2-arm64.dmg" },
+    ],
+  },
+
   "pt-schedule": {
     role: "설계·개발 전 과정 (백엔드 + 프론트엔드)",
     background: [
