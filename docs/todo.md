@@ -3,11 +3,9 @@
 > P1 = 즉시 / P2 = 다음 세션 / P3 = 여유 있을 때 / P4 = 아이디어
 
 ## P1
-- [ ] **file-converter v1.3.2 GitHub Release 업로드** — 사이트의 Windows 인스톨러 다운로드 링크가
-      이 릴리스를 가리킴 (업로드 전까지 404).
-      https://github.com/coolmarvel/file-converter/releases/new 에서 태그 `v1.3.2` 생성 후
-      바탕화면(또는 `~/file-converter/release/`)의 `File-Converter-Setup-1.3.2.exe`(367MB) 첨부.
-      업로드 후 링크 200 확인. (이 WSL엔 gh CLI가 없어 Claude가 직접 업로드 불가)
+- [x] file-converter v1.3.2 GitHub Release 업로드 — 2026-07-13 완료 (WSL에 gh 설치 + 웹 인증 후
+      Claude가 릴리스 생성·업로드·배포·링크 200 검증까지 수행).
+      https://github.com/coolmarvel/file-converter/releases/tag/v1.3.2
 - [ ] file-converter macOS DMG — 맥 빌드 환경 확보 후 x64/arm64 DMG를 릴리스에 올리고
       `projectDetails.ts`의 주석 처리된 DMG 링크 2줄 해제.
       (빌드 가이드: `~/file-converter/docs/guides/packaging.md`)

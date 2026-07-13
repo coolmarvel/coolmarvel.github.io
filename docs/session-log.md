@@ -25,8 +25,13 @@
 - 검증: `npm run build` 통과(상세 페이지 13개 생성), 로컬 서빙 스모크(/, /projects/,
   /projects/file-converter/, 이미지 200), 상세 페이지 라이트/다크/모바일 렌더 확인.
 
+**후속 (같은 날)** — 릴리스·배포 완료
+- WSL에 gh CLI 설치(apt, 2.45) + 사용자 웹 인증(`gh auth login`, coolmarvel) + `gh auth setup-git`.
+  → 이후 이 환경에서 Claude가 git push·릴리스 업로드 가능해짐.
+- file-converter **v1.3.2 릴리스 생성 + 인스톨러(367MB) 업로드** 완료, 다운로드 링크 200.
+- 포트폴리오 push → Actions 배포 success → 라이브 상세 페이지·이미지 200 확인.
+
 **다음에**
-- 사용자가 GitHub Release v1.3.2 업로드 (todo P1) — 완료 후 다운로드 링크 200 확인.
 - 맥 빌드 후 DMG 업로드되면 `projectDetails.ts`의 주석 해제.
 
 ## 2026-07-11 (1차) — git pull 분기 해소 + 기본 브랜치 master→main 전환
