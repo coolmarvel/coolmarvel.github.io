@@ -2,6 +2,37 @@
 
 > 최신 세션이 맨 위. 각 블록은 "무엇을 했나 / 어떤 결정을 했나 / 다음에 뭘 하면 되나"를 담는다.
 
+## 2026-07-24 (1차) — dicom-studio 프로젝트 추가 (카드 + 상세 + 스크린샷 11장 + 다운로드)
+
+**한 일**
+- **dicom-studio(DICOM Studio v1.4.0) 프로젝트 추가** — `projects.ts` 카드(의료/개인 프로젝트,
+  file-converter 다음 위치) + `projectDetails.ts` 상세(배경·아키텍처·AI 활용·스크린샷·다운로드).
+  - **저장소가 프라이빗이라 GitHub 저장소 링크는 넣지 않음** (사용자 지시). 다운로드는 이
+    포트폴리오 공개 레포의 릴리스(태그 `dicom-studio-v1.4.0`)에 인스톨러(114MB)를 올려 제공 —
+    프라이빗 레포 주소가 어디에도 노출되지 않는 방식. gh로 릴리스 생성·업로드, URL 200/206 확인.
+    상세에는 demo.note로 "저장소 비공개" 안내를 명시.
+- **기능별 스크린샷 11장 캡처** — Playwright `_electron`으로 dicom-studio 프로덕션 빌드(out/)를
+  실구동. 사용자 실제 동맥경화도검사 PDF 2건(`C:\Users\user\Desktop\scan\동맥경화도검사-01/02.pdf`)
+  + 본인 인적사항(이성현·M·1997-11-25, 나이는 만 나이 28 자동 계산 — 검사지 인쇄 표기와 일치)으로
+  전 워크플로우 시연: 랜딩 / 처방 등록 모달 / 달력(1997년 11월) / 워크리스트 행 클릭 자동입력 /
+  뷰어(자동 레이아웃) / 회전(옆으로 스캔된 2번 검사지를 ↺로 바로 세움 — 편집 유지해 저장·전송에 반영) /
+  크게 보기 / DICOM 저장 토스트 / SaveDB(처방 자동 완료) / FindDB(썸네일) / Multisend.
+  - **Multisend는 동봉 테스트 SCP(`npm run store:test`, 포트 11113)로 실제 C-STORE 전송** —
+    서버 수신 로그(`C-STORE ← 20260001 · 이성현 · VP`)와 화면 "✓ 2장 전송 완료"까지 확인.
+  - 함정: ① `<label>` 안의 커스텀 Select·DatePicker 버튼은 click()이 label 클릭 전달로 이중
+    토글되어 드롭다운이 닫힘 → `dispatchEvent('click')` ② Playwright `:text-is()`가 중첩 span
+    옵션 버튼과 매칭 안 됨 → `getByRole(name, exact)` ③ 뷰어 셀마다 숨은 돋보기 렌즈
+    canvas(160px)가 있어 nth 인덱스가 밀림 → `canvas:visible` ④ `pkill -f` 패턴이 자기 자신의
+    커맨드라인과 매치되어 셸이 죽음(exit 144) → `[n]` 브래킷 트릭.
+  - 캡처 전 `~/.config/dicom-studio`(개발용 DB) 백업 후 초기화, 캡처 후 원복. 스크립트는
+    scratchpad(ds-capture.cjs, 일회성) + sharp JPG 변환 → `public/images/projects/dicom-studio/`.
+- 검증: `npm run build` 통과(상세 14개 생성), 로컬 서빙 스모크(/, /projects/, 상세, 이미지 200),
+  상세 HTML에 스크린샷 11장 포함 확인.
+
+**다음에**
+- dicom-studio 새 버전 릴리스 시 포트폴리오 레포에 `dicom-studio-vX.Y.Z` 태그로 인스톨러
+  재업로드 + `projectDetails.ts` 링크 갱신 (todo P4).
+
 ## 2026-07-13 (1차) — file-converter 프로젝트 추가 (카드 + 상세 + 기능별 스크린샷 10장)
 
 **한 일**

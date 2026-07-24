@@ -200,6 +200,50 @@ export const projectDetails: Record<string, ProjectDetail> = {
     ],
   },
 
+  "dicom-studio": {
+    role: "개인 프로젝트 — 설계·개발·릴리스 전 과정",
+    background: [
+      "병원 검사장비(혈관검사·심전도 등) 상당수는 결과를 DICOM이 아닌 PDF·JPG 같은 일반 파일로 출력합니다. 이 결과를 PACS 등 병원 영상 시스템에 넣으려면 환자·검사정보를 메타데이터로 결합해 DICOM으로 변환하는 중간 게이트웨이가 필요한데, 기존 상용 도구는 특정 장비·벤더에 종속되고 라이선스 인증 절차가 번거롭습니다. 병원 ID·장비 번호까지 전부 설정값인 범용 게이트웨이를 목표로 직접 만들었습니다.",
+      "검사실 직원의 실제 동선(장비 결과 열기 → 정리 → 환자정보 입력 → 변환 → 보관·검색 → 전송)을 그대로 화면 구조로 옮기고, 장비 매뉴얼의 클래식 데스크톱 폼 UI를 TailAdmin 디자인 시스템으로 재해석했습니다. 아래 스크린샷은 제작자 본인의 실제 동맥경화도검사(baPWV·ABI) 결과지 2장으로 전체 워크플로우를 시연한 것입니다.",
+    ],
+    architecture: [
+      "파일 형식을 확장자가 아닌 매직 바이트로 감지 — PDF(페이지별)·JPG·PNG·BMP·TIFF(다중 페이지)·기존 DICOM 입력. pdf.js는 Electron V8 호환을 위해 legacy 빌드를 채택하고 프로덕션 E2E로 검증",
+      "DICOM 3.0 Secondary Capture(RGB, Explicit VR Little Endian) 생성(dcmjs) — 다중 이미지 = 한 Study 한 Series, <PatientID>_<검사일>/00001.dcm… 폴더 구조",
+      "DICOM 네트워크 3종(dcmjs-dimse) — C-STORE 전송(복수 대상 동시 + 대상별 결과 표시), C-FIND 워크리스트 조회, C-ECHO 연결 테스트. 실PACS 없이 체험할 수 있는 테스트 SCP 서버를 동봉",
+      "로컬 DB는 sql.js(WASM SQLite) — 초기의 better-sqlite3가 WSL 크로스 빌드에서 Linux 바이너리가 Windows 패키지에 섞여 기동 불가 → 네이티브 모듈 0개 구조로 교체해 해결한 아키텍처 결정",
+      "워크리스트 연결 프로필 — 서버 없는 병원은 로컬(내장 DB)에 처방을 직접 등록, MWL 서버가 있는 병원은 프로필 전환. 처방 행 클릭 = 환자·검사정보 자동 입력(나이 자동 계산), SaveDB 저장 시 일치하는 처방 자동 완료",
+      "편집(회전·반전·색반전·순서변경)은 원본 보존 + transform 베이크 구조 — 옆으로 스캔된 검사지를 화면에서 세운 그대로 DICOM 저장·전송에 반영",
+      "3계층 분리 — src/core 순수 로직(node test runner로 직접 테스트) / main은 파일 IO·DB·DICOM 전송 등 OS·네트워크 접점 전담 / contextBridge IPC로만 렌더러에 노출",
+    ],
+    aiUsage: [
+      "project-seed 템플릿으로 킥오프 — 브리프(왜/무엇 SSOT)·세션 부팅 프로토콜·스크린샷 피드백 루프·hooks(.env 차단, git add 가드, 자동 포맷)를 첫날부터 가동",
+      "버전 판단을 에이전트에 위임(패치 자동, MINOR 승격은 근거와 함께 제안) — 11일간 v1.0.0 → v1.4.0으로 마일스톤 M1~M4(변환·이미지 도구·로컬 DB·PACS 전송) 완주",
+      "typecheck·lint·test·build를 모두 통과해야만 인스톨러를 굽는 검증 파이프라인 — WSL에서 개발하고 실제 Windows에서 설치본을 실물 검증",
+      "이 페이지의 스크린샷도 Playwright _electron으로 앱을 실구동해 캡처 — 실제 검사 PDF를 DICOM으로 변환하고 테스트 SCP 서버로 C-STORE 실전송까지 수행한 화면",
+    ],
+    screenshots: [
+      { src: "/images/projects/dicom-studio/landing.jpg", caption: "시작 화면 — Main Tools·검사정보·이미지 도구 3단 사이드바 + 다크 뷰어" },
+      { src: "/images/projects/dicom-studio/worklist-register.jpg", caption: "처방 등록 — 워크리스트 서버가 없는 병원용 로컬 워크리스트(내장 DB)에 처방 직접 등록" },
+      { src: "/images/projects/dicom-studio/calendar.jpg", caption: "커스텀 달력 — 헤더 클릭으로 연/월 그리드 바로 이동 (1900년대 생년월일도 몇 번의 클릭으로)" },
+      { src: "/images/projects/dicom-studio/worklist.jpg", caption: "워크리스트 조회 — 처방 행을 클릭하면 환자·검사정보가 폼에 자동 입력 (나이 자동 계산)" },
+      { src: "/images/projects/dicom-studio/viewer.jpg", caption: "검사 결과 로드 — 실제 동맥경화도검사(baPWV·ABI) PDF 2건, 이미지 수에 맞춘 자동 레이아웃" },
+      { src: "/images/projects/dicom-studio/image-tools.jpg", caption: "이미지 도구 — 옆으로 스캔된 검사지만 선택해 반시계 회전으로 정리, 편집이 저장에 그대로 반영" },
+      { src: "/images/projects/dicom-studio/preview.jpg", caption: "크게 보기 — 더블클릭 확대, ←/→로 페이지 이동" },
+      { src: "/images/projects/dicom-studio/save-dicom.jpg", caption: "DICOM 3.0 저장 — Secondary Capture로 변환해 <PatientID>_<검사일> 폴더에 00001.dcm…" },
+      { src: "/images/projects/dicom-studio/savedb.jpg", caption: "로컬 DB 저장(SaveDB) — 저장과 동시에 일치하는 워크리스트 처방을 자동 완료 처리" },
+      { src: "/images/projects/dicom-studio/finddb.jpg", caption: "로컬 DB 검색(FindDB) — 조건 검색 + 썸네일 미리보기, 열기/이미지 추가/전송/다중 전송" },
+      { src: "/images/projects/dicom-studio/send.jpg", caption: "PACS 전송 (C-STORE) — 대상 관리·Echo 연결 테스트·다중 전송, 동봉 테스트 SCP로 실전송한 결과" },
+    ],
+    demo: {
+      note: "저장소는 비공개입니다 (개인 프로젝트, 소스 비공개 방침). 아래 인스톨러로 설치해 직접 사용해볼 수 있으며, 스크린샷은 제작자 본인의 실제 검사 결과지로 시연한 화면입니다.",
+    },
+    // 저장소가 프라이빗이라 GitHub 저장소 링크는 넣지 않는다 (사용자 지시).
+    // 다운로드 자산만 공개 레포(coolmarvel.github.io) 릴리스로 제공.
+    links: [
+      { label: "Windows 인스톨러 다운로드 (v1.4.0)", href: "https://github.com/coolmarvel/coolmarvel.github.io/releases/download/dicom-studio-v1.4.0/DICOMStudio-Setup-1.4.0.exe" },
+    ],
+  },
+
   "pt-schedule": {
     role: "설계·개발 전 과정 (백엔드 + 프론트엔드)",
     background: [

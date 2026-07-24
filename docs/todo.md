@@ -37,5 +37,7 @@
 
 ## P4
 - [ ] 형제 프로젝트에 새 ADR/기능 생기면 `/ai-workflow`·`projects.ts` 반영.
+- [ ] dicom-studio 새 버전 릴리스 시 — 저장소가 프라이빗이므로 이 포트폴리오 레포 릴리스에
+      `dicom-studio-vX.Y.Z` 태그로 인스톨러 재업로드 + `projectDetails.ts` 다운로드 링크 갱신.
 - [ ] 이력서 PDF 갱신 시 `public/resume.pdf` 교체 + `src/data/` 동기화.
 - [ ] 방문 통계(GoatCounter 등 무료 정적 친화 도구) 검토.
