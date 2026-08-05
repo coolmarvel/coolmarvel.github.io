@@ -2,6 +2,19 @@
 
 > 최신 세션이 맨 위. 각 블록은 "무엇을 했나 / 어떤 결정을 했나 / 다음에 뭘 하면 되나"를 담는다.
 
+## 2026-08-05 (3차) — 대시보드 카드 순서 교체 + 기술 스택 배지 스타일 통일
+
+**한 일** (스크린샷 피드백 → `docs/feedback-archive/2026-08-05-dashboard-stack-swap/`)
+- **간략 소개(+경력 타임라인) 그리드와 기술 스택 카드의 순서 교체** — 이제 MetricCards 아래에
+  간략 소개가 먼저 오고 기술 스택이 그 다음.
+- **기술 스택 배지 스타일 통일** — 언어 그룹만 강조하던 `emphasis` 분기를 제거하고, **모든 그룹을
+  언어와 같은 밝은 스타일**(흰 배경 + 테두리 + shadow + semibold + size-4 아이콘)로 렌더.
+  그룹 제목 폰트도 semibold 로 통일. `techStack.ts` 의 `emphasis` 필드 삭제 (2차의 "언어 강조"
+  결정을 사용자 피드백으로 뒤집음).
+- 검증: 빌드 통과, 로컬 서빙 후 라이트/다크/모바일 스크린샷 확인.
+  - playwright 스크린샷 시 pdf-editor 의 playwright-core 가 기대하는 chromium 빌드(1228)가 없어
+    `~/.cache/ms-playwright/chromium_headless_shell-1232` 바이너리를 `executablePath` 로 직접 지정.
+
 ## 2026-08-05 (2차) — 대시보드 기술 스택 섹션 신설 + 경력/AI 워크플로우 갱신
 
 **한 일**

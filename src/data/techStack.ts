@@ -10,8 +10,6 @@ export interface TechItem {
 export interface TechGroup {
   title: string;
   caption: string;
-  // "언어"는 시각적으로 한 단계 강조한다(사용자 요청 — 언어와 프레임워크를 구별).
-  emphasis?: boolean;
   items: TechItem[];
 }
 
@@ -19,7 +17,6 @@ export const techGroups: TechGroup[] = [
   {
     title: "언어",
     caption: "Languages",
-    emphasis: true,
     items: [
       { name: "TypeScript", icon: "typescript" },
       { name: "JavaScript", icon: "javascript" },

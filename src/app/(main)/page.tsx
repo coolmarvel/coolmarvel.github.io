@@ -20,7 +20,6 @@ export default function DashboardPage() {
     <div className="flex flex-col gap-4 md:gap-6">
       <ProfileCard />
       <MetricCards />
-      <TechStack />
 
       <div className="grid grid-cols-1 gap-4 md:gap-6 xl:grid-cols-3">
         <Card title="간략 소개" className="xl:col-span-2">
@@ -41,6 +40,8 @@ export default function DashboardPage() {
           </Link>
         </Card>
       </div>
+
+      <TechStack />
 
       <div>
         <div className="mb-4 flex items-center justify-between">
