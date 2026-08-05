@@ -277,9 +277,10 @@ export const projectDetails: Record<string, ProjectDetail> = {
       { src: "/images/projects/sh-ip-scanner/about.jpg", caption: "정보 — 버전·제작자·라이센스 표기" },
     ],
     demo: {
-      note: "스크린샷의 IP 대역(192.168.x)과 PC명은 예시 데이터입니다. 실제 운영 대역·장비명은 노출하지 않기 위해 저장소와 화면 모두에서 예시 값으로 대체했습니다.",
+      note: "아래 인스톨러로 설치해 직접 사용해볼 수 있습니다 (자체포함 빌드라 .NET 런타임 설치 불필요, 코드 서명은 없어 SmartScreen 경고가 뜰 수 있습니다). 스크린샷의 IP 대역(192.168.x)과 PC명은 예시 데이터입니다 — 실제 운영 대역·장비명은 노출하지 않기 위해 저장소와 화면 모두에서 예시 값으로 대체했습니다.",
     },
     links: [
+      { label: "Windows 인스톨러 다운로드 (v1.0.1)", href: "https://github.com/coolmarvel/sh-ip-scanner/releases/download/v1.0.1/sh-ip-scanner-Setup-1.0.1.exe" },
       { label: "GitHub 저장소", href: "https://github.com/coolmarvel/sh-ip-scanner" },
     ],
   },

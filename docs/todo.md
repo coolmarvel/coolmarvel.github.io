@@ -37,8 +37,10 @@
 
 ## P4
 - [ ] 형제 프로젝트에 새 ADR/기능 생기면 `/ai-workflow`·`projects.ts` 반영.
-- [ ] sh-ip-scanner Windows 실환경 검증 + 인스톨러 릴리스가 끝나면 상세 페이지에 다운로드 링크 추가
-      검토 (현재는 GitHub 저장소 링크만. 저장소가 public 이라 릴리스는 그쪽에 올리면 됨).
+- [x] sh-ip-scanner 인스톨러 다운로드 링크 — 2026-08-05 완료. 저장소가 public 이라 릴리스도
+      그쪽(`coolmarvel/sh-ip-scanner` v1.0.1)에 올렸고, 상세 페이지에 다운로드 버튼 추가.
+      https://github.com/coolmarvel/sh-ip-scanner/releases/tag/v1.0.1
+      (단, **Windows 실환경 설치·스캔 검증은 아직** — sh-ip-scanner todo P1.)
 - [ ] dicom-studio 새 버전 릴리스 시 — 저장소가 프라이빗이므로 이 포트폴리오 레포 릴리스에
       `dicom-studio-vX.Y.Z` 태그로 인스톨러 재업로드 + `projectDetails.ts` 다운로드 링크 갱신.
 - [ ] 이력서 PDF 갱신 시 `public/resume.pdf` 교체 + `src/data/` 동기화.

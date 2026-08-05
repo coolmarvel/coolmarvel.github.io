@@ -26,9 +26,17 @@
     `~/.cache/ms-playwright/chromium-1232/chrome-linux64/chrome` 를 `executablePath` 로 직접 지정해야 했다.
     CJS 모듈이라 `import pw from ...; const { chromium } = pw;` 형태여야 함.
 
-**다음에**
-- sh-ip-scanner 를 Windows 실환경에서 검증하고 인스톨러를 릴리스하면, dicom-studio 처럼
-  다운로드 링크 추가 여부 검토(현재는 GitHub 저장소 링크만).
+**후속 (같은 날)** — 인스톨러 릴리스 + 다운로드 버튼
+- 사용자 요청으로 인스톨러를 굽고 공개 다운로드까지 연결. 현재 소스로 재게시
+  (`dotnet publish` Release·win-x64·self-contained·SingleFile) → wine 으로 Inno Setup 컴파일 →
+  `sh-ip-scanner-Setup-1.0.1.exe`(31MB).
+- **릴리스 위치는 sh-ip-scanner 레포** — dicom-studio 는 저장소가 프라이빗이라 포트폴리오 레포
+  릴리스로 우회했지만, sh-ip-scanner 는 public 이라 그럴 필요가 없다.
+  https://github.com/coolmarvel/sh-ip-scanner/releases/tag/v1.0.1
+- `projectDetails.ts` 에 [Windows 인스톨러 다운로드 (v1.0.1)] 버튼 추가 + demo.note 에 자체포함·
+  SmartScreen 안내 명시. 다운로드 URL 200 + 선두 바이트 `MZ` 확인.
+- **주의**: 이 인스톨러는 WSL 에서 구운 산출물로 **Windows 실환경 설치·스캔 검증 전**이다
+  (sh-ip-scanner todo P1).
 
 ## 2026-07-24 (1차) — dicom-studio 프로젝트 추가 (카드 + 상세 + 스크린샷 11장 + 다운로드)
 
