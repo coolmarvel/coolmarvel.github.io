@@ -38,7 +38,7 @@ export const projectDetails: Record<string, ProjectDetail> = {
       "Hooks 4종 — .env 수정 차단(env-guard), 민감파일 staging 차단(git-add-guard), 커밋 전 포맷 검증(pre-commit-lint), 편집 후 자동 pint 포맷팅",
       "자동 코드리뷰 슬래시 커맨드 5종 — /review-migration, /review-security(OWASP Top 10), /review-architecture(DDD 경계 감사), /deploy-check, /qa-browser(Playwright)",
       "프로젝트 전용 MCP 서버(Laravel MCP) 구축 — DB 스키마·모델 관계·라우트 조회 도구를 AI에 제공해 실제 코드베이스 컨텍스트 기반으로 작업",
-      "영역별 전문 스킬 9종을 프로젝트 로컬로 고정(skills-lock.json 해시)하고, 아키텍처 결정 8건을 ADR로 영구 기록",
+      "영역별 전문 스킬 9종을 프로젝트 로컬로 고정(skills-lock.json 해시)하고, 아키텍처 결정 7건을 ADR로 영구 기록",
     ],
     screenshots: [
       { src: "/images/projects/cm-groupware/login.jpg", caption: "로그인 — TailAdmin 디자인 시스템 Blade 이식" },

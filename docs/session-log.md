@@ -2,6 +2,39 @@
 
 > 최신 세션이 맨 위. 각 블록은 "무엇을 했나 / 어떤 결정을 했나 / 다음에 뭘 하면 되나"를 담는다.
 
+## 2026-08-05 (2차) — 대시보드 기술 스택 섹션 신설 + 경력/AI 워크플로우 갱신
+
+**한 일**
+- **기술 스택을 "간략 소개" 안의 배지 목록에서 독립 섹션으로 분리** (사용자 요청) — `TechStack`
+  컴포넌트를 만들어 **간략 소개 위**(MetricCards 다음)에 배치. 데이터 SSOT 는 `src/data/techStack.ts`.
+  - 그룹: 언어 / 프레임워크·런타임 / 데이터베이스 / 인프라·도구 / 블록체인 / AI 협업 (총 44종).
+  - **언어 그룹은 시각적으로 한 단계 강조**(흰 배경 + 테두리 + shadow, 아이콘도 크게) — "언어와
+    프레임워크를 구별해달라"는 요청 반영.
+  - **브랜드 SVG 아이콘**: simple-icons 에서 필요한 39종만 뽑아 정적 파일(`src/icons/techIcons.ts`)로
+    구움 — 런타임 의존성은 늘리지 않음(생성 스크립트는 scratchpad, 일회성).
+    - **상표권 이슈로 최신 simple-icons 에서 제거된 C#·AWS·Azure 는 simple-icons@9 에서** 가져왔다
+      (2026-07-10 프로필 README 때와 같은 방식).
+    - 어두운 로고(Next.js·Express·Java·Solidity 등)는 다크모드에서 묻히므로 **상대 휘도 < 0.16 이면
+      밝은 회색으로 대체**하는 `darkHex` 를 생성 시점에 계산해 CSS 변수로 넘긴다.
+    - 브랜드 로고가 없는 항목(caver-js·ICON SDK·MCP 등)은 중립 글리프로 렌더.
+  - `skills.ts` 의 `skillBadges` 는 이 섹션으로 대체돼 **삭제**(dead data 방지). skills.ts 는
+    /experience 게이지 SSOT 만 담당.
+- **C#/.NET 추가** — 기술 스택(언어 C#, 프레임워크 .NET 8·Avalonia)과 `skills.ts` Backend 게이지
+  ("C# · .NET 8 · Avalonia (데스크톱)" 65).
+- **경력에 빠져 있던 씨엠병원 프로젝트 2건 추가** (`experience.ts`) — **voice_server**(사용자 지적)와
+  함께 같은 상황이던 **PT Schedule** 도 추가. 내용은 projectDetails 의 기술 서술과 일치시켰다.
+- **/ai-workflow 갱신** — intro(7개 프로젝트·C#/.NET·project-seed 발사대), Constrain 에 build-check,
+  Verify 에 .NET 검증 3종, **5번째 축 "Bootstrap — project-seed 발사대"** 신설(page 에 neutral 색 추가).
+  매트릭스는 **7개 프로젝트**(+file-converter·dicom-studio·sh-ip-scanner)로 확장 + "UI 자가검증" 행 추가.
+  - **수치는 형제 레포에서 직접 세어 교정**: cm_groupware ADR 8→**7건**(0000-template 제외분),
+    file-converter 6건, dicom-studio·pdf-editor·sh-ip-scanner 각 2건 → 총 25건. MCP 행에 있던
+    pdf-editor/file-converter 의 "Playwright"는 **MCP 가 아니라 직접 E2E 하네스**라 UI 자가검증 행으로 이동.
+  - 같은 이유로 `projects.ts`·`projectDetails.ts` 의 "ADR 8건" 표기도 7건으로 교정.
+- 검증: 빌드 통과, 로컬 서빙 후 대시보드(라이트/다크/모바일)·ai-workflow·experience 렌더 확인.
+
+**다음에**
+- 기술 스택 목록은 사용자 감각과 다를 수 있음 — 빠진/과한 항목은 `src/data/techStack.ts` 한 곳만 고치면 된다.
+
 ## 2026-08-05 (1차) — sh-ip-scanner 프로젝트 추가 (카드 + 상세 + 스크린샷 7장)
 
 **한 일**

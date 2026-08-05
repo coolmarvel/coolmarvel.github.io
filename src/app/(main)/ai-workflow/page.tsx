@@ -35,6 +35,11 @@ const pillarColors = {
     text: "text-error-600 dark:text-error-500",
     bar: "bg-error-500",
   },
+  neutral: {
+    bg: "bg-gray-100 dark:bg-white/[0.06]",
+    text: "text-gray-700 dark:text-gray-300",
+    bar: "bg-gray-400 dark:bg-gray-500",
+  },
 };
 
 export default function AiWorkflowPage() {
@@ -125,10 +130,10 @@ export default function AiWorkflowPage() {
 
       <Card
         title="프로젝트별 AI 하네스 적용 현황"
-        desc="하나의 방법론을 서로 다른 4개 스택에 일관 적용"
+        desc={`하나의 방법론을 서로 다른 ${aiMatrix.columns.length}개 프로젝트에 일관 적용 (스택 무관)`}
       >
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[640px] text-left">
+          <table className="w-full min-w-[880px] text-left">
             <thead>
               <tr className="border-b border-gray-100 dark:border-gray-800">
                 <th className="py-3 pr-4 text-theme-xs font-medium uppercase text-gray-400">

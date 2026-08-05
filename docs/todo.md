@@ -23,8 +23,10 @@
 ## P2
 - [x] pdf-editor GitHub Release 업로드 — 2026-07-09 완료.
       https://github.com/coolmarvel/pdf-editor/releases/download/v1.4.3/PDF-Editor-Setup-1.4.3.exe
-- [ ] 대시보드 수치 사용자 검토 — 스킬 게이지 %(`skills.ts`), "수행 프로젝트 14+"·핵심 지표(`profile.ts`)는
-      Claude 산정 임의값. 사용자 감각에 맞게 조정.
+- [ ] 대시보드 수치 사용자 검토 — 스킬 게이지 %(`skills.ts`, C#/.NET 65 포함), "수행 프로젝트 14+"·
+      핵심 지표(`profile.ts`)는 Claude 산정 임의값. 사용자 감각에 맞게 조정.
+- [ ] 기술 스택 목록 사용자 검토 — `src/data/techStack.ts` 44종(6그룹). 빠진 스택·안 쓰는 스택
+      정리 필요. 새 아이콘이 필요하면 simple-icons 에서 추출(방법은 session-log 2026-08-05 2차).
 - [x] 파비콘 — 2026-07-10 완료. `src/app/`에 icon.svg(브랜드 그라데이션 + `</>` 모노그램)·
       favicon.ico·apple-icon.png 추가, 빌드 검증 완료.
 - [ ] OG 메타태그(og:image·description) 추가 — 링크 공유 시 미리보기.

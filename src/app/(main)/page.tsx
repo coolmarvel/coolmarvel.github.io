@@ -4,12 +4,12 @@ import Badge from "@/components/ui/Badge";
 import Card from "@/components/ui/Card";
 import ProfileCard from "@/components/sections/ProfileCard";
 import MetricCards from "@/components/sections/MetricCards";
+import TechStack from "@/components/sections/TechStack";
 import ExperienceTimeline from "@/components/sections/ExperienceTimeline";
 import ProjectCard from "@/components/sections/ProjectCard";
 
 import { profile } from "@/data/profile";
 import { projects } from "@/data/projects";
-import { skillBadges } from "@/data/skills";
 import { education, certificates } from "@/data/experience";
 import { GraduationIcon, AwardIcon } from "@/icons";
 
@@ -20,22 +20,13 @@ export default function DashboardPage() {
     <div className="flex flex-col gap-4 md:gap-6">
       <ProfileCard />
       <MetricCards />
+      <TechStack />
 
       <div className="grid grid-cols-1 gap-4 md:gap-6 xl:grid-cols-3">
         <Card title="간략 소개" className="xl:col-span-2">
           <div className="flex flex-col gap-3 text-theme-sm leading-6 text-gray-600 dark:text-gray-300">
             {profile.summary.map((s, i) => (
               <p key={i}>{s}</p>
-            ))}
-          </div>
-          <div className="mt-5 flex flex-wrap gap-1.5">
-            {skillBadges.map((s) => (
-              <span
-                key={s}
-                className="rounded-full bg-gray-100 px-2.5 py-1 text-theme-xs font-medium text-gray-600 dark:bg-white/5 dark:text-gray-400"
-              >
-                {s}
-              </span>
             ))}
           </div>
         </Card>
