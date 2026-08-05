@@ -257,7 +257,8 @@
 - **라이브 스크린샷 직접 캡처** (playwright-core + chromium-1229, `~/pdf-editor/node_modules` 차용):
   - cm_groupware: https://chungmu.xyz 에 demo/123456 로그인 → login·dashboard·approval-box·schedule·meetings 5장.
     빈 화면(칸반·근무표)은 제외. **데모 계정(demo/123456)은 공개 허용** — 기능 차단된 열람용 계정 (사용자 확인).
-  - voice_server: 내부망 http://210.110.80.137:8000 → home(업로드+암호화 UI)·jobs(처리 이력) 2장.
+  - voice_server: 내부망 서버(사내 대역, 포트 8000) → home(업로드+암호화 UI)·jobs(처리 이력) 2장.
+    (2026-08-05: 이 줄에 실 내부 IP 가 그대로 적혀 있어 마스킹함. 문서에 사내 IP 를 적지 않는다.)
   - pdf-editor: Electron 앱을 `_electron.launch`로 직접 구동(WSLg DISPLAY=:0) → landing·editor·text-edit 3장.
   - 저장 위치: `public/images/projects/{slug}/*.jpg` (JPEG q80~85).
 - pdf-editor 릴리스 준비: `~/pdf-editor/scripts/upload-release.sh` 작성 (v1.4.3 태그 + 103MB 인스톨러 업로드).

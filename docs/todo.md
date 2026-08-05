@@ -43,3 +43,7 @@
       `dicom-studio-vX.Y.Z` 태그로 인스톨러 재업로드 + `projectDetails.ts` 다운로드 링크 갱신.
 - [ ] 이력서 PDF 갱신 시 `public/resume.pdf` 교체 + `src/data/` 동기화.
 - [ ] 방문 통계(GoatCounter 등 무료 정적 친화 도구) 검토.
+- [ ] **공개 레포 git history 에 남은 내부 IP** — `docs/session-log.md` 의 voice_server 줄에 사내
+      내부 IP(포트 8000)가 평문으로 있었고 2026-08-05 에 마스킹했지만, **과거 커밋에는 그대로 남아
+      있다.** 지우려면 sh-ip-scanner 때처럼 `git filter-repo --replace-text` 로 history 재작성 필요
+      (커밋 해시 전부 바뀌므로 사용자 판단 후 진행).
