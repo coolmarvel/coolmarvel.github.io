@@ -244,6 +244,46 @@ export const projectDetails: Record<string, ProjectDetail> = {
     ],
   },
 
+  "sh-ip-scanner": {
+    role: "개인 학습 프로젝트 — 설계·개발·패키징 전 과정",
+    background: [
+      "지금까지의 주력 스택(TypeScript · React · Electron)에서 한 걸음 나가 새 언어를 제대로 익히고 싶었고, 그 언어로 C#을 골랐습니다. 문법 예제 대신 실제로 매일 쓰던 도구를 교재로 삼기로 하고, 포터블 툴 faIpScanner(Delphi로 만들어진 설치 없는 exe)를 대상으로 정했습니다.",
+      "먼저 원본 바이너리를 정적 분석해 동작 원리를 밝혔습니다 — VCL/Indy의 TCheckIPThread·TFindHostNameThread로 대역을 멀티스레드 스윕하고, SendARP(iphlpapi)로 MAC을, 역DNS로 호스트명을 채우는 클래식 LAN 스캐너였습니다. 이 세 동작이 C#의 표준 라이브러리와 Win32 P/Invoke로 거의 1:1 재현 가능하다는 판단이 스택 결정(ADR-0002)의 근거가 되었습니다.",
+      "결과물로도 실사용합니다. 관리 중인 네트워크에 지금 어떤 장비가 붙어 있는지(IP·PC명)를 한눈에 보는 전산 자산 파악 용도이며, 스캔 대역은 여러 개를 드롭다운으로 오가며 관리합니다.",
+    ],
+    architecture: [
+      "Core / App 2계층 분리 — 네트워크·설정 로직은 UI를 모르는 ShIpScanner.Core에 두고 xUnit으로 직접 테스트, 화면은 Avalonia MVVM(ObservableProperty·RelayCommand)으로 상태 바인딩만 담당",
+      "병렬 핑 스윕 — 원본이 스레드 254개를 굴리던 것을 async/await + SemaphoreSlim(동시 실행 수 제한) + CancellationToken(협조적 중지)으로 재현하고, IProgress<T>로 결과를 도착하는 대로 바둑판에 흘려보내 점진적으로 색칠",
+      "PC명 조회를 직접 구현 — NetBIOS Node Status(NBSTAT) 패킷을 UDP 137로 만들어 보내고 응답에서 UNIQUE·접미사 0x00(Workstation) 이름을 파싱. 한글 이름은 CP949로 오기 때문에 .NET Core에 기본 탑재되지 않은 코드페이지 공급자를 등록해 디코드하고, 실패 시 역DNS로 폴백하는 Composite 구조",
+      "스캔 대역·스캔 옵션(타임아웃·동시 개수·이름 조회)은 %APPDATA%에 JSON으로 저장 — Program Files가 아닌 사용자 쓰기 가능 경로, 파일이 없거나 깨져도 앱이 죽지 않고 빈 목록으로 폴백",
+      "기본 대역을 코드에 하드코딩하지 않는 구조 — 저장된 대역이 0개면 첫 실행으로 보고 안내 모달을 띄워 내 대역 자동 감지 결과를 제시. 저장소를 공개로 전환하기 위한 설계 변경이었고, 과거 커밋에 남아 있던 실 대역도 git history 재작성으로 함께 정리",
+      "Win32 종속 기능(SendARP 등)은 인터페이스 뒤로 격리한다는 규칙을 코드 지도에 박제 — 개발은 WSL(Linux), 실행 대상은 Windows인 환경에서 빌드가 깨지지 않도록",
+      "자체포함(self-contained) 단일 파일 게시 + Inno Setup 인스톨러 — .NET 런타임이 없는 PC에서도 설치·실행되며, WSL에서 wine으로 ISCC를 돌려 Setup.exe까지 굽는 파이프라인을 검증",
+    ],
+    aiUsage: [
+      "project-seed(자체 프로젝트 발사대) 템플릿으로 킥오프 — 브리프(왜/무엇 SSOT)·세션 부팅 프로토콜·ADR·세션 로그를 첫날부터 가동해, 세션이 끊겨도 문서만 읽고 맥락을 복구하는 구조",
+      "학습이 목적인 프로젝트라 \"가장 짧은 코드\"가 아니라 \"개념이 드러나는 코드 + 개념 주석\"을 규칙으로 명시 — Task·SemaphoreSlim·CancellationToken 같은 C# 개념을 코드 옆에 남기도록 에이전트를 제약",
+      "hooks로 검증을 시스템화 — .env 편집 차단, git add -A 차단, 저장 시 dotnet format, 저장 시 백그라운드 빌드. 커밋 전 build·test·format 3종 통과를 전제 조건으로 고정",
+      "함정을 CLAUDE.md에 박제해 재발 방지 — net8.0 고정(Avalonia 12는 SDK 8과 소스제너레이터 비호환), [ObservableProperty]는 필드 기반(C# 13 partial property 사용 불가) 등 실제로 한 번씩 밟은 지뢰만 기록",
+      "이 페이지의 스크린샷도 Avalonia 헤드리스 렌더러(tools/ShotTool)로 실제 앱 화면을 PNG로 구운 것 — GUI 세션이 없는 WSL에서도 UI를 눈으로 검증하는 캡처 하네스",
+    ],
+    screenshots: [
+      { src: "/images/projects/sh-ip-scanner/result.jpg", caption: "스캔 완료 — 주황=사용 중 · 연두=사용 가능, 사용 중인 칸에는 NetBIOS로 조회한 PC명(한글 CP949 디코드)" },
+      { src: "/images/projects/sh-ip-scanner/scanning.jpg", caption: "스캔 진행 중 — 판정이 끝난 앞쪽부터 색이 채워지고, 아직 검사하지 않은 칸은 흰색으로 남는다 (스캔 중에는 대역 변경·재시작이 잠긴다)" },
+      { src: "/images/projects/sh-ip-scanner/main.jpg", caption: "스캔 전 초기 화면 — 254칸 바둑판, 대역 드롭다운과 [검색 시작]. 좌상단 아이콘이 메뉴(대역 관리·설정·정보)" },
+      { src: "/images/projects/sh-ip-scanner/manager.jpg", caption: "대역 관리 — 스캔할 서브넷을 추가·삭제(앞 3옥텟만 입력). 목록은 %APPDATA%에 JSON으로 저장" },
+      { src: "/images/projects/sh-ip-scanner/settings.jpg", caption: "설정 — 핑 타임아웃·동시 스캔 개수·PC명 조회 여부. 다음 검색부터 반영" },
+      { src: "/images/projects/sh-ip-scanner/firstrun.jpg", caption: "첫 실행 안내 — 기본 대역을 코드에 넣지 않기 때문에, 첫 실행 시 내 대역을 자동 감지해 제시하고 등록을 유도" },
+      { src: "/images/projects/sh-ip-scanner/about.jpg", caption: "정보 — 버전·제작자·라이센스 표기" },
+    ],
+    demo: {
+      note: "스크린샷의 IP 대역(192.168.x)과 PC명은 예시 데이터입니다. 실제 운영 대역·장비명은 노출하지 않기 위해 저장소와 화면 모두에서 예시 값으로 대체했습니다.",
+    },
+    links: [
+      { label: "GitHub 저장소", href: "https://github.com/coolmarvel/sh-ip-scanner" },
+    ],
+  },
+
   "pt-schedule": {
     role: "설계·개발 전 과정 (백엔드 + 프론트엔드)",
     background: [

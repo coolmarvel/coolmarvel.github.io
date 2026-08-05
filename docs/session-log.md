@@ -2,6 +2,34 @@
 
 > 최신 세션이 맨 위. 각 블록은 "무엇을 했나 / 어떤 결정을 했나 / 다음에 뭘 하면 되나"를 담는다.
 
+## 2026-08-05 (1차) — sh-ip-scanner 프로젝트 추가 (카드 + 상세 + 스크린샷 7장)
+
+**한 일**
+- **sh IP Scanner(v1.0.1) 프로젝트 추가** — `projects.ts` 카드(데스크톱/개인 프로젝트, dicom-studio
+  다음 위치) + `projectDetails.ts` 상세(배경·아키텍처·AI 활용·스크린샷·GitHub 링크).
+  - 서사의 중심은 **C#/.NET 학습**(사용자 지시). 주력 스택(TS·React·Electron)에서 벗어나 새 언어를
+    익히려고, 실제로 쓰던 포터블 툴 faIpScanner(Delphi exe)를 정적 분석해 C#으로 재현한 프로젝트.
+  - **MAC(SendARP) 조회는 미구현**(sh-ip-scanner todo P4)이라 상세에 성과로 적지 않았다 —
+    원본 분석 내용으로만 언급. 구현된 것은 병렬 핑 스윕 + NetBIOS(UDP137·CP949) + 역DNS 폴백.
+  - 저장소가 public 이라 GitHub 링크를 넣음: https://github.com/coolmarvel/sh-ip-scanner
+- **스크린샷 7장 캡처** — 이 앱은 브라우저가 아닌 **Avalonia 데스크톱 앱이라 Playwright 로는 구동
+  불가**. 대신 레포에 있던 `tools/ShotTool`(Avalonia 헤드리스 렌더러)을 장면별 캡처가 되도록 확장해
+  사용(sh-ip-scanner 쪽 변경). 장면: 스캔 완료 / 스캔 중 / 초기 화면 / 대역 관리 / 설정 / 첫 실행 안내 / 정보.
+  - **대역 마스킹**: 실 운영 대역 3개는 화면에 넣지 않고 예시 대역(192.168.0/10/20 · 네트워크 A·B·C)과
+    일반 PC명으로 대체 — sh-ip-scanner 레포가 이미 실 대역을 전부 예시로 치환한 정책과 동일하게 맞췄다.
+    상세 페이지 demo.note 에도 "예시 데이터"임을 명시.
+  - 모달 캡처(380~440px)는 슬라이더에서 너무 작아, sharp 로 1.6배 확대 후 앱 배경색 캔버스(1000px)에
+    얹어 폭을 통일. 변환 스크립트는 scratchpad(to-jpg.mjs, 일회성).
+- 검증: `npm run build` 통과(상세 15개 생성), 로컬 서빙 스모크(/, /projects/, 상세, 이미지 7장 200),
+  playwright-core 로 상세 페이지 라이트/다크/모바일 렌더 확인.
+  - 함정: `~/pdf-editor/node_modules/playwright-core`(1.61.1)가 찾는 헤드리스 셸 빌드(1228)가 없어
+    `~/.cache/ms-playwright/chromium-1232/chrome-linux64/chrome` 를 `executablePath` 로 직접 지정해야 했다.
+    CJS 모듈이라 `import pw from ...; const { chromium } = pw;` 형태여야 함.
+
+**다음에**
+- sh-ip-scanner 를 Windows 실환경에서 검증하고 인스톨러를 릴리스하면, dicom-studio 처럼
+  다운로드 링크 추가 여부 검토(현재는 GitHub 저장소 링크만).
+
 ## 2026-07-24 (1차) — dicom-studio 프로젝트 추가 (카드 + 상세 + 스크린샷 11장 + 다운로드)
 
 **한 일**
