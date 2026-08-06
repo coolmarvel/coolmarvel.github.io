@@ -39,6 +39,7 @@ export const techGroups: TechGroup[] = [
       { name: "Livewire", icon: "livewire" },
       { name: "FastAPI", icon: "fastapi" },
       { name: ".NET 8", icon: "dotnet" },
+      { name: "ASP.NET Core", icon: "dotnet" },
       { name: "React", icon: "react" },
       { name: "Next.js", icon: "nextjs" },
       { name: "TanStack Query", icon: "tanstack" },
@@ -53,6 +54,7 @@ export const techGroups: TechGroup[] = [
     items: [
       { name: "MySQL", icon: "mysql" },
       { name: "MariaDB", icon: "mariadb" },
+      { name: "Oracle", icon: "oracle" },
       { name: "PostgreSQL", icon: "postgresql" },
       { name: "Redis", icon: "redis" },
       { name: "SQLite", icon: "sqlite" },

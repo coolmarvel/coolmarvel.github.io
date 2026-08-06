@@ -25,8 +25,9 @@
       https://github.com/coolmarvel/pdf-editor/releases/download/v1.4.3/PDF-Editor-Setup-1.4.3.exe
 - [ ] 대시보드 수치 사용자 검토 — 스킬 게이지 %(`skills.ts`, C#/.NET 65 포함), "수행 프로젝트 14+"·
       핵심 지표(`profile.ts`)는 Claude 산정 임의값. 사용자 감각에 맞게 조정.
-- [ ] 기술 스택 목록 사용자 검토 — `src/data/techStack.ts` 44종(6그룹). 빠진 스택·안 쓰는 스택
-      정리 필요. 새 아이콘이 필요하면 simple-icons 에서 추출(방법은 session-log 2026-08-05 2차).
+- [ ] 기술 스택 목록 사용자 검토 — `src/data/techStack.ts` 46종(6그룹, 2026-08-06 ASP.NET Core·
+      Oracle 추가). 빠진 스택·안 쓰는 스택 정리 필요. 새 아이콘이 필요하면 simple-icons 에서
+      추출(방법은 session-log 2026-08-05 2차).
 - [x] 파비콘 — 2026-07-10 완료. `src/app/`에 icon.svg(브랜드 그라데이션 + `</>` 모노그램)·
       favicon.ico·apple-icon.png 추가, 빌드 검증 완료.
 - [ ] OG 메타태그(og:image·description) 추가 — 링크 공유 시 미리보기.
@@ -45,6 +46,8 @@
       (단, **Windows 실환경 설치·스캔 검증은 아직** — sh-ip-scanner todo P1.)
 - [ ] dicom-studio 새 버전 릴리스 시 — 저장소가 프라이빗이므로 이 포트폴리오 레포 릴리스에
       `dicom-studio-vX.Y.Z` 태그로 인스톨러 재업로드 + `projectDetails.ts` 다운로드 링크 갱신.
+- [ ] sh-dicom-studio 새 버전 릴리스 시 — 저장소가 public 이라 그쪽 레포 릴리스에 올리고
+      `projectDetails.ts` 다운로드 링크(현재 v1.0.1)와 학습교재 PDF 링크 갱신.
 - [ ] 이력서 PDF 갱신 시 `public/resume.pdf` 교체 + `src/data/` 동기화.
 - [ ] 방문 통계(GoatCounter 등 무료 정적 친화 도구) 검토.
 - [ ] **공개 레포 git history 에 남은 내부 IP** — `docs/session-log.md` 의 voice_server 줄에 사내

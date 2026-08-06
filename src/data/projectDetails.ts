@@ -285,6 +285,50 @@ export const projectDetails: Record<string, ProjectDetail> = {
     ],
   },
 
+  "sh-dicom-studio": {
+    role: "개인 학습 프로젝트 — 설계·개발·서버·패키징 전 과정",
+    background: [
+      "sh-ip-scanner로 C# 문법과 Avalonia MVVM을 익힌 뒤, 다음 단계로 실무 규모의 앱 하나를 C# 생태계 전체로 관통하고 싶었습니다 — 데스크톱(MVVM)에서 시작해 웹 API(ASP.NET Core), 상용 DB(Oracle), 컨테이너 배포(docker compose)까지. 교재는 직접 만들었던 dicom-studio(Electron)를 골랐습니다. 도메인과 기능 명세를 이미 알고 있는 앱을 다시 만들면, 문제 정의에 쓸 에너지를 아껴 언어·스택 학습에만 집중할 수 있기 때문입니다.",
+      "마일스톤을 4차로 나눠 완주했습니다 — 1차 오프라인 완결(이미지 열기 → 뷰어 → DICOM 변환 → SQLite 검색), 2차 서버(ASP.NET Core 8 + Oracle 로그인·검사 메타 동기화), 3차 PACS 전송(C-ECHO/C-STORE, Orthanc 도커 동봉), 4차 Worklist(서버 예약 접수 → 선택 시 환자정보 자동 입력). 뷰어 오버레이·워크리스트 UI는 실무에서 쓰는 PACS 프로그램(PACSPLUS·PPW)의 화면을 참고해 다듬었고, 사용자(본인)의 1.0 선언으로 v1.0.x로 승격했습니다.",
+      "학습 과정 자체도 산출물로 남겼습니다 — 이 앱의 실제 코드를 예제로 쓴 12강짜리 교재 'JAVA 개발자를 위한 C# & ASP.NET Core 실전 입문' PDF를 Claude Code와 함께 만들어 릴리스에 함께 공개했습니다 (프로퍼티·record·LINQ·async/await부터 Minimal API·DI·JWT·ADO.NET·도커 배포까지).",
+    ],
+    architecture: [
+      "Core / App / Server 3계층 — UI 없는 도메인 로직(DICOM 변환·SQLite·이미지 처리)은 ShDicomStudio.Core에 두고 xUnit 34종으로 직접 테스트, 화면은 Avalonia MVVM(CommunityToolkit.Mvvm), 서버는 별도 프로젝트로 분리",
+      "DICOM 변환은 fo-dicom — JPG/PNG/BMP/TIFF/PDF를 Secondary Capture로 변환, 다중 이미지 = 한 Study 한 Series. 기존 .dcm 파일 열기도 지원",
+      "뷰어 — 그리드 레이아웃(1×1~4×4, 장수 기반 자동), 회전·반전·색반전·순서변경·삭제, Magnify 돋보기 렌즈(2.5×), PACSPLUS 스타일 4모서리 환자정보 오버레이(토글, 폼 실시간 반영). RenderTransform 호스트를 Canvas로 고정해 변환 좌표계 문제를 해결",
+      "서버 — ASP.NET Core 8 Minimal API + Oracle 23ai Free(gvenzl 이미지)를 docker compose로 구동. JWT(HS256) 로그인, BCrypt 비밀번호 해시, 계정 관리(admin 전용), 검사 메타데이터 upsert 동기화, 예약(ORDERS) 등록/조회/삭제 API",
+      "PACS 전송 — fo-dicom DicomClient로 C-ECHO 연결 테스트·C-STORE 전송, 목적지(AE Title/호스트/포트) 관리. 테스트용 Orthanc 컨테이너를 compose에 동봉해 실PACS 없이 E2E 검증",
+      "Worklist 허브 — InsExam·FindDB·Worklist 3개 창을 [예약 접수]/[검사 검색(내부·서버 탭)] 2탭 허브 하나로 통합, SaveDB가 저장 흐름(업데이트/이미지 추가/새 검사)을 4지선다로 통합",
+      "JPG 내보내기 — ImageSharp로 네 모서리 환자정보 오버레이(흰 글씨+그림자, 해상도 비례 폰트, 한글 시스템 폰트 자동 탐색)를 구워 내보내기 — PPW 5.1 참고",
+      "자체포함 단일 파일 게시 + Inno Setup 인스톨러 — WSL에서 wine으로 Setup.exe까지 굽는 파이프라인 (sh-ip-scanner에서 검증한 조합 재사용)",
+    ],
+    aiUsage: [
+      "project-seed 발사대로 킥오프 — 브리프(왜/무엇 SSOT)·세션 부팅 프로토콜·ADR·hooks(.env 차단, git add 가드, dotnet format 자동 실행)를 첫날부터 가동",
+      "커밋 전 build·test·format 3종 통과를 전제 조건으로 고정하고, 서버 기능은 라이브 검증까지 — compose 기동 후 실제 로그인/업로드/검색 API 호출, Orthanc으로 C-STORE 실전송 확인을 마쳐야 인스톨러를 굽는다",
+      "함정을 CLAUDE.md에 박제해 재발 방지 — ItemsPanelTemplate 안의 컴파일 바인딩은 런타임 크래시(ReflectionBinding 사용), Matrix 변환 호스트는 Canvas 고정, Oracle 바인드 변수 예약어(ORA-01745) 등 실제로 밟은 지뢰만 기록",
+      "이 페이지의 스크린샷도 Avalonia 헤드리스 렌더러(tools/ShotTool)로 실제 앱을 구동해 캡처 — 도커로 띄운 Oracle 서버에 실제 로그인해 Worklist 예약 조회까지 라이브로 시연한 화면",
+      "학습 교재 12강 PDF도 Claude Code와 함께 제작 — 앱의 실제 코드를 발췌해 자바 개발자 관점(csproj=pom.xml, LINQ=Stream, ADO.NET=JDBC)으로 재구성",
+    ],
+    screenshots: [
+      { src: "/images/projects/sh-dicom-studio/login.jpg", caption: "로그인 — 등록된 서버 목록에서 선택(JWT 인증), 서버 없이 [오프라인으로 계속]도 지원" },
+      { src: "/images/projects/sh-dicom-studio/dbconfig.jpg", caption: "서버 설정(DB Config) — 서버 이름·주소 목록 관리, 마지막 선택 기억" },
+      { src: "/images/projects/sh-dicom-studio/landing.jpg", caption: "시작 화면 — MAIN TOOLS 타일 + 검사정보 폼 + 다크 뷰어 (dicom-studio의 화면 구조를 Avalonia로 재현)" },
+      { src: "/images/projects/sh-dicom-studio/viewer.jpg", caption: "뷰어 — 실제 동맥경화도검사지 2장(식별정보는 가상 값으로 마스킹), 옆으로 스캔된 리포트를 회전으로 세우고 4모서리 환자정보 오버레이를 켠 상태" },
+      { src: "/images/projects/sh-dicom-studio/worklist.jpg", caption: "Worklist 허브 [예약 접수] — 도커로 띄운 Oracle 서버의 예약을 라이브 조회, 행 선택 시 환자정보 자동 입력" },
+      { src: "/images/projects/sh-dicom-studio/finddb.jpg", caption: "Worklist 허브 [검사 검색] — 내부(로컬)/서버(PACS DB) 탭 + Modality 퀵필터 (PPW 워크리스트 스타일)" },
+      { src: "/images/projects/sh-dicom-studio/send.jpg", caption: "검사 보내기 — 목적지(AE Title) 관리·C-ECHO 연결 테스트·C-STORE 전송, Orthanc 도커 컨테이너 동봉" },
+      { src: "/images/projects/sh-dicom-studio/jpg-overlay.jpg", caption: "JPG 내보내기 산출물 — ImageSharp로 네 모서리에 환자정보 오버레이를 구운 결과 (PPW 5.1 참고)" },
+    ],
+    demo: {
+      note: "스크린샷의 환자·검사 정보는 전부 가상 값입니다 — 검사지 이미지의 식별정보(ID·이름)도 예시 값으로 마스킹했습니다. 아래 인스톨러로 설치해 직접 사용해볼 수 있습니다 (자체포함 빌드라 .NET 런타임 설치 불필요, 코드 서명이 없어 SmartScreen 경고가 뜰 수 있습니다). 서버 기능(로그인·Worklist·PACS 전송)은 저장소의 docker compose로 로컬에서 재현할 수 있고, 서버 없이도 오프라인으로 모든 변환·조회 기능이 동작합니다.",
+    },
+    links: [
+      { label: "GitHub 저장소", href: "https://github.com/coolmarvel/sh-dicom-studio" },
+      { label: "Windows 인스톨러 다운로드 (v1.0.1)", href: "https://github.com/coolmarvel/sh-dicom-studio/releases/download/v1.0.1/sh-dicom-studio-Setup-1.0.1.exe" },
+      { label: "학습 교재 PDF — JAVA 개발자를 위한 C# & ASP.NET Core 실전 입문 (12강)", href: "https://github.com/coolmarvel/sh-dicom-studio/releases/download/v1.0.1/csharp-aspnet-study-guide.pdf" },
+    ],
+  },
+
   "pt-schedule": {
     role: "설계·개발 전 과정 (백엔드 + 프론트엔드)",
     background: [

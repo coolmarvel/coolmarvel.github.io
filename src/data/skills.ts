@@ -13,7 +13,7 @@ export const skillCategories: SkillCategory[] = [
       { name: "Java · Spring Boot · MyBatis", level: 80 },
       { name: "PHP · Laravel (DDD)", level: 85 },
       { name: "Python · FastAPI", level: 75 },
-      { name: "C# · .NET 8 · Avalonia (데스크톱)", level: 65 },
+      { name: "C# · .NET 8 · ASP.NET Core · Avalonia", level: 70 },
       { name: "RabbitMQ · WebSocket · RestAPI", level: 85 },
     ],
   },

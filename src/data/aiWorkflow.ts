@@ -3,7 +3,7 @@ export const aiPhilosophy = {
   subtitle: "AI를 쓰는 것이 아니라, AI가 일하는 시스템을 설계합니다",
   intro: [
     "AI(Claude Code) 페어 프로그래밍을 단순 코드 생성 도구가 아닌 정식 개발 방법론으로 채택했습니다. 핵심은 \"Constrain → Verify → Correct\" — AI의 행동을 시스템적으로 제약하고, 산출물을 자동 검증하고, 규칙 위반을 즉시 교정하는 하네스(Harness) 레이어를 프로젝트마다 직접 설계하는 것입니다.",
-    "이 방법론을 Laravel/PHP, FastAPI/Python, Electron/TypeScript, C#/.NET 등 서로 다른 스택 7개 프로젝트에 일관되게 적용하며, 프로세스 규율 자체를 조직 표준으로 만들었습니다. 언어와 프레임워크가 바뀌어도 하네스의 골격(제약 → 검증 → 기록)은 그대로 이식됩니다.",
+    "이 방법론을 Laravel/PHP, FastAPI/Python, Electron/TypeScript, C#/.NET 등 서로 다른 스택 8개 프로젝트에 일관되게 적용하며, 프로세스 규율 자체를 조직 표준으로 만들었습니다. 언어와 프레임워크가 바뀌어도 하네스의 골격(제약 → 검증 → 기록)은 그대로 이식됩니다.",
     "새 프로젝트는 project-seed라는 자체 \"발사대\" 저장소에서 시작합니다. 브리프(왜/무엇 SSOT)·세션 부팅 프로토콜·hooks·문서 체계·라이선스 표기까지 첫 커밋부터 갖춰진 상태로 출발하기 때문에, 프로젝트가 늘어나도 규율이 흐려지지 않습니다.",
   ],
 };
@@ -47,7 +47,7 @@ export const aiPillars = [
     color: "error" as const,
     description:
       "아키텍처 결정은 폐기된 대안과 트레이드오프까지 ADR로 기록합니다. voice_server는 \"로컬 GPU 전량 처리 → 원격 API 위임 → thin orchestrator\"로의 진화를 ADR 6건으로 추적했고, CLAUDE.md·writing-guide·runbook·onboarding 문서가 세션이 바뀌어도 AI가 맥락을 복구하는 SSOT 역할을 합니다. 한 번 밟은 지뢰는 \"함정 박제\" 항목으로 남겨 같은 실수가 두 번 나오지 않게 합니다.",
-    items: ["ADR 25건 (6개 프로젝트)", "CLAUDE.md 세션 부팅 프로토콜", "writing-guide 문서 표준", "session-log SSOT", "함정 박제"],
+    items: ["ADR 28건 (7개 프로젝트)", "CLAUDE.md 세션 부팅 프로토콜", "writing-guide 문서 표준", "session-log SSOT", "함정 박제"],
   },
   {
     title: "Bootstrap — project-seed 발사대",
@@ -67,6 +67,7 @@ export const aiMatrix = {
     "file-converter",
     "dicom-studio",
     "sh-ip-scanner",
+    "sh-dicom-studio",
   ],
   rows: [
     {
@@ -79,6 +80,7 @@ export const aiMatrix = {
         "Electron · React · TS",
         "Electron · React · TS",
         "C# · .NET 8 · Avalonia",
+        "C# · ASP.NET Core · Oracle",
       ],
     },
     {
@@ -91,11 +93,12 @@ export const aiMatrix = {
         "문서/빌드 자동 규칙",
         "3종 (env·git·format)",
         "4종 (env·git·format·build)",
+        "3종 (env·git·format)",
       ],
     },
     {
       label: "슬래시 커맨드",
-      values: ["5종", "3종", "—", "—", "—", "2종", "2종"],
+      values: ["5종", "3종", "—", "—", "—", "2종", "2종", "2종"],
     },
     {
       label: "MCP",
@@ -107,15 +110,16 @@ export const aiMatrix = {
         "— (E2E는 MCP 아닌 직접 하네스)",
         "context7 + playwright",
         "context7 (데스크톱 앱이라 playwright 미사용)",
+        "context7 + playwright",
       ],
     },
     {
       label: "Skills (로컬 고정)",
-      values: ["9종", "—", "5종", "—", "—", "—", "—"],
+      values: ["9종", "—", "5종", "—", "—", "—", "—", "—"],
     },
     {
       label: "ADR",
-      values: ["7건", "6건", "—", "2건", "6건", "2건", "2건"],
+      values: ["7건", "6건", "—", "2건", "6건", "2건", "2건", "3건"],
     },
     {
       label: "UI 자가검증",
@@ -127,6 +131,7 @@ export const aiMatrix = {
         "Playwright _electron (E2E 24종)",
         "Playwright _electron",
         "Avalonia 헤드리스 렌더",
+        "Avalonia 헤드리스 렌더 + 라이브 서버 E2E",
       ],
     },
   ],

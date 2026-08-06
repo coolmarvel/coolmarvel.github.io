@@ -2,6 +2,39 @@
 
 > 최신 세션이 맨 위. 각 블록은 "무엇을 했나 / 어떤 결정을 했나 / 다음에 뭘 하면 되나"를 담는다.
 
+## 2026-08-06 (1차) — sh-dicom-studio 프로젝트 추가 (카드 + 상세 + 스크린샷 8장 + 릴리스 2종)
+
+**한 일**
+- **sh DICOM Studio(v1.0.1) 프로젝트 추가** — `projects.ts` 카드(의료/개인 프로젝트,
+  sh-ip-scanner 다음 위치) + `projectDetails.ts` 상세(배경·아키텍처·AI 활용·스크린샷 8장·링크 3종).
+  - 서사의 중심은 **C# 학습 마이그레이션** — sh-ip-scanner(문법) 다음 단계로, 직접 만든
+    dicom-studio(Electron)를 C#/Avalonia + **ASP.NET Core 8 + Oracle 23ai(도커)** 로 재구현하며
+    웹 API·상용 DB·컨테이너 배포까지 관통. 1~4차 마일스톤(오프라인 → 서버 → PACS → Worklist) 완주.
+  - 저장소가 public 이라 GitHub 링크 포함. **릴리스는 sh-dicom-studio 레포 v1.0.1** —
+    인스톨러(36.5MB) + **학습교재 PDF**(바탕화면의 "C#과 ASP.NET 학습교재 - sh DICOM Studio.pdf",
+    12강, WeasyPrint 제작)를 `csharp-aspnet-study-guide.pdf` 로 업로드. 두 URL 모두 200 + 매직바이트 확인.
+- **스크린샷 8장 캡처** — Avalonia 앱이라 sh-dicom-studio 의 `tools/ShotTool`(헤드리스 렌더러)을
+  `SHDS_SHOT_IMAGES` 환경변수(실이미지 주입)로 확장해 사용(sh-dicom-studio 쪽 변경, 커밋·푸시 완료).
+  장면: 로그인 / 서버 설정 / 초기 화면 / 뷰어(오버레이+회전) / Worklist 예약 접수 / 검사 검색 / 검사 보내기 / JPG 오버레이 산출물.
+  - **Worklist 는 라이브 시연** — 사용자가 띄워 둔 도커 서버(Oracle+API+Orthanc)에 admin 로그인,
+    가상 예약 3건(김예약·김영희·홍길동)을 등록해 실제 조회 화면을 캡처.
+  - **개인정보 마스킹**: 뷰어에 쓴 동맥경화도 검사지 2장(바탕화면 `동맥경화도검사결과/`)은
+    **타인의 실제 결과지**(ID 78965·KSH)라 sharp 로 ID·이름을 가상 값(**20260001·KYH**)으로
+    마스킹한 사본만 사용. 폼·오버레이 환자정보도 가상 값(김영희 F/57)으로 정렬하고 상세
+    demo.note 에 "전부 가상 값" 명시. 마스킹·변환 스크립트는 scratchpad(mask.mjs·to-jpg.mjs, 일회성).
+  - 모달 3장(380~560px)은 sh-ip-scanner 방식대로 1.6배 확대 후 앱 배경색 캔버스(1000px)에 얹음.
+- **대시보드 기술 스택 갱신** — `techStack.ts` 에 **ASP.NET Core**(dotnet 아이콘 재사용)·
+  **Oracle**(simple-icons@9 에서 추출, #F80000) 추가 → 46종. `skills.ts` Backend 게이지를
+  "C# · .NET 8 · ASP.NET Core · Avalonia" 70 으로 갱신(65→70, ASP.NET Core·Oracle 경험 반영).
+- **/ai-workflow 갱신** — intro 7→**8개 프로젝트**, ADR 25→**28건(7개 프로젝트)**,
+  매트릭스에 sh-dicom-studio 열 추가(C#·ASP.NET Core·Oracle / hooks 3종 / 커맨드 2종 /
+  context7+playwright / ADR 3건 / Avalonia 헤드리스 렌더 + 라이브 서버 E2E).
+- 검증: `npm run build` 통과(상세 16개 생성), 로컬 서빙 스모크(/, /projects/, 상세, /ai-workflow/,
+  이미지 8장, 릴리스 PDF 전부 200), playwright-core 로 상세 라이트/다크/모바일 + 대시보드 렌더 확인.
+
+**다음에**
+- sh-dicom-studio 새 버전 릴리스 시 상세 페이지 다운로드 링크(v1.0.1) 갱신 (todo P4).
+
 ## 2026-08-05 (3차) — 대시보드 카드 순서 교체 + 기술 스택 배지 스타일 통일
 
 **한 일** (스크린샷 피드백 → `docs/feedback-archive/2026-08-05-dashboard-stack-swap/`)
