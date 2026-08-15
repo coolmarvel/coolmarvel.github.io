@@ -44,13 +44,24 @@
       그쪽(`coolmarvel/sh-ip-scanner` v1.0.1)에 올렸고, 상세 페이지에 다운로드 버튼 추가.
       https://github.com/coolmarvel/sh-ip-scanner/releases/tag/v1.0.1
       (단, **Windows 실환경 설치·스캔 검증은 아직** — sh-ip-scanner todo P1.)
-- [ ] dicom-studio 새 버전 릴리스 시 — 저장소가 프라이빗이므로 이 포트폴리오 레포 릴리스에
-      `dicom-studio-vX.Y.Z` 태그로 인스톨러 재업로드 + `projectDetails.ts` 다운로드 링크 갱신.
+- [x] dicom-studio 저장소 public 전환 — 2026-08-15 완료. 히스토리에 있던 병원망 Oracle PACS
+      주소를 `git filter-repo` 로 마스킹한 뒤, **레포 삭제 후 재생성**해서 공개
+      (force push 만으로는 옛 커밋이 SHA 직접 접근으로 남는 걸 확인 — 아래 항목 참고).
+      릴리스가 `coolmarvel/dicom-studio` v1.4.0 으로 이관되어 이 레포의
+      `dicom-studio-v1.4.0` 태그·릴리스는 삭제함.
+- [ ] dicom-studio 새 버전 릴리스 시 — 저장소가 public 이라 그쪽 레포 릴리스에 올리고
+      `projectDetails.ts` 다운로드 링크(현재 v1.4.0) 갱신.
 - [ ] sh-dicom-studio 새 버전 릴리스 시 — 저장소가 public 이라 그쪽 레포 릴리스에 올리고
       `projectDetails.ts` 다운로드 링크(현재 v1.0.1)와 학습교재 PDF 링크 갱신.
 - [ ] 이력서 PDF 갱신 시 `public/resume.pdf` 교체 + `src/data/` 동기화.
 - [ ] 방문 통계(GoatCounter 등 무료 정적 친화 도구) 검토.
 - [ ] **공개 레포 git history 에 남은 내부 IP** — `docs/session-log.md` 의 voice_server 줄에 사내
       내부 IP(포트 8000)가 평문으로 있었고 2026-08-05 에 마스킹했지만, **과거 커밋에는 그대로 남아
-      있다.** 지우려면 sh-ip-scanner 때처럼 `git filter-repo --replace-text` 로 history 재작성 필요
-      (커밋 해시 전부 바뀌므로 사용자 판단 후 진행).
+      있다.** 이 레포는 이미 public 이라 지금도 열람 가능한 상태.
+      - **주의**: `git filter-repo --replace-text` + force push 만으로는 부족하다. 2026-08-15
+        dicom-studio 작업에서 확인한 바로, force push 로 밀려난 옛 커밋은 GitHub 에 남아
+        `gh api repos/<owner>/<repo>/commits/<옛SHA>` 로 내용이 그대로 읽힌다. 확실히 지우려면
+        **레포 삭제 후 재생성**하거나 GitHub 지원팀에 GC 를 요청해야 한다.
+      - 다만 이 레포는 dicom-studio 와 달리 **삭제 비용이 크다** — GitHub Pages 설정,
+        Actions 배포 이력, `dicom-studio-v1.4.0` 외 릴리스 자산, 사용자 사이트 도메인 연결이
+        모두 딸려 있다. 삭제·재생성 대신 지원팀 GC 요청이 현실적. 사용자 판단 후 진행.

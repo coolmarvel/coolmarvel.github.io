@@ -235,12 +235,11 @@ export const projectDetails: Record<string, ProjectDetail> = {
       { src: "/images/projects/dicom-studio/send.jpg", caption: "PACS 전송 (C-STORE) — 대상 관리·Echo 연결 테스트·다중 전송, 동봉 테스트 SCP로 실전송한 결과" },
     ],
     demo: {
-      note: "저장소는 비공개입니다 (개인 프로젝트, 소스 비공개 방침). 아래 인스톨러로 설치해 직접 사용해볼 수 있으며, 스크린샷은 제작자 본인의 실제 검사 결과지로 시연한 화면입니다.",
+      note: "아래 인스톨러로 설치해 직접 사용해볼 수 있으며, 스크린샷은 제작자 본인의 실제 검사 결과지로 시연한 화면입니다. 특정 병원·장비에 종속되지 않는 범용 앱으로, 기관 ID·이름·장비 번호는 모두 설정값입니다.",
     },
-    // 저장소가 프라이빗이라 GitHub 저장소 링크는 넣지 않는다 (사용자 지시).
-    // 다운로드 자산만 공개 레포(coolmarvel.github.io) 릴리스로 제공.
     links: [
-      { label: "Windows 인스톨러 다운로드 (v1.4.0)", href: "https://github.com/coolmarvel/coolmarvel.github.io/releases/download/dicom-studio-v1.4.0/DICOMStudio-Setup-1.4.0.exe" },
+      { label: "Windows 인스톨러 다운로드 (v1.4.0)", href: "https://github.com/coolmarvel/dicom-studio/releases/download/v1.4.0/DICOMStudio-Setup-1.4.0.exe" },
+      { label: "GitHub 저장소", href: "https://github.com/coolmarvel/dicom-studio" },
     ],
   },
 
