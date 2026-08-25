@@ -4,6 +4,7 @@ import Badge from "@/components/ui/Badge";
 import Card from "@/components/ui/Card";
 import ProfileCard from "@/components/sections/ProfileCard";
 import MetricCards from "@/components/sections/MetricCards";
+import CareerDuration from "@/components/common/CareerDuration";
 import TechStack from "@/components/sections/TechStack";
 import ExperienceTimeline from "@/components/sections/ExperienceTimeline";
 import ProjectCard from "@/components/sections/ProjectCard";
@@ -30,7 +31,14 @@ export default function DashboardPage() {
           </div>
         </Card>
 
-        <Card title="경력 타임라인" desc="총 3년 10개월 · 5개사">
+        <Card
+          title="경력 타임라인"
+          desc={
+            <>
+              총 <CareerDuration /> · 5개사
+            </>
+          }
+        >
           <ExperienceTimeline compact />
           <Link
             href="/experience"

@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import Badge from "@/components/ui/Badge";
+import CareerDuration from "@/components/common/CareerDuration";
 import { profile } from "@/data/profile";
 import { BriefcaseIcon, FolderIcon, BotIcon, GridIcon } from "@/icons";
 
@@ -30,7 +31,7 @@ export default function MetricCards() {
                 {item.label}
               </span>
               <h4 className="mt-2 text-2xl font-bold text-gray-800 group-hover:text-brand-600 dark:text-white/90 dark:group-hover:text-brand-400">
-                {item.value}
+                {item.value === "auto" ? <CareerDuration /> : item.value}
               </h4>
             </div>
           </Link>

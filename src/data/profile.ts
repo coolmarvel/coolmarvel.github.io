@@ -1,7 +1,7 @@
 export const profile = {
   name: "이성현",
   englishName: "Seonghyeon Lee (coolmarvel)",
-  title: "풀스택 개발자",
+  title: "백엔드 중심 풀스택 개발자",
   tagline: "메디컬 · 커머스 · 블록체인",
   birthYear: 1997,
   email: "marvel97@naver.com",
@@ -13,13 +13,16 @@ export const profile = {
     "https://coolmarvel.notion.site/Portfolio-14dd605b71404415b6b562576e9e4128?pvs=4",
   photo: "/images/profile.jpg",
   resume: "/resume.pdf",
+  /** 다운로드 시 저장될 파일명 (원본 이력서 파일명과 동일) */
+  resumeFileName: "백엔드 중심 풀스택 개발자 이성현.pdf",
   summary: [
-    "블록체인, 커머스, 의료 분야를 경험하며 다양한 산업의 서비스를 구축해온 소프트웨어 엔지니어입니다.",
-    "서비스 기획부터 데이터 설계, 백엔드 API 개발, 프론트엔드 구현, 운영 및 유지보수까지 전 과정에 참여하며 문제 해결 능력을 키워왔습니다.",
-    "기술 자체보다 비즈니스 문제 해결에 집중하며, 새로운 산업에 빠르게 적응하여 최적의 시스템을 설계하고 구현하는 것을 강점으로 가지고 있습니다. AI 기술을 적극적으로 활용하여 서비스 생산성과 품질 향상을 추구하고 있습니다.",
+    "블록체인, 커머스, 의료 도메인에서 백엔드 중심의 풀스택 개발 경험을 쌓아온 소프트웨어 엔지니어입니다.",
+    "Java/Spring Boot, Node.js/NestJS, PHP/Laravel, React/Next.js 기반으로 REST API, 주문/결제 시스템, 운영 백오피스, 사내 그룹웨어, 외부 서비스 연동, 데이터 처리, 배포와 운영까지 경험했습니다.",
+    "최근에는 Claude Code, GPT/Codex, Cursor, MCP를 활용해 설계, 구현, 코드리뷰, 테스트, 문서화까지 AI와 협업하는 개발 방식을 실무와 개인 프로젝트에 적극 적용하고 있습니다. 기술 자체보다 업무와 도메인을 이해하고 실제 사용자가 체감할 수 있는 시스템으로 구현하는 것을 중요하게 생각합니다.",
   ],
   highlights: [
-    { label: "총 경력", value: "3년 10개월", badge: "재직중", href: "/experience" },
+    // value "auto" → CareerDuration 컴포넌트가 src/lib/career.ts 기준(2022.05~)으로 자동 계산
+    { label: "총 경력", value: "auto", badge: "재직중", href: "/experience" },
     { label: "재직 회사", value: "5개사", badge: "의료 · 커머스 · 블록체인", href: "/experience" },
     { label: "수행 프로젝트", value: "14+", badge: "설계 → 운영", href: "/projects" },
     { label: "AI 협업 개발", value: "Claude Code", badge: "Harness Engineering", href: "/ai-workflow" },

@@ -133,7 +133,7 @@ export default function AppSidebar() {
           </p>
           <a
             href={asset(profile.resume)}
-            download="이성현_이력서.pdf"
+            download={profile.resumeFileName}
             className="flex items-center justify-center gap-2 rounded-lg bg-brand-500 p-3 text-theme-sm font-medium text-white hover:bg-brand-600"
           >
             <DownloadIcon className="size-4" />

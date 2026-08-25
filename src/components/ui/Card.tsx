@@ -1,6 +1,6 @@
 interface CardProps {
   title?: string;
-  desc?: string;
+  desc?: React.ReactNode;
   className?: string;
   children: React.ReactNode;
 }

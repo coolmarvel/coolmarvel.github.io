@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import Badge from "@/components/ui/Badge";
 import SkillsSection from "@/components/sections/SkillsSection";
+import CareerDuration from "@/components/common/CareerDuration";
 import { experiences } from "@/data/experience";
 import { CalendarIcon } from "@/icons";
 
@@ -29,7 +30,7 @@ export default function ExperiencePage() {
           경력
         </h1>
         <p className="mt-1 text-theme-sm text-gray-500 dark:text-gray-400">
-          총 3년 10개월 · 의료 · 커머스 · 블록체인 도메인을 넘나들며 설계부터
+          총 <CareerDuration /> · 의료 · 커머스 · 블록체인 도메인을 넘나들며 설계부터
           운영까지 담당했습니다.
         </p>
       </div>
