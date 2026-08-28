@@ -1,5 +1,13 @@
 # AGENTS.md — coolmarvel_portfolio 작업 가이드
 
+<!-- omd:start v=1 hash=fcd83d14cd18 -->
+## Design System (oh-my-design)
+
+**Before any UI, styling, copy, or motion change, open and read `./DESIGN.md` in full.** It is the standalone design contract. If an exact valid adopted Core v2 manifest exists, its hash-bound System Graph is machine authority and DESIGN.md is the projection. A migration candidate remains non-authoritative.
+
+If present, read `./.omd/preferences.md` — pending explicit corrections override the current contract until atomically folded into the graph/projection. Apply them and flag conflicts.
+<!-- omd:end -->
+
 이 파일은 **세션이 바뀌어도 맥락을 즉시 복구**하기 위한 진입점이다. Codex(또는 다른 AI 에이전트)는
 세션 시작 시 이 파일을 자동으로 읽는다. 아래 "부팅 프로토콜"이 나머지 상태 파일까지 로드하도록 지시한다.
 

@@ -23,3 +23,6 @@ next-env.d.ts
 /백엔드 중심 풀스택 개발자 이성현.pdf
 /이성현_경력기술서.pdf
 /이성현_포트폴리오_링크.pdf
+
+# oh-my-design 레퍼런스 카탈로그(15MB, `npx oh-my-design-cli install-skills` 로 재생성)
+.claude/data/

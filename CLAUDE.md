@@ -19,8 +19,9 @@
 
 1. 코드를 바꾸면 **같은 턴에** `docs/session-log.md`(최상단 블록 추가)와 `docs/todo.md`를 갱신한다.
 2. `npm run build`로 정적 내보내기가 깨지지 않았는지 확인한다. **빌드 검증 없이 커밋하지 않는다.**
-3. UI 변경 시 가능하면 로컬 서빙 + 스크린샷으로 라이트/다크/모바일을 확인한다
-   (방법은 session-log 2026-07-09 항목 참고 — playwright-core는 `~/pdf-editor/node_modules`에서 차용 가능).
+3. UI 변경 시 로컬 서빙 + Playwright 스크린샷으로 라이트/다크/모바일(390px)과 **body 가로 넘침 0** 을 확인한다
+   (스크립트 예시는 session-log 2026-08-28 항목 — playwright 는 `~/pdf-editor-live/node_modules/playwright/index.mjs`,
+   크로미움은 `~/.cache/ms-playwright/chromium_headless_shell-1237` 를 executablePath 로 지정).
 4. 커밋은 Conventional Commits + **한국어 제목** + `Co-Authored-By: Claude <noreply@anthropic.com>` 트레일러.
    **푸시는 사용자가 직접** 한다 (`!` 접두 명령). 푸시하면 GitHub Actions가 자동 배포한다.
 
@@ -29,11 +30,14 @@
 **이성현(coolmarvel)의 개발자 포트폴리오** — https://coolmarvel.github.io/
 (2026-07-10에 프로젝트 페이지에서 **사용자 사이트 레포(coolmarvel.github.io)로 이관** — 레포 이름 교체 방식)
 
-2026-07-09에 Bootstrap 통짜 HTML에서 **TailAdmin 디자인 시스템 기반 Next.js 16 정적 사이트**로
-전면 재구축했다 (ADR-0001). 대시보드 스타일 UI, 다크모드, 반응형.
+2026-07-09에 Bootstrap 통짜 HTML에서 Next.js 16 정적 사이트로 재구축했고(ADR-0001), **2026-08-28에
+oh-my-design 디자인 계약(`DESIGN.md`, Toss 레퍼런스)으로 UI를 전면 재설계**했다(ADR-0002).
+상단 내비 + 문서형 레이아웃, 다크모드, 모바일 반응형.
 
 - **스택**: Next.js 16 (App Router, `output: "export"`) · React 19 · TypeScript · Tailwind CSS 4
-- **페이지**: `/`(대시보드) · `/experience`(경력+스킬) · `/projects`(프로젝트 카드) · `/ai-workflow`(Harness Engineering 소개)
+- **페이지**: `/`(홈) · `/experience`(경력+숙련도) · `/projects`(카드, 개인 프로젝트 우선) · `/projects/[slug]`(상세) · `/ai-workflow`(Harness Engineering)
+- **디자인**: `DESIGN.md` 가 UI 계약(토큰·컴포넌트·보이스). UI 를 고치기 전에 반드시 읽는다. 토큰은 `src/app/globals.css` 한 곳,
+  프리미티브는 `src/components/ui/{Button,Chip,Card,SectionTitle}`. 페이지에 hex·`dark:` 접두 남발 금지.
 - **배포**: main push → `.github/workflows/deploy.yml` → GitHub Pages (Source: GitHub Actions 방식)
 
 ## 콘텐츠 SSOT — 여기만 고치면 된다
@@ -44,7 +48,8 @@
 |---|---|---|
 | `src/data/profile.ts` | 이름·연락처·소개·핵심 지표 4종 | 신상/지표 변동 |
 | `src/data/experience.ts` | 회사별 경력·상세 업무 + 학력·자격 | 이직/프로젝트 종료 |
-| `src/data/projects.ts` | 프로젝트 카드 (slug·domain·highlights·stack) | 새 프로젝트 |
+| `src/data/projects.ts` | 프로젝트 카드 (slug·domain·highlights·stack). **배열 순서 = 노출 순서**(개인 프로젝트 먼저) | 새 프로젝트 |
+| `src/data/projectDetails.ts` | 상세(배경·아키텍처·sections·usage·스크린샷·demo·links). 카드의 라이브/GitHub/다운로드 링크도 여기서 파생 | 상세 갱신 |
 | `src/data/skills.ts` | 스킬 카테고리(게이지 %)·배지 | 스택 변동 |
 | `src/data/aiWorkflow.ts` | AI 워크플로우 페이지 전체 콘텐츠 | 하네스 진화 시 |
 
@@ -55,9 +60,8 @@
 
 ## ⛔ 하드 제약 (어기면 안 됨)
 
-1. **`tailadmin-nextjs-pro-225/`는 절대 커밋 금지** (gitignore 처리됨). TailAdmin Pro는 유료 라이선스로
-   소스를 공개 레포에 올릴 수 없다. 디자인 토큰·idiom만 차용해 자체 컴포넌트로 작성한다.
-   새 UI가 필요하면 이 폴더에서 **참고만** 하고 코드를 복사하지 않는다.
+1. **`tailadmin-nextjs-pro-225/`는 절대 커밋 금지** (gitignore 처리됨, 2026-08-28부터 디자인 참조도 끝남 — 현재 계약은 DESIGN.md).
+   `.claude/data/`(OmD 레퍼런스 카탈로그 15MB)도 gitignore — `npx oh-my-design-cli install-skills` 로 재생성.
 2. **basePath 규칙**: 사용자 사이트(coolmarvel.github.io) 루트 배포라 **basePath 없음** (2026-07-10~).
    - 단, `<img>`·PDF 등 정적 에셋 경로는 여전히 `src/lib/assets.ts`의 `asset()` 헬퍼를 거친다
      (향후 basePath 재도입 시 한 곳만 고치면 되도록 유지하는 관례).
@@ -82,3 +86,19 @@ curl -s -o /dev/null -w "%{http_code}" http://localhost:8931/
 - `docs/todo.md` — 우선순위별(P1~P4) 남은 일.
 - `docs/adr/` — 아키텍처 결정 기록. 구조적 결정을 내리면 ADR을 추가한다.
 - 문서 작성 규칙은 `~/cm_groupware/docs/writing-guide.md`를 따른다 (조직 표준 원천).
+
+<!-- omd:start v=1 hash=a0905ab87d60 -->
+# Design System (oh-my-design)
+
+Read the standalone design contract at **@./DESIGN.md** before any UI,
+styling, microcopy, or motion work. When a valid adopted Core v2
+`.omd/system/manifest.json` declares `profile: portable-core` and binds exact
+graph/projection hashes, the System Graph is machine authority and DESIGN.md is
+its standalone projection. A migration candidate is never adopted authority.
+
+Preference log (pending corrections): @./.omd/preferences.md
+
+Precedence: pending explicit preference corrections > adopted Bound System
+graph/standalone DESIGN.md > your defaults. Fold pending corrections into the
+graph and regenerate the projection before clearing them.
+<!-- omd:end -->

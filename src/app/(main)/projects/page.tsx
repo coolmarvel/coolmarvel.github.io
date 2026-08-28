@@ -1,25 +1,22 @@
 import type { Metadata } from "next";
 
+import SectionTitle from "@/components/ui/SectionTitle";
 import ProjectsExplorer from "@/components/sections/ProjectsExplorer";
 import { projects } from "@/data/projects";
 
 export const metadata: Metadata = {
-  title: "프로젝트 | 이성현 포트폴리오",
+  title: "프로젝트",
+  description: "운영 중인 웹 서비스, 데스크톱 앱 인스톨러, 병원 그룹웨어, AI 파이프라인, 블록체인 성능 시험까지 — 설계부터 운영까지 담당한 프로젝트 목록.",
 };
 
 export default function ProjectsPage() {
   return (
-    <div className="flex flex-col gap-4 md:gap-6">
-      <div>
-        <h1 className="text-title-sm font-semibold text-gray-800 dark:text-white/90">
-          프로젝트
-        </h1>
-        <p className="mt-1 text-theme-sm text-gray-500 dark:text-gray-400">
-          병원 그룹웨어부터 블록체인 인증 시험, AI 자동화 파이프라인까지 —
-          기획 · 설계 · 개발 · 운영 전 과정을 담당한 프로젝트들입니다.
-        </p>
-      </div>
-
+    <div className="flex flex-col gap-6 md:gap-8">
+      <SectionTitle
+        as="h1"
+        title={`프로젝트 ${projects.length}`}
+        desc="개인 프로젝트는 링크로 바로 써보거나 내려받을 수 있고, 회사 프로젝트는 스크린샷과 설계 기록으로 남겼습니다."
+      />
       <ProjectsExplorer projects={projects} />
     </div>
   );

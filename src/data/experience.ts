@@ -29,7 +29,7 @@ export const experiences: Experience[] = [
     projects: [
       {
         name: "CM병원 그룹웨어 (사내 통합 업무 시스템)",
-        period: "26.05 ~ 26.06",
+        period: "26.05 ~",
         description: [
           "전자 결재, 근태/연차, 게시판, 사내 메일/메신저, 문서·증명서 발급, 직무평가 등 분산된 업무를 단일 플랫폼으로 통합한 사내 그룹웨어",
           "Laravel 12 기반 도메인 주도 설계(DDD)로 13개 업무 도메인을 모듈화",

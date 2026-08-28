@@ -2,6 +2,51 @@
 
 > 최신 세션이 맨 위. 각 블록은 "무엇을 했나 / 어떤 결정을 했나 / 다음에 뭘 하면 되나"를 담는다.
 
+## 2026-08-28 — Toss 레퍼런스 UI 전면 재설계(oh-my-design) + PDF Editor Live 추가 + 프로젝트 순서·링크 정리
+
+**발단**: 사용자 요청 — project-seed 의 oh-my-design 으로 "Toss처럼" UI/UX 를 바꾸고(콘텐츠 유지), 새 이력서 반영,
+pdf-editor-live 를 상세히(개발 방식·OAuth·SEO·Lightsail 프록시·사용법) 추가, 프로젝트 탭을 전체 → 개인 프로젝트 순으로,
+목록도 개인 프로젝트 우선, 카드에 접속 링크, 모바일 반응형, 스크린샷 직접 캡처. sh-econsent 는 추가하지 않기로(사용자 지시).
+
+**한 일**
+- **oh-my-design 설치·디자인 계약** — `npx oh-my-design-cli install-skills --agent claude-code --all`(스킬 22·에이전트 19·훅 4,
+  `.claude/data/` 는 gitignore). `omd-init` 의 `query-references.mjs --brand toss` 로 toss 1위(104, verified_v2) 확인 →
+  `DESIGN.md`(inspired, 15절 + 토큰 프런트매터) 직접 작성, `.omd/init-context.json`·`sync.lock.json`, shim 3종
+  (CLAUDE.md·AGENTS.md·.cursor/rules/omd-design.mdc) 설치. 결정과 대안은 **ADR-0002**.
+- **토큰·레이아웃 전면 교체** — `globals.css` 를 Toss 팔레트(primary #3182f6, weak, surface #f2f4f6, fg #191f28 …)로
+  재작성. CSS 변수 한 벌을 `.dark` 에서 바꾸고 `@theme inline` 으로 매핑해 컴포넌트에 `dark:` 접두가 거의 없다.
+  Pretendard Variable(jsDelivr) 채택(Toss Product Sans 재배포 불가). 사이드바 대시보드 → **상단 내비 + 1040px 문서형 + 푸터**,
+  모바일 시트 메뉴, 페인트 전 테마 스크립트(플래시 제거). 삭제: AppSidebar·AppHeader·Backdrop·SidebarContext·Badge·ProfileCard.
+  신설: `ui/{Button,Chip,Card,SectionTitle}`, `layout/{SiteHeader,SiteFooter}`, `sections/Hero`, `lib/{site,domain}`.
+- **페이지 재작성 5종** — 홈(히어로 한 문장 + 지표 4 + 대표 프로젝트 + 소개/경력 + 스택 + 학력), 경력, 프로젝트(필터 탭 가로
+  스크롤, 선택=inverse), 상세(usage 단계·sections 카드·이전/다음 내비), AI 워크플로우(6축, 매트릭스 9열 sticky 첫 열).
+- **PDF Editor Live 추가** — `projects.ts` 맨 앞(featured, 도메인 "웹 서비스" 신설) + `projectDetails.ts` 상세: 배경 3문단,
+  아키텍처 6항목, **sections 5개**(인증·OAuth / 구독·결제 / SEO / 인프라·배포 Lightsail+Caddy / 에디터 기능), usage 5단계,
+  AI 활용 5항목, 스크린샷 20장, demo(라이브 URL, 계정 미노출), links 2. 근거는 서브에이전트가 `~/pdf-editor-live` 를 조사한
+  사실(ADR-0001·guides·Caddyfile·deploy.yml). **저장소는 private 이라 GitHub 링크 없음**, 서버 IP·키 경로·관리자 메일 등은 제외.
+  `ProjectDetail` 타입에 `sections`·`usage` 추가.
+- **스크린샷 20장** — 서브에이전트가 Playwright(pdf-editor-live 의 playwright 1.62 + headless_shell-1237)로 사용자 계정 로그인
+  후 캡처(랜딩·로그인·가입·요금제·마이페이지·에디터 도구 11장면·관리자 집계·모바일 2). 샘플 PDF 는 pdf-lib 로 만든 가상
+  견적서. `me.jpg` 는 작업 내역에 실문서명이 보여 **상단 800px 로 크롭**. 로그인 rate limit(10회/15분)에 한 번 걸려 4장 재캡처.
+- **프로젝트 순서·링크** — 배열 순서를 개인 프로젝트(pdf-editor-live → pdf-editor → file-converter → dicom-studio →
+  sh-dicom-studio → sh-ip-scanner) → 씨엠병원 → 파라메타 → 앳홈트립 → 위메이드 → 드림시큐리티로 재배열(탭 순서는 데이터
+  순서를 따름). 카드 하단에 라이브/GitHub/다운로드 링크 행(카드 링크와 중첩 앵커 없이 분리). featured = pdf-editor-live·
+  cm-groupware·meeting-todo-mcp·gaia-backoffice.
+- **콘텐츠 갱신** — pdf-editor 카드 v1.7.0(검색·페이지 관리 모달·서체 승계·툴바 스플릿, 웹과 코어 공유, Electron 43) + 웹 버전
+  링크. `profile` 에 headline/subheadline, 지표 "프로젝트" 는 `projects.length` 자동. 경력 그룹웨어 기간 "26.05 ~". techStack
+  +Fastify·Drizzle·Vite·Caddy·OAuth 2.0·oh-my-design(53종, simple-icons 4종 추가). aiWorkflow: 9개 프로젝트·ADR 29건,
+  **Design 축 신설**, 매트릭스 pdf-editor-live 열 + "디자인 계약" 행. sh-web-editor·jazz-community 는 얇아 보류.
+- **SEO** — metadataBase·title 템플릿·OG/twitter(`public/og.png` 1200×630 Playwright 렌더)·JSON-LD Person·`app/sitemap.ts`·`app/robots.ts`
+  (todo P2·P3 항목 완료).
+- 검증: `npm run build` 통과(28 페이지), 로컬 서빙 후 Playwright 로 5개 라우트 × 라이트/다크 × 1440/390 캡처 확인, body 가로 넘침
+  0(상세 페이지의 긴 토큰은 전역 `overflow-wrap: anywhere` 로 해결, 매트릭스 첫 열은 nowrap). 스크린샷 스크립트는 scratchpad
+  `shoot.mjs`(playwright 절대 경로 import + executablePath).
+
+**다음에**
+- 사용자 검토 후 푸시. OG 미리보기는 배포 후 카카오톡/슬랙에서 확인.
+- 대화형 세션에서 `omd:init` 을 다시 돌려 Core v2 컴파일(승인 영수증)로 승격할지 결정(ADR-0002 대안 C).
+- pdf-editor-live 저장소가 public 이 되면 상세 links 에 GitHub 추가.
+
 ## 2026-08-25 — 이력서 PDF 교체 + 총 경력 자동 계산 + 원본 PDF gitignore 정리
 
 **한 일**

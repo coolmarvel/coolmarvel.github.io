@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "design_md_sha256": "e3b2687b96d4c84a1f575d85b26761f1192c1ce3373387c95993b2731eed8275",
+  "shims": {
+    "CLAUDE.md": "a0905ab87d60",
+    "AGENTS.md": "fcd83d14cd18",
+    ".cursor/rules/omd-design.mdc": "7f805d9637e8"
+  },
+  "synced_at": "2026-08-28"
+}

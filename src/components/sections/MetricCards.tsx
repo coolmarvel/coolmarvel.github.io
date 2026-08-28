@@ -1,42 +1,33 @@
 import Link from "next/link";
 
-import Badge from "@/components/ui/Badge";
+import Chip from "@/components/ui/Chip";
 import CareerDuration from "@/components/common/CareerDuration";
 import { profile } from "@/data/profile";
-import { BriefcaseIcon, FolderIcon, BotIcon, GridIcon } from "@/icons";
+import { projects } from "@/data/projects";
+import { ChevronRightIcon } from "@/icons";
 
-const icons = [BriefcaseIcon, GridIcon, FolderIcon, BotIcon];
-
+/** 핵심 지표 4종 — DESIGN.md §4 Metric tile */
 export default function MetricCards() {
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6 xl:grid-cols-4">
-      {profile.highlights.map((item, i) => {
-        const Icon = icons[i % icons.length];
-        return (
-          <Link
-            key={item.label}
-            href={item.href}
-            className="group rounded-2xl border border-gray-200 bg-white p-5 transition hover:border-brand-300 hover:shadow-theme-md dark:border-gray-800 dark:bg-white/[0.03] dark:hover:border-brand-500/40 md:p-6"
-          >
-            <div className="flex items-start justify-between gap-2">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gray-100 dark:bg-gray-800">
-                <Icon className="size-6 text-gray-800 dark:text-white/90" />
-              </div>
-              <Badge color="primary" size="sm">
-                {item.badge}
-              </Badge>
-            </div>
-            <div className="mt-5">
-              <span className="text-sm text-gray-500 dark:text-gray-400">
-                {item.label}
-              </span>
-              <h4 className="mt-2 text-2xl font-bold text-gray-800 group-hover:text-brand-600 dark:text-white/90 dark:group-hover:text-brand-400">
-                {item.value === "auto" ? <CareerDuration /> : item.value}
-              </h4>
-            </div>
-          </Link>
-        );
-      })}
+    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:gap-4 lg:grid-cols-4">
+      {profile.highlights.map((item) => (
+        <Link
+          key={item.label}
+          href={item.href}
+          className="press-card group flex flex-col justify-between rounded-card bg-surface p-5 hover:bg-surface-hover"
+        >
+          <div className="flex items-center justify-between">
+            <span className="text-body-sm text-muted">{item.label}</span>
+            <ChevronRightIcon className="size-5 text-placeholder transition-colors group-hover:text-body" />
+          </div>
+          <p className="tabular mt-3 text-number text-fg">
+            {item.value === "auto" ? <CareerDuration /> : item.value === "projects" ? `${projects.length}개` : item.value}
+          </p>
+          <div className="mt-3">
+            <Chip accent={item.label === "총 경력" ? "green" : "blue"}>{item.badge}</Chip>
+          </div>
+        </Link>
+      ))}
     </div>
   );
 }

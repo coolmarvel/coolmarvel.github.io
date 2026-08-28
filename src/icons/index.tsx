@@ -8,7 +8,7 @@ const base = (props: IconProps) => ({
   viewBox: "0 0 24 24",
   fill: "none",
   stroke: "currentColor",
-  strokeWidth: 1.8,
+  strokeWidth: 1.6,
   strokeLinecap: "round" as const,
   strokeLinejoin: "round" as const,
   ...props,
@@ -181,5 +181,85 @@ export const ChainIcon = (props: IconProps) => (
   <svg {...base(props)}>
     <path d="M10 14a4 4 0 0 0 6 .5l3-3a4 4 0 1 0-5.7-5.7l-1.5 1.5" />
     <path d="M14 10a4 4 0 0 0-6-.5l-3 3a4 4 0 1 0 5.7 5.7l1.5-1.5" />
+  </svg>
+);
+
+export const ArrowRightIcon = (props: IconProps) => (
+  <svg {...base(props)}>
+    <path d="M5 12h14" />
+    <path d="m13 6 6 6-6 6" />
+  </svg>
+);
+
+export const ArrowUpRightIcon = (props: IconProps) => (
+  <svg {...base(props)}>
+    <path d="M7 17 17 7" />
+    <path d="M8 7h9v9" />
+  </svg>
+);
+
+export const GlobeIcon = (props: IconProps) => (
+  <svg {...base(props)}>
+    <circle cx="12" cy="12" r="9" />
+    <path d="M3 12h18" />
+    <path d="M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18Z" />
+  </svg>
+);
+
+export const ShieldIcon = (props: IconProps) => (
+  <svg {...base(props)}>
+    <path d="M12 3 4.5 6v5.5c0 4.5 3.2 7.8 7.5 9.5 4.3-1.7 7.5-5 7.5-9.5V6L12 3Z" />
+    <path d="m9.5 12 1.8 1.8 3.4-3.6" />
+  </svg>
+);
+
+export const SearchIcon = (props: IconProps) => (
+  <svg {...base(props)}>
+    <circle cx="11" cy="11" r="6.5" />
+    <path d="m20 20-4.2-4.2" />
+  </svg>
+);
+
+export const CloudIcon = (props: IconProps) => (
+  <svg {...base(props)}>
+    <path d="M7 18a4 4 0 0 1-.6-7.96A6 6 0 0 1 18 9a4.5 4.5 0 0 1-.5 9H7Z" />
+  </svg>
+);
+
+export const CardIcon = (props: IconProps) => (
+  <svg {...base(props)}>
+    <rect x="3" y="6" width="18" height="13" rx="2.5" />
+    <path d="M3 10.5h18" />
+    <path d="M7 15h4" />
+  </svg>
+);
+
+export const LayersIcon = (props: IconProps) => (
+  <svg {...base(props)}>
+    <path d="m12 3 8.5 4.5L12 12 3.5 7.5 12 3Z" />
+    <path d="m3.5 12 8.5 4.5 8.5-4.5" />
+    <path d="m3.5 16.5 8.5 4.5 8.5-4.5" />
+  </svg>
+);
+
+export const PaletteIcon = (props: IconProps) => (
+  <svg {...base(props)}>
+    <path d="M12 3a9 9 0 1 0 0 18h1.5a2 2 0 0 0 0-4H13a1.5 1.5 0 0 1 0-3h2.5A5.5 5.5 0 0 0 21 8.5 6 6 0 0 0 12 3Z" />
+    <circle cx="7.5" cy="11" r="1" fill="currentColor" />
+    <circle cx="10" cy="7" r="1" fill="currentColor" />
+    <circle cx="15" cy="7" r="1" fill="currentColor" />
+  </svg>
+);
+
+export const SparkIcon = (props: IconProps) => (
+  <svg {...base(props)}>
+    <path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.2 2.2M16.2 16.2l2.2 2.2M5.6 18.4l2.2-2.2M16.2 7.8l2.2-2.2" />
+  </svg>
+);
+
+export const LinkIcon = (props: IconProps) => (
+  <svg {...base(props)}>
+    <path d="M10 13.5a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1.2 1.2" />
+    <path d="M14 10.5a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1.2-1.2" />
   </svg>
 );

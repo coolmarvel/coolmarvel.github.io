@@ -1,49 +1,32 @@
-import Badge from "@/components/ui/Badge";
+import Chip from "@/components/ui/Chip";
 import { experiences } from "@/data/experience";
+import { experienceDomainAccent, experienceDomainLabel } from "@/lib/domain";
 
-const domainColor = {
-  medical: "success" as const,
-  blockchain: "primary" as const,
-  commerce: "warning" as const,
-};
-
-const domainLabel = {
-  medical: "의료",
-  blockchain: "블록체인",
-  commerce: "커머스",
-};
-
+/** 경력 타임라인 — DESIGN.md §4 Timeline */
 export default function ExperienceTimeline({ compact = false }: { compact?: boolean }) {
   return (
-    <ol className="relative border-l border-gray-200 dark:border-gray-800">
+    <ol className="relative ml-1.5 border-l-2 border-line">
       {experiences.map((exp) => (
-        <li key={exp.company} className="mb-8 ml-5 last:mb-0">
+        <li key={exp.company} className="relative mb-6 pl-5 last:mb-0">
           <span
-            className={`absolute -left-[7px] mt-1.5 flex h-3.5 w-3.5 rounded-full border-2 border-white dark:border-gray-900 ${
-              exp.current ? "bg-brand-500" : "bg-gray-300 dark:bg-gray-700"
+            aria-hidden="true"
+            className={`absolute -left-[7px] top-1.5 size-3 rounded-full ring-4 ring-canvas ${
+              exp.current ? "bg-primary" : "bg-line"
             }`}
           />
           <div className="flex flex-wrap items-center gap-2">
-            <h3 className="font-semibold text-gray-800 dark:text-white/90">
-              {exp.company}
-            </h3>
-            <Badge color={domainColor[exp.domain]} size="sm">
-              {domainLabel[exp.domain]}
-            </Badge>
-            {exp.current && (
-              <Badge color="success" size="sm" variant="solid">
-                재직중
-              </Badge>
-            )}
+            <h3 className="text-[16px] font-semibold text-fg">{exp.company}</h3>
+            <Chip accent={experienceDomainAccent[exp.domain]}>{experienceDomainLabel[exp.domain]}</Chip>
+            {exp.current && <Chip accent="green">재직중</Chip>}
           </div>
-          <p className="mt-0.5 text-theme-sm text-gray-500 dark:text-gray-400">
+          <p className="mt-0.5 text-caption text-muted">
             {exp.team} · {exp.role} · {exp.period}
             {exp.duration !== "재직중" && ` (${exp.duration})`}
           </p>
           {!compact && (
-            <ul className="mt-2 list-inside list-disc text-theme-sm text-gray-600 dark:text-gray-300">
+            <ul className="mt-2 flex flex-col gap-1 text-body-sm text-body">
               {exp.projects.map((p) => (
-                <li key={p.name}>{p.name}</li>
+                <li key={p.name}>· {p.name}</li>
               ))}
             </ul>
           )}

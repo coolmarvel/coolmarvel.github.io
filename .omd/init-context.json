@@ -1,0 +1,17 @@
+{
+  "reference_id": "toss",
+  "description": "개발자 포트폴리오 사이트(경력·프로젝트·AI 워크플로우). 토스처럼 명료하고 여백이 넓고 신뢰감 있는 톤, 모바일 반응형, 다크모드. 콘텐츠는 유지하고 UI/UX만 교체.",
+  "mode": "inspired",
+  "delta_set": {
+    "axes": { "color.hue_deg": 0, "radius.delta_px": 0, "density.shift": 0, "tracking.shift": -0.01 },
+    "voiceHints": ["plain", "direct", "korean-first", "resume-tone"],
+    "matchedKeywords": ["trustworthy", "calm", "minimal"],
+    "warnings": [
+      "Toss Product Sans not redistributable → Pretendard Variable adopted (agent-proposed)",
+      "dark mode / accent badges / motion are extensions with no Toss public evidence",
+      "Core v2 compiler not run: requires project-owner review receipt in an interactive session; DESIGN.md written by hand in reference format (portable, non-bound)"
+    ]
+  },
+  "query": { "helper": "omd-init/scripts/query-references.mjs", "top": "toss", "match_score": 104, "quality": "verified_v2" },
+  "bootstrapped_at": "2026-08-28T00:00:00Z"
+}

@@ -2,20 +2,20 @@
 
 이성현(coolmarvel)의 개발자 포트폴리오 — [coolmarvel.github.io](https://coolmarvel.github.io/)
 
-TailAdmin 디자인 시스템을 기반으로 한 대시보드 스타일 포트폴리오입니다.
+oh-my-design 디자인 계약(`DESIGN.md`, Toss 레퍼런스 inspired)을 따르는 문서형 포트폴리오입니다.
 
 ## 기술 스택
 
 - **Next.js 16** (App Router, `output: "export"` 정적 내보내기)
 - **React 19** · **TypeScript**
-- **Tailwind CSS 4** (TailAdmin 디자인 토큰)
+- **Tailwind CSS 4** (`DESIGN.md` 토큰을 `globals.css` `@theme inline` 으로 매핑, 라이트/다크 CSS 변수)
 - 다크모드 지원, 반응형 레이아웃
 
 ## 페이지 구성
 
 | 경로 | 내용 |
 |---|---|
-| `/` | 대시보드 — 프로필, 핵심 지표, 소개, 경력 타임라인, 대표 프로젝트, 학력/자격 |
+| `/` | 홈 — 히어로, 핵심 지표, 대표 프로젝트, 소개·경력 타임라인, 기술 스택, 학력/자격 |
 | `/experience` | 경력 상세 (회사별 프로젝트·상세 업무·기술 스택) + 스킬셋 |
 | `/projects` | 전체 프로젝트 카드 |
 | `/ai-workflow` | AI(Claude Code) 개발 방법론 — Harness Engineering, MCP, ADR |

@@ -8,10 +8,21 @@ export interface ProjectLink {
   href: string;
 }
 
+export interface ProjectSection {
+  title: string;
+  icon?: "shield" | "card" | "search" | "cloud" | "layers" | "spark";
+  intro?: string;
+  items: string[];
+}
+
 export interface ProjectDetail {
   role: string;
   background: string[];
   architecture: string[];
+  /** 프로젝트 고유의 심화 절 (인증·SEO·인프라 등) — 아키텍처 카드 다음에 렌더 */
+  sections?: ProjectSection[];
+  /** "이렇게 사용합니다" 단계 목록 — 라이브 서비스·설치형 앱용 */
+  usage?: string[];
   aiUsage?: string[];
   screenshots?: ProjectScreenshot[];
   demo?: { url?: string; account?: string; note: string };
@@ -19,6 +30,132 @@ export interface ProjectDetail {
 }
 
 export const projectDetails: Record<string, ProjectDetail> = {
+  "pdf-editor-live": {
+    role: "개인 프로젝트 — 모노레포 설계·API/웹 구현·인프라 구축·CI/CD·운영 전체",
+    background: [
+      "데스크톱 PDF 편집기(pdf-editor)는 \"문서가 밖으로 나가지 않는다\"는 장점이 있지만 설치가 필요하고, 포트폴리오로는 링크 하나로 바로 써볼 수 있는 형태가 더 설득력 있습니다. 그래서 같은 에디터를 브라우저에서 돌리되 원칙은 유지하기로 했습니다 — PDF 바이트는 서버로 가지 않고, 서버는 '누가·몇 번'만 관리합니다.",
+      "서버는 AWS Lightsail 2GB 인스턴스 1대에 다른 프로젝트 2~3개와 함께 올려야 해서 메모리 예산이 1급 제약이었습니다. 이 제약이 스택 선택(Fastify·Caddy·공용 Postgres·저메모리 튜닝)과 배포 방식(서버에서 빌드 금지, CI가 이미지를 만들어 전송)을 결정했습니다.",
+      "2026-08-25 설계(ADR-0001)에서 시작해 08-26 최초 운영 배포, 08-28 구독 모델·소셜 로그인·SEO까지 4일간 11차례 스크린샷 피드백 라운드를 돌며 완성했습니다.",
+    ],
+    architecture: [
+      "npm 워크스페이스 모노레포 — apps/web(Vite+React SPA) · apps/api(Fastify 5 + Drizzle ORM) · packages/editor(에디터 코어) · infra/server(공용 Caddy·Postgres) · infra/app(이 서비스의 compose)",
+      "에디터 코드 공유 — 데스크톱의 src/core·renderer를 packages/editor로 복사하고, Electron 전용 window.api 호출 5종을 Platform 인터페이스(beforeExport/afterExport/quoteExport/finishDialog/signStore …)로 치환. 웹은 File API·Blob 다운로드·iframe 인쇄로 구현하고 gatedExport() 래퍼가 401→로그인, 402→요금제로 안내",
+      "데이터 모델 13 테이블 / 마이그레이션 7개 — users(soft delete·환영 체험 1회 기록) · oauth_accounts · sessions(리프레시 회전) · plans · subscriptions · credit_ledger(append-only 원장) · export_tokens · drafts/draft_docs(서버 임시본) · signatures(서명함) · usage_events",
+      "REST API 약 42개(/api/v1) — auth·oauth·billing·credits·exports·drafts·signatures·activity·admin·usage·health 11개 모듈, zod 타입 프로바이더로 요청/응답 스키마 검증, rate limit(로그인 10회/15분)",
+      "내보내기 토큰 패턴 — 견적(quote) → 토큰 발급 → 브라우저에서 생성한 결과물 업로드 → 소비(consume). 미소비 토큰은 10분 뒤 자동 환불 잡. 결과물·임시본은 20MB/파일 · 200MB/사용자 · 30일 보관",
+      "메모리 예산 — 목표 caddy 30 · postgres 70 · api 70MB. Postgres는 shared_buffers 64MB·max_connections 30, API는 커넥션 풀 3 + node --max-old-space-size=128. 실측 API RSS 83~85MB, caddy 13MB, postgres 22MB",
+    ],
+    sections: [
+      {
+        title: "인증 · 소셜 로그인 (OAuth 2.0)",
+        icon: "shield",
+        intro: "이메일 가입과 Google · Kakao · Naver 소셜 로그인을 모두 서버측에서 처리합니다.",
+        items: [
+          "이메일 가입 — argon2id(19MiB, t=2) 해시, 비밀번호 규칙(8자+소문자+숫자+특수문자), GET /auth/check-email 실시간 중복 확인",
+          "세션 — 액세스 JWT 15분(메모리 보관) + 리프레시 30일(httpOnly·Secure·SameSite=Lax 쿠키, 경로 /api/v1/auth). 리프레시는 매번 회전하고 재사용이 감지되면 401. Redis 없이 sessions 테이블로 관리",
+          "OAuth 흐름 — /auth/oauth/:provider/start → provider 동의 화면 → /auth/oauth/:provider/callback 에서 authorization code를 서버가 교환. provider별 어댑터({authorizeUrl, exchange, profile})로 Google·Kakao·Naver 차이를 흡수",
+          "CSRF 방어 — state 값을 10분짜리 서명 JWT로 만들어 httpOnly 쿠키(pdf_oauth_state)에 두고 콜백 쿼리와 대조",
+          "계정 매칭 순서 — ① oauth_accounts 일치 → ② 같은 이메일의 활성 계정에 자동 연동(계정 통합) → ③ 신규 생성(비밀번호 null). 로그인 중 시작하면 '연동' 모드로 마이페이지에서 provider를 추가",
+          "오류 처리 — /login?oauth=state_invalid|exchange_failed|no_email|provider_disabled|account_deleted 로 사용자에게 원인을 그대로 전달. e2e 전용 mock provider(OAUTH_MOCK)로 소셜 로그인 6건을 자동 테스트",
+          "탈퇴는 soft delete — 세션·구독·임시본·서명·소셜 연동·파일을 지우고 users 행(이메일 점유)은 남겨 재가입 시 환영 체험이 다시 주어지지 않게 함. 모든 요청에서 deleted_at 확인",
+        ],
+      },
+      {
+        title: "구독 · 결제 모델",
+        icon: "card",
+        intro: "편집과 미리보기는 무료, 돈을 받는 순간은 결과물이 나갈 때뿐입니다.",
+        items: [
+          "요금제 — 환영 체험(trial, 14일·가입 시 자동·이메일당 평생 1회) · 월 6,900원 · 연 59,000원. 요금제는 기동 시 upsert 되는 시드 데이터",
+          "판정(quoteCharge) — 관리자 > 활성 구독(trial 포함) > 없음. 없으면 402 subscription_required 를 돌려주고 웹은 요금제 페이지로 안내",
+          "결제 게이트웨이는 PaymentProvider 인터페이스 뒤에 두고 현재는 mock provider. Toss Payments 테스트 모드 연동이 다음 단계(ADR D7)",
+          "credit_ledger 는 append-only 원장(잔액 = SUM). 구독 전환 이후 신규 적립·차감은 없고 작업 내역 타임라인에서 과거 이력으로만 표시",
+        ],
+      },
+      {
+        title: "SEO — SPA에서 검색 노출까지",
+        icon: "search",
+        intro: "SSR 없이도 크롤러가 라우트별 제목·설명·OG를 읽도록 빌드 후 프리렌더를 붙였습니다.",
+        items: [
+          "index.html — title/description/keywords(ko+en), canonical, hreflang(en/ko/x-default), theme-color, robots",
+          "Open Graph / Twitter 카드 + og.png(1200×630) — 카카오톡·슬랙 링크 미리보기. 파비콘 세트(svg/ico/png/apple-touch/PWA manifest)는 sharp 스크립트가 icon.svg 에서 생성",
+          "JSON-LD WebApplication 구조화 데이터 — offers(6,900/59,000 KRW), author Person",
+          "라우트별 프리렌더 — 빌드 후 scripts/seo-postbuild.mjs 가 /pricing /signup /terms /privacy /login 의 index.html 을 생성해 제목·설명·canonical·og 를 치환(/login 은 noindex) + sitemap.xml 생성. Caddy try_files 가 정적 파일을 우선 서빙",
+          "robots.txt — /me /admin /api/ /oauth/ 차단, Sitemap 링크. SPA 안에서도 라우트마다 탭 제목 갱신",
+          "Google Search Console · 네이버 서치어드바이저 소유 확인, 다음 검색 등록 완료. 네이버 진단에 맞춰 제목 40자·설명 80자 이내로 축약",
+        ],
+      },
+      {
+        title: "인프라 · 배포 — AWS Lightsail + Caddy 리버스 프록시",
+        icon: "cloud",
+        intro: "2GB 서버 한 대를 프로젝트 여러 개가 나눠 쓰는 구조입니다.",
+        items: [
+          "서버 — AWS Lightsail(서울, ap-northeast-2) Ubuntu 22.04 · 2 vCPU · 1.9GB RAM · swap 2GB. *.coolmarvel.com 와일드카드 A 레코드로 서브도메인마다 프로젝트를 붙임",
+          "Caddy — pdf-editor.coolmarvel.com 사이트 블록에서 handle /api/* → reverse_proxy pdf-live-api:3000, 나머지는 정적 dist 를 직접 서빙(try_files … /index.html, /assets/* 1년 immutable 캐시, index.html no-cache). Let's Encrypt TLS 자동 발급·갱신, h1/h2/h3, zstd/gzip, HSTS·nosniff·Referrer-Policy 공통 스니펫. 프론트 컨테이너는 없음",
+          "공용 vs 앱별 compose — infra/server(edge-caddy 96MB · edge-postgres 256MB, 외부 도커 네트워크 edge)는 서버 공용이고, 각 프로젝트는 infra/app 의 compose(pdf-live-api 192MB)로 edge 네트워크에 참여만 함. DB 포트는 loopback 전용",
+          "호스트 튜닝 — vm.swappiness=10, journald 100M, 도커 json-file 로그 10m×3 + live-restore",
+          "CI(ci.yml) — npm ci → typecheck → test(Postgres 서비스 컨테이너) → build → 도커 이미지 빌드 확인",
+          "CD(deploy.yml, main push) — 웹 빌드 → API 이미지 docker build + docker save | gzip → compose/Caddyfile/dist 를 rsync(--inplace) → 서버에서 원자적 mv 스왑 → docker load → docker compose up -d --remove-orphans → /healthz 확인. 서버에서는 빌드하지 않고(2GB), 앱 비밀은 서버 .env 에만 둠. private 레포라 레지스트리(GHCR) 대신 이미지를 직접 전송",
+        ],
+      },
+      {
+        title: "에디터 기능",
+        icon: "layers",
+        items: [
+          "툴바 13개 — 페이지(사이드바)·선택·실행취소·다시실행·텍스트(추가/수정 스플릿)·지우개·형광펜·연필·이미지/스탬프·사각형/원·표시(X/체크)·주석 도구(서명/주석/링크)·워터마크·레이아웃(한 쪽/두 쪽/맞춤, 이어서/한 장씩, 회전)·페이지 관리",
+          "페이지 관리 — 드래그 순서 변경·회전·복제·삭제·추출·새 페이지·PDF/이미지 가져오기",
+          "텍스트 — 원본 서체·굵기·기울임 승계, 정렬 6종, 글자색/배경색/불투명도, 번들 폰트 16종 + 시스템 폰트",
+          "서명 — 그리기/타이핑/이미지 + 계정 서명함(서버 저장) + 투명 PNG 내려받기. 스탬프 프리셋·날짜, 주석 노트, 링크 영역, 워터마크, 문서 텍스트 검색(Ctrl+F)",
+          "내보내기 — 다운로드(pdf-lib 평탄화)·인쇄(숨김 iframe)·페이지 추출, 30초 자동 임시 저장과 '이어서 작업하기', 작업 내역에서 30일간 재다운로드",
+          "모바일 — 터치 40px 타깃, 핀치는 에디터 줌, 툴바 가로 스크롤, 가로 모드 서브툴바 오버레이. 한국어/영어 i18n",
+        ],
+      },
+    ],
+    usage: [
+      "https://pdf-editor.coolmarvel.com 접속 — 별도 설치 없이 브라우저에서 바로 동작합니다.",
+      "이메일로 가입하거나 Google · Kakao · Naver 계정으로 로그인합니다. 가입 즉시 환영 체험 14일이 시작됩니다.",
+      "PDF를 드롭존에 끌어다 놓으면 에디터가 열립니다. 파일은 브라우저 안에서만 처리되고 서버로 업로드되지 않습니다.",
+      "텍스트·그리기·도형·서명·스탬프·주석·링크·워터마크로 편집하고, 페이지 관리에서 순서·회전·추출을 정리합니다.",
+      "완료 버튼에서 다운로드 · 인쇄 · 페이지 추출을 선택합니다(활성 구독 필요). 결과물과 임시본은 마이페이지 작업 내역에서 30일간 다시 받을 수 있습니다.",
+    ],
+    aiUsage: [
+      "oh-my-design으로 DESIGN.md 디자인 계약을 먼저 세움 — 베이스 Notion, 툴바·밀도는 Linear 차용, 브랜드 초록 유지. 이후 모든 UI 작업은 이 계약을 통과해야 하고 post-edit 훅이 계약 밖 hex·radius 드리프트를 감지",
+      "멀티 에이전트 병렬 작업 — 10차 라운드는 API ∥ 웹 ∥ 에디터 3갈래 구현 후 4렌즈 리뷰(에이전트 8), 9차 좁은 폭 대응은 수정 → 터치/마우스 비평가 2명 → 재수정 4라운드(에이전트 14), 8차 모바일은 감사 4 → 구현 3 → 리뷰 4(에이전트 11)",
+      "스크린샷 피드백 루프 — screenshots/ 에 PNG를 두면 미처리 피드백으로 간주하고 반영 후 아카이브(6라운드 35장). session-log → todo → ADR 순서의 부팅 프로토콜로 세션 간 맥락 복구",
+      "typecheck + API 테스트 28건 + Playwright E2E 46건(54 실행)을 통과해야만 배포. 서버에 올린 뒤에는 docker stats 로 RSS를 확인해 메모리 예산과 대조",
+      "데스크톱 저장소와의 동기화를 docs/guides/editor-sync.md 로 문서화 — 웹에서 고친 에디터 개선(v1.5.8 → v1.7.0)을 데스크톱에 역반영",
+    ],
+    screenshots: [
+      { src: "/images/projects/pdf-editor-live/landing.jpg", caption: "랜딩 — 헤드라인과 드롭존. 파일은 브라우저 안에서만 처리된다는 약속을 첫 화면에 적었습니다" },
+      { src: "/images/projects/pdf-editor-live/login.jpg", caption: "로그인 — 이메일 로그인과 'Google로 · 카카오로 · 네이버로 계속하기' 소셜 로그인 3종" },
+      { src: "/images/projects/pdf-editor-live/signup.jpg", caption: "가입 — 실시간 이메일 중복 확인과 비밀번호 규칙 체크리스트" },
+      { src: "/images/projects/pdf-editor-live/pricing.jpg", caption: "요금제 — 월 6,900원 / 연 59,000원 구독 카드, 새 계정은 14일 환영 체험으로 시작(결제는 현재 mock)" },
+      { src: "/images/projects/pdf-editor-live/me.jpg", caption: "마이페이지 — 프로필·소셜 로그인 연동(네이버·카카오 연동됨) · 구독·보관함 게이지(200MB) · 작업 내역" },
+      { src: "/images/projects/pdf-editor-live/landing-loggedin.jpg", caption: "로그인 후 랜딩 — 서버 임시본과 최근 작업에서 이어서 편집" },
+      { src: "/images/projects/pdf-editor-live/editor.jpg", caption: "에디터 — 툴바(페이지·선택·실행취소·다시실행·텍스트 추가·지우개·형광펜·연필·이미지·사각형·X 표시·서명·워터마크·레이아웃·페이지 관리), 썸네일 사이드바, 페이저" },
+      { src: "/images/projects/pdf-editor-live/editor-text.jpg", caption: "텍스트 추가 — 서브툴바(폰트·크기·굵기·정렬·색·불투명도)" },
+      { src: "/images/projects/pdf-editor-live/editor-draw.jpg", caption: "연필·형광펜·도형·체크 표시" },
+      { src: "/images/projects/pdf-editor-live/editor-sign.jpg", caption: "서명 다이얼로그 — 그리기 / 타이핑 / 계정 서명함" },
+      { src: "/images/projects/pdf-editor-live/editor-stamp.jpg", caption: "스탬프 다이얼로그 — 프리셋과 날짜" },
+      { src: "/images/projects/pdf-editor-live/editor-link.jpg", caption: "링크·주석 도구 — 영역을 드래그해 링크 삽입" },
+      { src: "/images/projects/pdf-editor-live/editor-watermark.jpg", caption: "워터마크" },
+      { src: "/images/projects/pdf-editor-live/editor-search.jpg", caption: "문서 텍스트 검색(Ctrl+F)" },
+      { src: "/images/projects/pdf-editor-live/editor-pages.jpg", caption: "페이지 관리 — 드래그 순서 변경·회전·복제·삭제·추출" },
+      { src: "/images/projects/pdf-editor-live/editor-layout.jpg", caption: "레이아웃 — 한 쪽/두 쪽 보기, 이어서/한 장씩, 회전" },
+      { src: "/images/projects/pdf-editor-live/editor-finish.jpg", caption: "완료 — '편집을 마칠까요?' 다운로드 · 인쇄 · 임시 저장(30일 보관), 구독 상태 칩 표시" },
+      { src: "/images/projects/pdf-editor-live/admin-stats.jpg", caption: "관리자 대시보드 — 사용자·구독·내보내기 집계 카드" },
+      { src: "/images/projects/pdf-editor-live/mobile-landing.jpg", caption: "모바일(390px) 랜딩" },
+      { src: "/images/projects/pdf-editor-live/mobile-editor.jpg", caption: "모바일(390px) 에디터 — 가로 스크롤 툴바, 오버레이 사이드바" },
+    ],
+    demo: {
+      url: "https://pdf-editor.coolmarvel.com",
+      note: "실제 운영 중인 서비스입니다. 이메일 가입 또는 Google · Kakao · Naver 로그인으로 바로 사용할 수 있고, 가입 시 환영 체험 14일이 주어집니다. 올린 PDF는 브라우저 안에서만 처리되며 서버로 전송되지 않습니다. 저장소는 비공개(운영 인프라 설정 포함)이며 데스크톱 원본은 아래 pdf-editor 저장소에서 볼 수 있습니다.",
+    },
+    links: [
+      { label: "pdf-editor.coolmarvel.com 접속", href: "https://pdf-editor.coolmarvel.com" },
+      { label: "데스크톱 원본 저장소 (pdf-editor)", href: "https://github.com/coolmarvel/pdf-editor" },
+    ],
+  },
+
   "cm-groupware": {
     role: "전체 아키텍처 설계 및 단독 개발 (기획 → 설계 → 개발 → 프로덕션 운영)",
     background: [
@@ -151,6 +288,7 @@ export const projectDetails: Record<string, ProjectDetail> = {
     ],
     links: [
       { label: "GitHub 저장소", href: "https://github.com/coolmarvel/pdf-editor" },
+      { label: "웹 버전 사용해보기 (PDF Editor Live)", href: "https://pdf-editor.coolmarvel.com" },
       { label: "Windows 인스톨러 다운로드 (v1.5.2)", href: "https://github.com/coolmarvel/pdf-editor/releases/download/v1.5.2/PDF-Editor-Setup-1.5.2.exe" },
       { label: "macOS DMG 다운로드 (v1.5.2, Intel x64)", href: "https://github.com/coolmarvel/pdf-editor/releases/download/v1.5.2/PDF-Editor-1.5.2-x64.dmg" },
       { label: "macOS DMG 다운로드 (v1.5.2, Apple Silicon)", href: "https://github.com/coolmarvel/pdf-editor/releases/download/v1.5.2/PDF-Editor-1.5.2-arm64.dmg" },

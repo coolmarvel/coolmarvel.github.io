@@ -1,8 +1,7 @@
-import Link from "next/link";
-
-import Badge from "@/components/ui/Badge";
 import Card from "@/components/ui/Card";
-import ProfileCard from "@/components/sections/ProfileCard";
+import Chip from "@/components/ui/Chip";
+import SectionTitle from "@/components/ui/SectionTitle";
+import Hero from "@/components/sections/Hero";
 import MetricCards from "@/components/sections/MetricCards";
 import CareerDuration from "@/components/common/CareerDuration";
 import TechStack from "@/components/sections/TechStack";
@@ -14,101 +13,87 @@ import { projects } from "@/data/projects";
 import { education, certificates } from "@/data/experience";
 import { GraduationIcon, AwardIcon } from "@/icons";
 
-export default function DashboardPage() {
+export default function HomePage() {
   const featured = projects.filter((p) => p.featured).slice(0, 4);
 
   return (
-    <div className="flex flex-col gap-4 md:gap-6">
-      <ProfileCard />
+    <div className="flex flex-col gap-12 md:gap-[72px]">
+      <Hero />
+
       <MetricCards />
 
-      <div className="grid grid-cols-1 gap-4 md:gap-6 xl:grid-cols-3">
-        <Card title="간략 소개" className="xl:col-span-2">
-          <div className="flex flex-col gap-3 text-theme-sm leading-6 text-gray-600 dark:text-gray-300">
+      <section>
+        <SectionTitle
+          title="대표 프로젝트"
+          desc="라이브로 운영 중인 서비스부터 병원 그룹웨어, AI 파이프라인까지"
+          href="/projects"
+          linkLabel={`전체 ${projects.length}개 보기`}
+        />
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+          {featured.map((p) => (
+            <ProjectCard key={p.slug} project={p} compact />
+          ))}
+        </div>
+      </section>
+
+      <section className="grid grid-cols-1 gap-4 lg:grid-cols-5">
+        <Card title="소개" className="lg:col-span-3">
+          <div className="flex flex-col gap-3 text-body text-body">
             {profile.summary.map((s, i) => (
               <p key={i}>{s}</p>
             ))}
           </div>
         </Card>
-
         <Card
-          title="경력 타임라인"
+          title="경력"
           desc={
             <>
               총 <CareerDuration /> · 5개사
             </>
           }
+          className="lg:col-span-2"
+          action={
+            <a href="/experience" className="text-[14px] font-semibold text-weak-fg">
+              상세 보기
+            </a>
+          }
         >
           <ExperienceTimeline compact />
-          <Link
-            href="/experience"
-            className="mt-4 inline-flex text-theme-sm font-medium text-brand-500 hover:text-brand-600 dark:text-brand-400"
-          >
-            경력 상세 보기 →
-          </Link>
         </Card>
-      </div>
+      </section>
 
       <TechStack />
 
-      <div>
-        <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-xl font-semibold text-gray-800 dark:text-white/90">
-            대표 프로젝트
-          </h2>
-          <Link
-            href="/projects"
-            className="text-theme-sm font-medium text-brand-500 hover:text-brand-600 dark:text-brand-400"
-          >
-            전체 보기 →
-          </Link>
-        </div>
-        <div className="grid grid-cols-1 gap-4 md:gap-6 xl:grid-cols-2">
-          {featured.map((p) => (
-            <ProjectCard key={p.slug} project={p} />
-          ))}
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 gap-4 md:gap-6 xl:grid-cols-2">
+      <section className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <Card title="학력 및 교육">
           <ul className="flex flex-col gap-4">
             {education.map((e) => (
               <li key={e.name} className="flex items-start gap-3">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gray-100 dark:bg-gray-800">
-                  <GraduationIcon className="size-5 text-gray-800 dark:text-white/90" />
-                </div>
+                <span className="flex size-10 shrink-0 items-center justify-center rounded-inner bg-canvas text-fg dark:bg-surface-hover">
+                  <GraduationIcon className="size-5" />
+                </span>
                 <div>
                   <div className="flex flex-wrap items-center gap-2">
-                    <p className="font-medium text-gray-800 dark:text-white/90">
-                      {e.name}
-                    </p>
-                    <Badge color="light" size="sm">
-                      {e.type}
-                    </Badge>
+                    <p className="text-[15px] font-semibold text-fg">{e.name}</p>
+                    <Chip>{e.type}</Chip>
                   </div>
-                  <p className="mt-0.5 text-theme-xs text-gray-400">{e.period}</p>
-                  <p className="mt-1 text-theme-sm text-gray-500 dark:text-gray-400">
-                    {e.detail}
-                  </p>
+                  <p className="mt-0.5 text-caption text-muted">{e.period}</p>
+                  <p className="mt-1 text-body-sm text-body">{e.detail}</p>
                 </div>
               </li>
             ))}
           </ul>
         </Card>
-
         <Card title="자격 및 수상">
           <ul className="flex flex-col gap-4">
             {certificates.map((c) => (
               <li key={c.name} className="flex items-start gap-3">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gray-100 dark:bg-gray-800">
-                  <AwardIcon className="size-5 text-gray-800 dark:text-white/90" />
-                </div>
+                <span className="flex size-10 shrink-0 items-center justify-center rounded-inner bg-canvas text-fg dark:bg-surface-hover">
+                  <AwardIcon className="size-5" />
+                </span>
                 <div>
-                  <p className="font-medium text-gray-800 dark:text-white/90">
-                    {c.name}
-                  </p>
-                  <p className="mt-0.5 text-theme-xs text-gray-400">
+                  <p className="text-[15px] font-semibold text-fg">{c.name}</p>
+                  <p className="mt-0.5 text-caption text-muted">
                     {c.year} · {c.org}
                   </p>
                 </div>
@@ -116,7 +101,7 @@ export default function DashboardPage() {
             ))}
           </ul>
         </Card>
-      </div>
+      </section>
     </div>
   );
 }

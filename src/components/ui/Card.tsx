@@ -1,38 +1,32 @@
+import type React from "react";
+
 interface CardProps {
-  title?: string;
+  title?: React.ReactNode;
   desc?: React.ReactNode;
+  action?: React.ReactNode;
+  variant?: "surface" | "outlined";
   className?: string;
   children: React.ReactNode;
 }
 
-export default function Card({ title, desc, className = "", children }: CardProps) {
+/** DESIGN.md §4 Card — surface 면, radius 20, 테두리·그림자 없음. outlined 는 surface 위의 하위 블록용. */
+export default function Card({ title, desc, action, variant = "surface", className = "", children }: CardProps) {
+  const shell =
+    variant === "surface"
+      ? "rounded-card bg-surface p-5 md:p-6"
+      : "rounded-image bg-canvas p-5 ring-1 ring-line";
   return (
-    <div
-      className={`rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03] ${className}`}
-    >
-      {(title || desc) && (
-        <div className="px-5 py-4 sm:px-6 sm:py-5">
-          {title && (
-            <h3 className="text-base font-medium text-gray-800 dark:text-white/90">
-              {title}
-            </h3>
-          )}
-          {desc && (
-            <p className="mt-1 text-theme-sm text-gray-500 dark:text-gray-400">
-              {desc}
-            </p>
-          )}
+    <section className={`${shell} ${className}`}>
+      {(title || desc || action) && (
+        <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
+          <div>
+            {title && <h3 className="text-h3 text-fg">{title}</h3>}
+            {desc && <p className="mt-0.5 text-caption text-muted">{desc}</p>}
+          </div>
+          {action}
         </div>
       )}
-      <div
-        className={
-          title || desc
-            ? "border-t border-gray-100 p-5 dark:border-gray-800 sm:p-6"
-            : "p-5 sm:p-6"
-        }
-      >
-        {children}
-      </div>
-    </div>
+      {children}
+    </section>
   );
 }

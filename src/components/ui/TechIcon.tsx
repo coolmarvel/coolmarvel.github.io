@@ -16,7 +16,7 @@ export default function TechIcon({
       <svg
         viewBox="0 0 24 24"
         aria-hidden="true"
-        className={`${className} text-gray-400 dark:text-gray-500`}
+        className={`${className} text-placeholder`}
         fill="none"
         stroke="currentColor"
         strokeWidth="2"
