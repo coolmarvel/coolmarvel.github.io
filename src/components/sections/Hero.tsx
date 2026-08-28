@@ -9,7 +9,7 @@ export default function Hero() {
   const lines = profile.headline.split("\n");
   return (
     <section className="flex flex-col-reverse items-start gap-8 md:flex-row md:items-center md:justify-between md:gap-12">
-      <div className="max-w-[640px]">
+      <div className="max-w-[760px]">
         <div className="flex flex-wrap items-center gap-2">
           <Chip accent="green">{currentPosition.company} 재직중</Chip>
           <span className="text-caption text-muted">{profile.title}</span>
@@ -21,7 +21,7 @@ export default function Hero() {
             </span>
           ))}
         </h1>
-        <p className="mt-5 max-w-[560px] text-body text-body md:text-[16px]">{profile.subheadline}</p>
+        <p className="mt-5 max-w-[640px] text-body text-body md:text-[16px]">{profile.subheadline}</p>
 
         <div className="mt-7 flex flex-col gap-2.5 sm:flex-row sm:items-center">
           <Button href={asset(profile.resume)} download={profile.resumeFileName} size="lg" className="w-full sm:w-auto">

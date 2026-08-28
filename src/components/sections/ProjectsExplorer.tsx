@@ -41,7 +41,7 @@ export default function ProjectsExplorer({ projects }: { projects: Project[] }) 
         })}
       </div>
 
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
         {filtered.map((p) => (
           <ProjectCard key={p.slug} project={p} />
         ))}

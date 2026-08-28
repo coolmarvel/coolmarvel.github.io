@@ -71,7 +71,7 @@ tokens:
     focus-ring: "0 0 0 4px rgba(49, 130, 246, 0.24)"
   icon: { size: 20, stroke: 1.6, cap: round }
   control-height: { nav: 64, button: 44, button-lg: 48, button-sm: 36, icon-button: 36, touch-min: 44, tab: 36 }
-  container: { max: 1040, pad: 20, pad-md: 24 }
+  container: { max: 1360, pad: 20, pad-md: 32 }
   motion: { fast: "160ms", base: "220ms", easing: "cubic-bezier(0.2, 0, 0, 1)", press: "scale(0.98)" }
   components:
     nav: { type: header, height: 64, bg: "canvas @ 80% + backdrop-blur", border: "1px border only after scroll", link: "15px/600 body; active foreground", cta: "weak button '이력서'", mobile: "햄버거 → 카드형 시트(링크 48px 행) + CTA" }
@@ -197,10 +197,10 @@ Rules:
 
 ## 5. Layout Principles
 
-- 컨테이너 최대 1040px, 좌우 패딩 20(모바일)/24. 섹션 간격 48(모바일)/72.
+- 컨테이너 최대 1360px(헤더·본문·푸터 동일), 좌우 패딩 20(모바일)/32. 섹션 간격 40(모바일)/64. 사용자 피드백(2026-08-28): 1040은 큰 모니터에서 여백이 과했다.
 - 홈 순서: 히어로(주장 + CTA + 프로필) → 지표 4 → 대표 프로젝트 → 소개 + 경력 타임라인 → 기술 스택 → 학력·자격.
 - 위계는 면의 대비(`canvas` > `surface` > `surface-2`)로 만든다. 같은 층에 테두리와 면을 겹쳐 쓰지 않는다.
-- 그리드: 프로젝트 2열(≥1024), 지표 4열, 나머지 1열. 모바일은 전부 1열이며 가로 스크롤은 표·썸네일 스트립만 허용한다.
+- 그리드: 프로젝트 2열(≥768)/3열(≥1280), 홈 대표 프로젝트 4열(≥1280), 지표 4열, 나머지 1열. 모바일은 전부 1열이며 가로 스크롤은 표·썸네일 스트립만 허용한다.
 - 리듬 4/8/12/16/24/32/48/72.
 
 ## 6. Depth & Elevation

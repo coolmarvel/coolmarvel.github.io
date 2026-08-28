@@ -17,7 +17,7 @@ export default function HomePage() {
   const featured = projects.filter((p) => p.featured).slice(0, 4);
 
   return (
-    <div className="flex flex-col gap-12 md:gap-[72px]">
+    <div className="flex flex-col gap-10 md:gap-16">
       <Hero />
 
       <MetricCards />
@@ -29,7 +29,7 @@ export default function HomePage() {
           href="/projects"
           linkLabel={`전체 ${projects.length}개 보기`}
         />
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
           {featured.map((p) => (
             <ProjectCard key={p.slug} project={p} compact />
           ))}
