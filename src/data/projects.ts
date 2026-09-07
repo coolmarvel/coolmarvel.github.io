@@ -13,6 +13,42 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    slug: "remote-assist",
+    name: "remote-assist — 접속 코드 원격 지원 (Windows · macOS)",
+    oneLiner: "코드 하나로 붙고 사용자가 수락해야 열리는 원격 지원 앱 — 중계 서버 직접 운영, 4일간 15 릴리스",
+    period: "2026.09 ~",
+    company: "개인 프로젝트",
+    domain: "데스크톱",
+    featured: true,
+    description: [
+      "도움이 필요한 사람(Agent)과 도움을 주는 사람(Console)을 접속 코드 하나로 잇는 데스크톱 원격 지원 앱입니다. 지원자가 코드를 입력하면 사용자 PC에 수락 요청이 뜨고, 사용자가 수락해야만 화면 공유와 마우스·키보드 제어가 시작됩니다. 같은 망이든 인터넷 건너편이든 붙는 방법은 같고(직접 운영하는 중계 서버 경유), 양쪽 누구든 한 번 클릭으로 끊습니다.",
+      "C#/.NET 8 한 언어로 Windows(WPF)·macOS(Avalonia) 클라이언트 4종과 ASP.NET Core 중계 서버, 공용 Core를 만들었습니다. DXGI 캡처·H.264 하드웨어 인코딩·회선 적응 5단계·같은 망 직결까지 갖췄고, 플랫폼 전용 경로마다 자동 폴백(GDI·JPEG·중계)을 뒀습니다. 상용 원격 도구의 라이선스 비용과 '남의 서버를 경유해 화면이 밖으로 나가는' 부담을 없애는 것이 동기였습니다.",
+    ],
+    stack: [
+      "C# 12",
+      ".NET 8",
+      "WPF",
+      "Avalonia UI 11",
+      "ASP.NET Core 8",
+      "WebSocket",
+      "SkiaSharp",
+      "DXGI",
+      "Media Foundation",
+      "Docker",
+      "Caddy",
+      "Inno Setup",
+      "xUnit",
+    ],
+    highlights: [
+      "수락 필수 · 1회용 6자리 코드(10분 만료) · TLS(Caddy) — 중계 서버는 바이트만 통과시키고 화면을 해석하지 않음",
+      "DXGI dirty rect 캡처 + JPEG 타일/H.264 하이브리드 + 회선 적응 5단계(품질·fps·해상도) + 커서 분리 60Hz",
+      "화면/제어 2채널 WebSocket — 같은 망이면 세션마다 RSA 자체 서명 TLS + 지문 고정으로 직결(서버 트래픽 0)",
+      "세션 로직을 Core로 이관하고 OS 의존은 IAgentPlatform 뒤로 — 가짜 플랫폼으로 실제 중계 위 종단 테스트(xUnit 217)",
+      "Windows↔macOS 세션에서 Ctrl↔⌘ 자동 치환, hello caps 협상으로 디코더 없는 상대에겐 JPEG만 전송",
+      "킥오프부터 4일간 v0.1.0 → v0.1.15 — Windows 인스톨러 2종 + macOS dmg 2종 + Docker 서버 배포",
+    ],
+  },
+  {
     slug: "pdf-editor-live",
     name: "PDF Editor Live — 브라우저 PDF 편집 웹 서비스",
     oneLiner: "PDF가 서버로 가지 않는 브라우저 편집기를 회원제·구독 웹 서비스로 — AWS Lightsail 운영 중",

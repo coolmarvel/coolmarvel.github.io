@@ -22,13 +22,12 @@
 
 ## P2
 - [ ] DESIGN.md Core v2 승격 — 대화형 세션에서 `omd:init` 재실행 → prepare-review/approve/compile --adopt (ADR-0002 대안 C).
-- [ ] pdf-editor-live 저장소 public 전환 시 `projectDetails.ts` links 에 GitHub 추가 + ai-workflow 매트릭스 확인.
 - [ ] 홈 히어로 문구(`profile.headline/subheadline`)·OG 이미지 문구 사용자 검토.
 - [x] pdf-editor GitHub Release 업로드 — 2026-07-09 완료.
       https://github.com/coolmarvel/pdf-editor/releases/download/v1.4.3/PDF-Editor-Setup-1.4.3.exe
 - [ ] 대시보드 수치 사용자 검토 — 스킬 게이지 %(`skills.ts`, C#/.NET 65 포함), "수행 프로젝트 14+"·
       핵심 지표(`profile.ts`)는 Claude 산정 임의값. 사용자 감각에 맞게 조정.
-- [ ] 기술 스택 목록 사용자 검토 — `src/data/techStack.ts` 53종(6그룹, 2026-08-28 Fastify·Drizzle·Vite·Caddy·OAuth 2.0·oh-my-design 추가). 빠진 스택·안 쓰는 스택 정리 필요. 새 아이콘이 필요하면 simple-icons 에서
+- [ ] 기술 스택 목록 사용자 검토 — `src/data/techStack.ts` 54종(6그룹, 2026-08-28 Fastify·Drizzle·Vite·Caddy·OAuth 2.0·oh-my-design, 2026-09-07 WPF 추가). 빠진 스택·안 쓰는 스택 정리 필요. 새 아이콘이 필요하면 simple-icons 에서
       추출(방법은 session-log 2026-08-05 2차).
 - [x] 파비콘 — 2026-07-10 완료. `src/app/`에 icon.svg(브랜드 그라데이션 + `</>` 모노그램)·
       favicon.ico·apple-icon.png 추가, 빌드 검증 완료.
@@ -43,6 +42,8 @@
 - [x] sitemap.xml / robots.txt — 2026-08-28 `app/sitemap.ts`·`app/robots.ts` 로 생성.
 
 ## P4
+- [ ] remote-assist 카드 갱신 — 맥 dmg 가 0.1.15 로 재빌드되거나 M3(지원자 로그인·이력 표)가 들어오면 `projectDetails.ts` 상세·매트릭스 갱신. 맥 앱 스크린샷은 맥 세션에서 캡처(현재 없음).
+- [ ] remote-assist 홈 대표 프로젝트 편입으로 gaia-backoffice 가 홈 4열에서 밀려남(`featured` 5개 중 앞 4개만 노출). 사용자 취향에 따라 `featured` 조정.
 - [ ] sh-web-editor(M1)·jazz-community(보일러플레이트) 는 완성도가 오르면 카드 후보. sh-econsent 는 사용자 지시로 제외.
 - [ ] 형제 프로젝트에 새 ADR/기능 생기면 `/ai-workflow`·`projects.ts` 반영.
 - [x] sh-ip-scanner 인스톨러 다운로드 링크 — 2026-08-05 완료. 저장소가 public 이라 릴리스도

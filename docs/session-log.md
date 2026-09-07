@@ -2,6 +2,40 @@
 
 > 최신 세션이 맨 위. 각 블록은 "무엇을 했나 / 어떤 결정을 했나 / 다음에 뭘 하면 되나"를 담는다.
 
+## 2026-09-07 — remote-assist 프로젝트 추가 (Windows interop 으로 실제 앱 캡처) + private 저장소 링크 규칙
+
+**발단**: 사용자 요청 — 새 개인 프로젝트 `~/remote-assist`(C#/.NET 8 원격 지원, private 저장소)를 포트폴리오에 반영하고
+스크린샷은 직접 실행해 캡처할 것. 함께 "private 저장소에는 GitHub 버튼을 달지 말 것"(공개 계획 없음). 시작 전 `git pull` 두 레포 모두 최신.
+
+**한 일**
+- **콘텐츠** — 서브에이전트가 `~/remote-assist` 의 CLAUDE.md·brief·changelog·ADR 6건·guides 7건을 읽어 팩트 시트(수치: 코드 17,695줄,
+  테스트 217, 4일간 v0.1.0→0.1.15, ADR 6)를 만들고, 그 사실만으로 `projects.ts` 맨 앞 카드(featured, 도메인 데스크톱) +
+  `projectDetails.ts` 상세(배경 3·아키텍처 8·sections 4[보안/성능/UI/플랫폼 정책]·usage 6·AI 활용 6·스크린샷 8·demo note).
+  **links 없음** — private 저장소·내부 도구라 GitHub·다운로드 모두 생략. 서버 도메인·IP·병원명 미기재.
+- **스크린샷 8장 — WSL 에서 Windows 앱을 직접 띄워 캡처** (절차, 재사용 가능):
+  1. `release/{agent,console}`(0.1.15 publish) 을 `/mnt/c/Users/user/AppData/Local/Temp/ra-shots/` 로 rsync(pdb 제외, 316MB).
+  2. 중계 서버는 WSL 에서 `ASPNETCORE_URLS=http://0.0.0.0:5000 dotnet run --project src/RemoteAssist.Server` — Windows 에서 `localhost:5000` 으로 닿음.
+     양쪽 exe 옆 `settings.json` 에 `serverUrl: http://localhost:5000`, Console `h264:false`(이 PC 의 MF 디코더 실패 문구를 피하려고), `directConnect:false`.
+  3. `ra.ps1`(PowerShell 5.1, UTF-8 BOM) 을 `powershell.exe -File` 로 실행 — `Start-Process` 로 exe 기동, **UI Automation**(`AutomationId` = WPF `x:Name`)
+     으로 CodeText 읽기 → NameBox/CodeBox `ValuePattern` → ConnectButton/AcceptButton `InvokePattern` → 모니터 탭은 ToggleButton 이라
+     `TogglePattern` 은 Click 핸들러를 안 태워서 **실제 마우스 클릭(SetCursorPos + mouse_event)** 로 전환. 캡처는 `DwmGetWindowAttribute(9)`
+     경계로 `CopyFromScreen`(창을 foreground 로 올린 뒤). `SetProcessDPIAware` 필수.
+  4. 공유 화면에 사용자 데스크톱(업무 앱 아이콘)·터미널(Claude 세션)이 찍혀서 1·2차는 폐기 → 3차는 모니터 2 에 **Edge kiosk**(임시 프로필,
+     `--kiosk --edge-kiosk-type=fullscreen`)로 `out/` 을 서빙한 이 사이트를 띄우고 Agent 창을 그 위에 복원해 캡처.
+  5. Agent 4상태(코드·수락 요청·제어 중·종료)는 창이 426px 라 회색 캔버스에 2×2 로 배치 후 **NEAREST 2배**(클래식 12px UI 가 흐려지지 않게).
+     Console 3장(접속·대기·뷰어)과 사용자 쪽 전체 화면(빨간 테두리+배너)은 원본 크기 JPEG.
+  - 부작용 기록: AhnLab Safe Transaction 이 임시 폴더의 `RemoteAssist.Agent.exe` 인터넷 연결 탐지 창을 띄움(사용자 PC 보안 SW — 내가 누르지 않음,
+    중계 경로는 그대로 동작). 임시 폴더 `ra-shots/` 는 사용자가 지워도 됨. 실행 중 프로세스는 모두 종료 확인(0개).
+  - remote-assist 쪽 관찰(코드 미수정): 지원자가 끊으면 Console 접속 화면에 사유가 영어 `session ended` 로 뜸(Agent 쪽은 한국어) — 그쪽 todo 후보.
+- **AI 워크플로우** — 매트릭스 10번째 열 remote-assist(스택·hooks·커맨드·MCP·스킬·디자인 계약·ADR 6·테스트 217), "9개 → 10개 프로젝트",
+  ADR "29건(8개) → 35건(9개)". `techStack.ts` 에 WPF(아이콘 없음) 추가.
+- **규칙** — CLAUDE.md 에 private 저장소 링크 금지 + Windows interop 캡처 절차 요약. todo 의 "pdf-editor-live public 전환 시 링크" 항목 삭제.
+- 홈 대표 프로젝트: `featured` 가 5개가 되어 앞 4개(remote-assist·pdf-editor-live·cm-groupware·meeting-todo-mcp)만 노출 — gaia-backoffice 가 밀림(todo P4).
+- 검증: `npm run build` 통과, Playwright 로 /projects/remote-assist 라이트/다크/390px + 홈·프로젝트 목록·AI 매트릭스 캡처, body 가로 넘침 0.
+
+**다음에**
+- 사용자 검토 후 push. 맥 dmg 0.1.15 재빌드·M3 로그인이 들어오면 상세 갱신(todo P4).
+
 ## 2026-08-28 (2차) — 컨테이너 폭 1040 → 1360, 그리드 열 확장 (여백 피드백)
 
 **발단**: 배포 후 사용자 스크린샷 피드백(→ `docs/feedback-archive/2026-08-28-wider-container/`) — 1920 모니터에서 양쪽 여백이 과함.

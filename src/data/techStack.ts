@@ -49,6 +49,7 @@ export const techGroups: TechGroup[] = [
       { name: "Vite", icon: "vite" },
       { name: "Electron", icon: "electron" },
       { name: "Avalonia (MVVM)", icon: "avalonia" },
+      { name: "WPF", icon: null },
     ],
   },
   {
