@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import Chip, { Tag } from "@/components/ui/Chip";
+import { PrivateRepoLabel } from "@/components/sections/ProjectCard";
 import ScreenshotSlider from "@/components/sections/ScreenshotSlider";
 import { projects } from "@/data/projects";
 import { projectDetails, type ProjectSection } from "@/data/projectDetails";
@@ -93,9 +94,9 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
             <p key={i}>{d}</p>
           ))}
         </div>
-        {detail?.links && (
-          <div className="mt-6 flex flex-wrap gap-2">
-            {detail.links.map((link, i) => {
+        {(detail?.links || detail?.privateRepo) && (
+          <div className="mt-6 flex flex-wrap items-center gap-2">
+            {detail.links?.map((link, i) => {
               const Icon = linkIcon(link.href);
               return (
                 <Button key={link.href} href={link.href} variant={i === 0 && !detail.demo?.url ? "primary" : "weak"} size="sm">
@@ -105,6 +106,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
                 </Button>
               );
             })}
+            {detail.privateRepo && <PrivateRepoLabel className="h-10 bg-surface px-3" />}
           </div>
         )}
       </header>

@@ -12,7 +12,7 @@ export function projectLinks(slug: string) {
   const live = detail?.demo?.url;
   const github = links.find((l) => l.href.includes("github.com") && !l.href.includes("/releases/"))?.href;
   const download = links.find((l) => l.href.includes("/releases/download/"))?.href;
-  return { live, github, download, all: links, hasShots: (detail?.screenshots?.length ?? 0) > 0 };
+  return { live, github, download, all: links, hasShots: (detail?.screenshots?.length ?? 0) > 0, privateRepo: detail?.privateRepo === true };
 }
 
 function iconFor(href: string) {
@@ -26,7 +26,7 @@ function iconFor(href: string) {
  * 카드 밖 하단 행에 별도 앵커로 둔다(중첩 앵커 금지·터치 타깃 44px).
  */
 export default function ProjectCard({ project, compact = false }: { project: Project; compact?: boolean }) {
-  const { live, github, download, hasShots } = projectLinks(project.slug);
+  const { live, github, download, hasShots, privateRepo } = projectLinks(project.slug);
   const external = [
     live && { href: live, label: "라이브", Icon: GlobeIcon },
     github && { href: github, label: "GitHub", Icon: GithubIcon },
@@ -82,7 +82,7 @@ export default function ProjectCard({ project, compact = false }: { project: Pro
         </div>
       </Link>
 
-      {external.length > 0 && (
+      {(external.length > 0 || privateRepo) && (
         <div className="flex flex-wrap gap-1 border-t border-line/60 px-3 py-2">
           {external.map(({ href, label, Icon }) => (
             <a
@@ -97,9 +97,24 @@ export default function ProjectCard({ project, compact = false }: { project: Pro
               <ArrowUpRightIcon className="size-3.5 opacity-70" />
             </a>
           ))}
+          {privateRepo && <PrivateRepoLabel />}
         </div>
       )}
     </article>
+  );
+}
+
+/** 비공개 저장소 표시 — 링크가 아니라 라벨(클릭 없음, 화살표 없음). 404 로 가는 버튼 대신 사실만 적는다. */
+export function PrivateRepoLabel({ className = "" }: { className?: string }) {
+  return (
+    <span
+      title="저장소는 비공개입니다"
+      aria-disabled="true"
+      className={`inline-flex h-9 cursor-default select-none items-center gap-1.5 rounded-btn-sm px-2.5 text-[13.5px] font-semibold text-muted ${className}`}
+    >
+      <GithubIcon className="size-4" />
+      GitHub 저장소 (비공개)
+    </span>
   );
 }
 

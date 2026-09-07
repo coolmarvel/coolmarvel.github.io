@@ -27,6 +27,8 @@ export interface ProjectDetail {
   screenshots?: ProjectScreenshot[];
   demo?: { url?: string; account?: string; note: string };
   links?: ProjectLink[];
+  /** 비공개 저장소 — 카드·상세에 클릭되지 않는 "GitHub 저장소 (비공개)" 라벨만 표시(링크 없음, 2026-09-07 사용자 결정) */
+  privateRepo?: boolean;
 }
 
 export const projectDetails: Record<string, ProjectDetail> = {
@@ -126,6 +128,7 @@ export const projectDetails: Record<string, ProjectDetail> = {
     demo: {
       note: "조직 내부용 도구라 저장소와 인스톨러는 공개하지 않습니다. 중계 서버는 직접 운영 중이며(Docker + Caddy, 다른 서비스와 같은 호스트에 공존) 공개 서비스가 아닙니다. 스크린샷은 WSL의 로컬 중계 서버에 Windows Agent·Console을 붙여 같은 PC에서 촬영했고, 공유 화면에는 이 포트폴리오 페이지를 띄웠습니다. macOS 앱(Avalonia)은 같은 토큰으로 같은 화면 구성을 갖습니다.",
     },
+    privateRepo: true,
   },
 
   "pdf-editor-live": {
@@ -252,6 +255,7 @@ export const projectDetails: Record<string, ProjectDetail> = {
       { label: "pdf-editor.coolmarvel.com 접속", href: "https://pdf-editor.coolmarvel.com" },
       { label: "데스크톱 원본 저장소 (pdf-editor)", href: "https://github.com/coolmarvel/pdf-editor" },
     ],
+    privateRepo: true,
   },
 
   "cm-groupware": {

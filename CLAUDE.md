@@ -58,8 +58,10 @@ oh-my-design 디자인 계약(`DESIGN.md`, Toss 레퍼런스)으로 UI를 전면
 - **형제 프로젝트 문서** (`~/cm_groupware`, `~/pdf-editor`, `~/pdf-editor-live`, `~/remote-assist`, `~/pt_schedule`,
   `~/voice_server`의 CLAUDE.md·ADR·changelog) — `/ai-workflow` 페이지와 최신 프로젝트 카드의 근거. 새 ADR/기능이 생기면 반영 후보.
 
-링크 규칙(사용자 지시 2026-09-07): **private 저장소 프로젝트에는 GitHub 링크를 달지 않는다**(pdf-editor-live·remote-assist).
-공개할 생각이 없는 저장소라 "public 전환 시 링크 추가" 같은 todo 도 만들지 않는다. `gh repo view <repo> --json isPrivate` 로 확인.
+링크 규칙(사용자 결정 2026-09-07): **private 저장소 프로젝트에는 GitHub 링크를 달지 않는다**(pdf-editor-live·remote-assist).
+대신 `projectDetails.ts` 의 `privateRepo: true` 로 카드·상세에 클릭되지 않는 "GitHub 저장소 (비공개)" 라벨(`PrivateRepoLabel`)만 표시한다 —
+404 로 가는 버튼은 깨진 링크로 보이기 때문. 공개할 생각이 없는 저장소라 "public 전환 시 링크 추가" 같은 todo 도 만들지 않는다.
+`gh repo view <repo> --json isPrivate` 로 확인.
 
 스크린샷 규칙: 실제 앱을 띄워 캡처한다. WPF 앱은 WSL 에서 실행이 안 되지만 **Windows interop**(`powershell.exe`)으로 `/mnt/c` 에 복사한
 publish 본을 띄우고 UI Automation 으로 조작·캡처할 수 있다(절차는 session-log 2026-09-07). 화면에 사용자 데스크톱·터미널이 찍히지 않게

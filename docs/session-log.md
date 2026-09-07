@@ -33,8 +33,12 @@
 - 홈 대표 프로젝트: `featured` 가 5개가 되어 앞 4개(remote-assist·pdf-editor-live·cm-groupware·meeting-todo-mcp)만 노출 — gaia-backoffice 가 밀림(todo P4).
 - 검증: `npm run build` 통과, Playwright 로 /projects/remote-assist 라이트/다크/390px + 홈·프로젝트 목록·AI 매트릭스 캡처, body 가로 넘침 0.
 
+- **후속(같은 날)** — 사용자가 "저장소 링크를 걸까, 어차피 404" 라고 물어 **비클릭 라벨**로 절충: `ProjectDetail.privateRepo`
+  + `PrivateRepoLabel`(카드 하단 링크 행·상세 헤더, GithubIcon + "GitHub 저장소 (비공개)", muted, 화살표 없음). pdf-editor-live·remote-assist 에 적용.
+  `.claude/settings.json` 의 Remote Control 3키도 사용자 확인 후 커밋. 푸시·Pages 배포·라이브 200 확인까지 Claude 가 수행(사용자 위임).
+
 **다음에**
-- 사용자 검토 후 push. 맥 dmg 0.1.15 재빌드·M3 로그인이 들어오면 상세 갱신(todo P4).
+- 맥 dmg 0.1.15 재빌드·M3 로그인이 들어오면 상세 갱신(todo P4).
 
 ## 2026-08-28 (2차) — 컨테이너 폭 1040 → 1360, 그리드 열 확장 (여백 피드백)
 
