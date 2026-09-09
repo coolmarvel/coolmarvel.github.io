@@ -5,7 +5,7 @@ export const aiPhilosophy = {
   subtitle: "AI를 쓰는 것이 아니라, AI가 일하는 시스템을 설계합니다",
   intro: [
     "AI(Claude Code) 페어 프로그래밍을 단순 코드 생성 도구가 아닌 정식 개발 방법론으로 채택했습니다. 핵심은 \"Constrain → Verify → Correct\" — AI의 행동을 시스템적으로 제약하고, 산출물을 자동 검증하고, 규칙 위반을 즉시 교정하는 하네스(Harness) 레이어를 프로젝트마다 직접 설계하는 것입니다.",
-    "이 방법론을 Laravel/PHP, FastAPI/Python, Electron/TypeScript, C#/.NET, Fastify/Vite 등 서로 다른 스택 10개 프로젝트에 일관되게 적용하며, 프로세스 규율 자체를 조직 표준으로 만들었습니다. 언어와 프레임워크가 바뀌어도 하네스의 골격(제약 → 검증 → 기록)은 그대로 이식됩니다.",
+    "이 방법론을 Laravel/PHP, FastAPI/Python, Electron/TypeScript, C#/.NET, Fastify/Vite, Tiptap/Spring Boot 등 서로 다른 스택 11개 프로젝트에 일관되게 적용하며, 프로세스 규율 자체를 조직 표준으로 만들었습니다. 언어와 프레임워크가 바뀌어도 하네스의 골격(제약 → 검증 → 기록)은 그대로 이식됩니다.",
     "새 프로젝트는 project-seed라는 자체 \"발사대\" 저장소에서 시작합니다. 브리프(왜/무엇 SSOT)·세션 부팅 프로토콜·hooks·문서 체계·라이선스 표기·디자인 계약(DESIGN.md)까지 첫 커밋부터 갖춰진 상태로 출발하기 때문에, 프로젝트가 늘어나도 규율이 흐려지지 않습니다.",
   ],
 };
@@ -52,13 +52,13 @@ export const aiPillars: AiPillar[] = [
     accent: "purple",
     description:
       "아키텍처 결정은 폐기된 대안과 트레이드오프까지 ADR로 기록합니다. voice_server는 \"로컬 GPU 전량 처리 → 원격 API 위임 → thin orchestrator\"로의 진화를 ADR 6건으로 추적했고, pdf-editor-live는 설계 ADR 1건에 개정 이력 7건을 쌓으며 구독 모델 전환까지 결정을 남겼습니다. CLAUDE.md·writing-guide·runbook 문서가 세션이 바뀌어도 AI가 맥락을 복구하는 SSOT 역할을 하고, 한 번 밟은 지뢰는 \"함정 박제\" 항목으로 남겨 같은 실수가 두 번 나오지 않게 합니다.",
-    items: ["ADR 35건 (9개 프로젝트)", "CLAUDE.md 세션 부팅 프로토콜", "writing-guide 문서 표준", "session-log SSOT", "함정 박제"],
+    items: ["ADR 41건 (10개 프로젝트)", "CLAUDE.md 세션 부팅 프로토콜", "writing-guide 문서 표준", "session-log SSOT", "함정 박제"],
   },
   {
     title: "Design — oh-my-design 디자인 계약",
     accent: "indigo",
     description:
-      "UI도 규율의 대상입니다. oh-my-design(OmD)으로 실제 기업 레퍼런스 카탈로그(440종)에서 프로젝트 맥락에 맞는 브랜드를 고르고, 그 톤을 보존한 DESIGN.md를 프로젝트 루트에 둡니다. 이후 모든 UI 작업은 이 계약을 읽고 시작하며, post-edit 훅이 계약 밖 색·라운드·모션 드리프트를 감지해 교정 로그로 남깁니다. PDF Editor Live는 Notion 베이스에 Linear 툴바를 차용했고, 이 포트폴리오는 Toss를 베이스로 다시 설계했습니다.",
+      "UI도 규율의 대상입니다. oh-my-design(OmD)으로 실제 기업 레퍼런스 카탈로그(440종)에서 프로젝트 맥락에 맞는 브랜드를 고르고, 그 톤을 보존한 DESIGN.md를 프로젝트 루트에 둡니다. 이후 모든 UI 작업은 이 계약을 읽고 시작하며, post-edit 훅이 계약 밖 색·라운드·모션 드리프트를 감지해 교정 로그로 남깁니다. PDF Editor Live는 Notion 베이스에 Linear 툴바를 차용했고, 이 포트폴리오는 Toss를 베이스로 다시 설계했습니다. sh-web-editor는 Upbit 베이스에 상용 웹에디터 실물을 Playwright로 픽셀 실측한 값을 토큰으로 더해, 기억이 아니라 측정값으로 룩을 고정했습니다.",
     items: ["DESIGN.md 디자인 계약", "레퍼런스 카탈로그 440종", "OmD 스킬 22 · 서브에이전트 19 · 훅 4", "슬롭 감사(slop-audit) · 디자이너 리뷰"],
   },
   {
@@ -82,6 +82,7 @@ export const aiMatrix = {
     "sh-ip-scanner",
     "sh-dicom-studio",
     "remote-assist",
+    "sh-web-editor",
   ],
   rows: [
     {
@@ -97,6 +98,7 @@ export const aiMatrix = {
         "C# · .NET 8 · Avalonia",
         "C# · ASP.NET Core · Oracle",
         "C# · .NET 8 · WPF · Avalonia",
+        "TS · Tiptap · Vite · Spring Boot 4",
       ],
     },
     {
@@ -112,11 +114,12 @@ export const aiMatrix = {
         "4종 (env·git·format·build)",
         "3종 (env·git·format)",
         "3종 (env·git·format) + OmD 4종",
+        "3종 (env·git·Prettier) + OmD 4종",
       ],
     },
     {
       label: "슬래시 커맨드",
-      values: ["5종", "3종", "—", "—", "OmD 스킬 22종", "—", "2종", "2종", "2종", "2종 + OmD 스킬 22종"],
+      values: ["5종", "3종", "—", "—", "OmD 스킬 22종", "—", "2종", "2종", "2종", "2종 + OmD 스킬 22종", "2종 + OmD 스킬 22종"],
     },
     {
       label: "MCP",
@@ -131,19 +134,20 @@ export const aiMatrix = {
         "context7 (데스크톱 앱이라 playwright 미사용)",
         "context7 + playwright",
         "context7 + playwright",
+        "context7 + playwright (실물 픽셀 실측·라이브 QA)",
       ],
     },
     {
       label: "Skills (로컬 고정)",
-      values: ["9종", "—", "5종", "—", "22종 + 서브에이전트 19", "—", "—", "—", "—", "22종 + 서브에이전트 19"],
+      values: ["9종", "—", "5종", "—", "22종 + 서브에이전트 19", "—", "—", "—", "—", "22종 + 서브에이전트 19", "22종 + 서브에이전트 19"],
     },
     {
       label: "디자인 계약",
-      values: ["TailAdmin 이식", "—", "—", "v1.7 디자인 토큰(웹 동기화)", "DESIGN.md (Notion + Linear)", "—", "—", "—", "—", "DESIGN.md (Upbit + 업무 도구 실측 색, WPF·Avalonia 토큰 쌍둥이)"],
+      values: ["TailAdmin 이식", "—", "—", "v1.7 디자인 토큰(웹 동기화)", "DESIGN.md (Notion + Linear)", "—", "—", "—", "—", "DESIGN.md (Upbit + 업무 도구 실측 색, WPF·Avalonia 토큰 쌍둥이)", "DESIGN.md (Upbit + 상용 웹에디터 픽셀 실측 토큰, 자체 SVG 아이콘 64종)"],
     },
     {
       label: "ADR",
-      values: ["7건", "6건", "—", "2건", "1건 (개정 7회)", "6건", "2건", "2건", "3건", "6건"],
+      values: ["7건", "6건", "—", "2건", "1건 (개정 7회)", "6건", "2건", "2건", "3건", "6건", "6건"],
     },
     {
       label: "테스트 · UI 자가검증",
@@ -158,6 +162,7 @@ export const aiMatrix = {
         "Avalonia 헤드리스 렌더",
         "xUnit 34 + Avalonia 헤드리스 렌더 + 라이브 서버 E2E",
         "xUnit 217 (Core 192 + Server 25) + 가짜 플랫폼 종단 테스트 + 실서버 스모크 + Windows 콘솔 하네스",
+        "Vitest 188 + JUnit 11 + Playwright E2E + Playwright MCP 실물 대조",
       ],
     },
   ],

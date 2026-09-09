@@ -47,6 +47,7 @@ export const techGroups: TechGroup[] = [
       { name: "TanStack Query", icon: "tanstack" },
       { name: "Tailwind CSS", icon: "tailwind" },
       { name: "Vite", icon: "vite" },
+      { name: "Tiptap (ProseMirror)", icon: null },
       { name: "Electron", icon: "electron" },
       { name: "Avalonia (MVVM)", icon: "avalonia" },
       { name: "WPF", icon: null },

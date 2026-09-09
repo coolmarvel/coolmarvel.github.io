@@ -2,6 +2,36 @@
 
 > 최신 세션이 맨 위. 각 블록은 "무엇을 했나 / 어떤 결정을 했나 / 다음에 뭘 하면 되나"를 담는다.
 
+## 2026-09-09 — sh-web-editor 프로젝트 추가 (라이브 데모 Playwright 전수 검사 33항목 + 스크린샷 22장)
+
+**발단**: 사용자 요청 — 개인 프로젝트 `~/sh-web-editor`(WYSIWYG HTML 웹에디터, v1.0.5, private 저장소, 공개 데모 https://sh-web-editor.coolmarvel.com/)를
+포트폴리오에 넣을 것. 동기는 사용자 원문 그대로(Asana·Jira 무료 에디터의 UI/UX·기능·성능 아쉬움 + 그룹웨어 제증명 양식 편집) + 프로젝트를 훑어 부가 설명은 Claude 가 작성.
+"playwright 로 접속해 전체적으로 테스트", "캡처·테스트 끝나면 브라우저 닫기", "먼저 git fetch/pull" 지시. 시작 전 두 레포 모두 최신 확인.
+
+**한 일**
+- **팩트 시트** — `~/sh-web-editor` 의 CLAUDE.md·README·brief·changelog(v0.1.0~v1.0.5, 43 릴리스)·ADR 6·todo·session-log 를 읽고 수치 산출:
+  TS 155파일 16,717줄 · CSS 3,496줄(26 부분 파일) · Java 1,214줄 · Vitest 188(31 파일) · JUnit 11 · e2e 2 · 대화상자 34종(changelog v0.1.32) · 아이콘 64종(v0.1.33) ·
+  명령 134 · i18n 키 636 · 피드백 15회차 · 킥오프 2026-08-20, 첫 공개 배포 09-08, 09-07~09 사흘에 42 릴리스. `gh repo view` 로 **isPrivate: true** 확인 → `privateRepo: true`, GitHub 링크 없음.
+  **벤치마킹 대상(상용 에디터) 이름은 포트폴리오 문구에 쓰지 않았다** — sh-web-editor 의 화면 문자열 규칙(2026-09-08)과 같은 취지. "국내 업무용 상용 웹에디터 실물 실측" 으로만 표현.
+- **라이브 데모 전수 검사 — scratchpad `test.mjs`(Playwright 1.62, `~/pdf-editor-live/node_modules/playwright`, headless shell 1234, args `--disable-gpu --disable-software-rasterizer`)**:
+  33항목 전부 통과 — 응답 200(로드 0.65s, js/css zstd) · 메뉴 8/버튼 67/뷰 탭 4 · 입력+굵게/기울임/밑줄/글자색 · 목록/정렬 · 격자 3×4 표 삽입 + 표 도구 활성 · 행/열 삽입 · undo/redo ·
+  표 우클릭 메뉴 15항목 · 셀 속성/셀 테두리/새 표(3탭) 대화상자 · HTML/미리 보기/TEXT 뷰 · 파일>템플릿(클래스 트리·목록·"작성 중인 문서가 삭제됩니다" 확인창)으로 휴가(조퇴) 신청서 불러오기 ·
+  양식 셀 입력 · 이미지/찾기바꾸기/환경설정(필드 22) 대화상자 · 웹 접근성 검증(표 3·이미지 1 검출) · 금칙어 API · **XSS 정제**(script/onerror/javascript: 제거 확인) · setZoom · 스킨 13종 ·
+  전체화면 · 댓글 프리셋(메뉴바 없음, 버튼 12) · 업로더 3파일 전송 → 전송 창 → 보기 모드 3행 → 이미지 미리보기 창 · **전체 다운로드 → files.zip 하나**(download 이벤트) · 즉석 `init({manager:true})` 툴바 3줄 82버튼 ·
+  콘솔 에러 0(내 XSS 테스트의 `img src=x` 404 만 제외) · 데스크톱 가로 넘침 0 · iPhone 13 UA 컨텍스트: `is-mobile` 클래스·메뉴바 없음·가로 390/390·» 묶음 상자.
+  발견한 결함 없음. 캡처 함정: 표 우클릭 메뉴는 셀을 **좌클릭한 뒤** 우클릭해야 표 메뉴(아니면 본문 메뉴), 템플릿 트리의 폴더를 클릭하면 접히므로 `.shwe-tree-item.is-file` 을 바로 클릭,
+  실패한 step 뒤엔 열린 대화상자·전송 창을 정리해야 다음 click 이 cover 에 막히지 않음. 양식 캡처는 `.shwe-body` inline height 를 720 으로 키워서. 종료 시 `browser.close()` + `pgrep` 0 확인.
+- **스크린샷 22장** (`public/images/projects/sh-web-editor/`, deviceScaleFactor 2 → 최대 폭 1600 JPEG q84, 총 2.1MB): 첫 화면·서식+표·표 우클릭 메뉴·새 표/셀 속성/셀 테두리 대화상자·HTML 뷰·
+  템플릿 대화상자·양식 불러온 화면·양식 HTML 뷰·이미지/환경설정/접근성 대화상자·스킨 4종 스트립(PIL 합성)·댓글 프리셋·관리자 모드·업로더 목록/전송 창/보기 모드+미리보기·데모 전체·모바일 2.
+- **콘텐츠** — `projects.ts` 맨 앞(featured, 도메인 웹 서비스, 스택 14, highlights 7) + `projectDetails.ts` 상세(배경 3·아키텍처 8·sections 4[표 편집/양식·서버/안전·검증/디자인 실측]·usage 6·AI 활용 6·
+  스크린샷 22·demo url+note·links 1·privateRepo). `techStack.ts` 에 Tiptap (ProseMirror)(아이콘 없음). `aiWorkflow.ts` 매트릭스 11번째 열 + "10개 → 11개 프로젝트", ADR "35건(9개) → 41건(10개)", Design 축에 실측 문장.
+  홈 대표 프로젝트는 `featured` 6개 중 앞 4개 — meeting-todo-mcp·gaia-backoffice 가 밀림(todo P4).
+- **규칙** — CLAUDE.md 형제 프로젝트에 `~/sh-web-editor`, private 링크 금지 목록에 추가, 웹 앱 Playwright 캡처 절차(끝나면 닫기·pgrep 확인) 추가.
+- 검증: `npm run build` 통과(30 페이지, `/projects/sh-web-editor` 생성), 로컬 서빙 후 Playwright 로 상세·홈·프로젝트·AI 매트릭스 × 라이트/다크/390px 캡처, body 가로 넘침 0.
+
+**다음에**
+- sh-web-editor 에 양식 서버 공개 데모·차트·터치 표 편집이 들어오면 상세 갱신(todo P4). 홈 `featured` 4개 선정은 사용자 취향.
+
 ## 2026-09-07 — remote-assist 프로젝트 추가 (Windows interop 으로 실제 앱 캡처) + private 저장소 링크 규칙
 
 **발단**: 사용자 요청 — 새 개인 프로젝트 `~/remote-assist`(C#/.NET 8 원격 지원, private 저장소)를 포트폴리오에 반영하고

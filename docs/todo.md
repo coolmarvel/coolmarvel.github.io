@@ -43,8 +43,9 @@
 
 ## P4
 - [ ] remote-assist 카드 갱신 — 맥 dmg 가 0.1.15 로 재빌드되거나 M3(지원자 로그인·이력 표)가 들어오면 `projectDetails.ts` 상세·매트릭스 갱신. 맥 앱 스크린샷은 맥 세션에서 캡처(현재 없음).
-- [ ] remote-assist 홈 대표 프로젝트 편입으로 gaia-backoffice 가 홈 4열에서 밀려남(`featured` 5개 중 앞 4개만 노출). 사용자 취향에 따라 `featured` 조정.
-- [ ] sh-web-editor(M1)·jazz-community(보일러플레이트) 는 완성도가 오르면 카드 후보. sh-econsent 는 사용자 지시로 제외.
+- [ ] 홈 대표 프로젝트 4열 — `featured` 가 6개(sh-web-editor·remote-assist·pdf-editor-live·cm-groupware·meeting-todo-mcp·gaia-backoffice)라 앞 4개만 노출되고 meeting-todo-mcp·gaia-backoffice 는 밀려남(2026-09-09). 사용자 취향에 따라 `featured` 조정.
+- [x] sh-web-editor 카드 — 2026-09-09 추가(v1.0.5, featured, 스크린샷 22장, 매트릭스 11열). jazz-community(보일러플레이트) 는 완성도가 오르면 카드 후보. sh-econsent 는 사용자 지시로 제외.
+- [ ] sh-web-editor 갱신 시점 — 양식 서버를 공개 데모에 붙이거나(ADR-0005 후속), 차트·터치 표 편집이 들어오면 상세·매트릭스 갱신. 스크린샷은 scratchpad `test.mjs` 절차(session-log 2026-09-09) 재실행.
 - [ ] 형제 프로젝트에 새 ADR/기능 생기면 `/ai-workflow`·`projects.ts` 반영.
 - [x] sh-ip-scanner 인스톨러 다운로드 링크 — 2026-08-05 완료. 저장소가 public 이라 릴리스도
       그쪽(`coolmarvel/sh-ip-scanner` v1.0.1)에 올렸고, 상세 페이지에 다운로드 버튼 추가.
