@@ -6,17 +6,22 @@ import type { Project } from "@/data/projects";
 import { domainAccent } from "@/lib/domain";
 import { ArrowUpRightIcon, CheckIcon, ChevronRightIcon, DownloadIcon, GithubIcon, GlobeIcon } from "@/icons";
 
+/** 설치 파일 링크 — GitHub 릴리스 자산이거나 인스톨러 확장자로 끝나는 주소(자체 배포 서버 포함) */
+export function isDownload(href: string) {
+  return href.includes("/releases/download/") || /\.(exe|dmg|msi|zip)$/i.test(href);
+}
+
 export function projectLinks(slug: string) {
   const detail = projectDetails[slug];
   const links = detail?.links ?? [];
   const live = detail?.demo?.url;
   const github = links.find((l) => l.href.includes("github.com") && !l.href.includes("/releases/"))?.href;
-  const download = links.find((l) => l.href.includes("/releases/download/"))?.href;
+  const download = links.find((l) => isDownload(l.href))?.href;
   return { live, github, download, all: links, hasShots: (detail?.screenshots?.length ?? 0) > 0, privateRepo: detail?.privateRepo === true };
 }
 
 function iconFor(href: string) {
-  if (href.includes("/releases/download/")) return DownloadIcon;
+  if (isDownload(href)) return DownloadIcon;
   if (href.includes("github.com")) return GithubIcon;
   return GlobeIcon;
 }

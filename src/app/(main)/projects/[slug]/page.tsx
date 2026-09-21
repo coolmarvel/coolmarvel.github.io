@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import Chip, { Tag } from "@/components/ui/Chip";
-import { PrivateRepoLabel } from "@/components/sections/ProjectCard";
+import { isDownload, PrivateRepoLabel } from "@/components/sections/ProjectCard";
 import ScreenshotSlider from "@/components/sections/ScreenshotSlider";
 import { projects } from "@/data/projects";
 import { projectDetails, type ProjectSection } from "@/data/projectDetails";
@@ -36,7 +36,7 @@ const sectionIcons: Record<NonNullable<ProjectSection["icon"]>, typeof ShieldIco
 };
 
 function linkIcon(href: string) {
-  if (href.includes("/releases/download/")) return DownloadIcon;
+  if (isDownload(href)) return DownloadIcon;
   if (href.includes("github.com")) return GithubIcon;
   return GlobeIcon;
 }
@@ -116,14 +116,16 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
         <section className="rounded-card bg-weak p-5 md:p-6">
           <h2 className="text-h3 text-fg">{detail.demo.url ? "직접 사용해보기" : "접속 안내"}</h2>
           <p className="mt-2 text-body-sm text-body md:text-body">{detail.demo.note}</p>
-          {detail.demo.url && (
+          {(detail.demo.url || detail.demo.account) && (
             <div className="mt-4 flex flex-col gap-2.5 sm:flex-row sm:items-center">
-              <Button href={detail.demo.url} size="md" className="w-full sm:w-auto">
-                <GlobeIcon className="size-5" />
-                {detail.demo.url.replace("https://", "")} 접속
-              </Button>
+              {detail.demo.url && (
+                <Button href={detail.demo.url} size="md" className="w-full sm:w-auto">
+                  <GlobeIcon className="size-5" />
+                  {detail.demo.url.replace("https://", "")} 접속
+                </Button>
+              )}
               {detail.demo.account && (
-                <code className="inline-flex h-11 items-center rounded-btn bg-canvas px-4 font-mono text-[13px] text-fg">
+                <code className="inline-flex min-h-11 items-center rounded-btn bg-canvas px-4 py-2.5 font-mono text-[13px] text-fg">
                   {detail.demo.account}
                 </code>
               )}

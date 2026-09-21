@@ -2,6 +2,46 @@
 
 > 최신 세션이 맨 위. 각 블록은 "무엇을 했나 / 어떤 결정을 했나 / 다음에 뭘 하면 되나"를 담는다.
 
+## 2026-09-21 — sh-messenger 프로젝트 추가 (실제 Electron 앱을 WSLg 로 띄워 Playwright 캡처 25장)
+
+**발단**: 사용자 요청 — 새 개인 프로젝트 `~/sh-messenger`(Electron 데스크톱 메신저 v0.3.7, private 저장소, 운영 서버 https://messenger.coolmarvel.com)를
+다른 개인 프로젝트처럼 포트폴리오에 넣고 **Playwright 로 스크린샷**을 찍을 것. 함께 "내 프로필을 추가해서 나한테 채팅을 보낼 수 있다"(아이디·이메일 4개 공개),
+"아직 모바일은 구현이 안 되어 있고 PC 버전만 있다"는 점을 분명히 쓸 것. 커밋·배포까지 위임. 작업 중 "캡처 끝나면 playwright 꺼 줘" 추가 지시.
+
+**한 일**
+- **팩트 시트** — `~/sh-messenger` 의 CLAUDE.md·brief·changelog(v0.1.1~v0.3.7, 15 릴리스)·ADR 9건·guides(desktop-chat·deploy·packaging·macos)·session-log 25블록을 읽고
+  수치 산출: TS 약 26,400줄(데스크톱 134파일 14,460 · 서버 141파일 10,797 · 업데이트 서버 1,178) · Prisma 모델 10 · 테스트 서버 332 · 데스크톱 38 ·
+  업데이트 서버 27 · Playwright 브라우저 38(2뷰포트) · 실제 Electron E2E 5 · 킥오프 2026-09-17 → 09-19 v0.3.7(사흘). `gh repo view` **isPrivate: true** → `privateRepo: true`.
+  운영 확인: `/health` {"status":"ok"} · `/desktop/latest.yml` 0.3.7 · 설치 파일 200(95,621,189 bytes).
+- **스크린샷 25장 — 실제 Electron 앱을 WSLg 로 띄워 캡처**(절차, 재사용 가능):
+  1. Docker Desktop 이 꺼져 있어 `powershell.exe Start-Process`(Windows interop)로 띄운 뒤 `npm run docker:up`(8083 API · 8084 미리보기 · 8085 업데이트 · pg 5434 · redis 6380),
+     `npm run build -w @sh-messenger/desktop` 로 `out/` 생성.
+  2. scratchpad `shots.mjs` — Playwright `_electron.launch({ args: [APP, '--force-device-scale-factor=2'], env: { SH_USER_DATA: <임시폴더>, ELECTRON_DISABLE_SANDBOX: 1 } })` 를
+     **두 개**(이성현 / 데모 친구) 띄워 실제로 대화했다. 단일 인스턴스 락은 userData 별로 걸려 두 앱이 동시에 뜬다. 창(프로필·뷰어·서랍·대화)은 `app.waitForEvent('window')` 로 받는다.
+     2배 스케일이라 메인 창 캡처가 840×1520 로 선명하다(`ELECTRON_FORCE_DEVICE_SCALE_FACTOR` 환경변수는 안 먹고 **CLI 플래그**가 먹는다).
+  3. 흐름: 로그인 → 회원가입 → 프로필 사진(포트폴리오 `profile.jpg`)·상태 메시지 → 친구 추가(정확 일치) → 상대의 '나를 추가한 사람' → 대화 창에서 글·사진 3장 묶음·파일·링크 →
+     메시지 메뉴·답장 → 대화 안 검색 → 사진 뷰어 → 대화 서랍 → 그룹 만들기·초대 → 목록 우클릭·상단 고정 → 환경 설정 → 잠금 모드 → 메시지 검색 → 최소 창 360×560.
+     사진은 PIL 로 만든 추상 이미지 4장, 파일은 릴리스 체크리스트 txt(개인 데이터 없음).
+  4. 함정: 첫 시도에서 로컬 DB 에 사용자의 실계정(marvel97·marvel19971125)이 이미 있어 409(같은 아이디로 가입 불가) → 데모 계정은 `coolmarvel`·`shdemo` 로 만들고,
+     재실행 전에 **내가 만든 두 계정만** 지웠다(사용자 데이터는 손대지 않음). 잠금 해제·참여자 버튼은 다이얼로그/툴바로 범위를 좁혀야 strict mode 위반이 안 난다.
+     '정보' 탭 캡처는 버전이 `0.3.7 · Linux`, 업데이트가 '개발 실행에서는 확인하지 않아요' 로 찍혀 **제외**했다(Windows·macOS 앱이라 오해 소지).
+  5. 끝나고 `app.close()` + `pgrep electron` 0 확인, `npm run docker:down` 으로 스택 종료.
+  - 산출물: `public/images/projects/sh-messenger/` 25장(JPEG q84, 총 1.6MB). 첫 장 `windows.jpg` 는 메인 창 + 대화 창을 PIL 로 나란히 합성한 히어로.
+- **콘텐츠** — `projects.ts` 맨 앞(featured, 도메인 데스크톱, 스택 14, highlights 7) + `projectDetails.ts` 상세(배경 3 · 아키텍처 8 ·
+  sections 4[대화 경험 / 저장·프라이버시 / 배포·자동 업데이트 / **아직 없는 것 — 모바일**] · usage 6 · AI 활용 6 · 스크린샷 25 · demo · links 1 · privateRepo).
+  **모바일 미구현**은 사용자 지시대로 카드 설명·sections 한 절·demo 안내 세 곳에 명시(서버는 FCM 푸시까지 있으나 클라이언트가 없다).
+  `techStack.ts` 에 Prisma·Socket.IO(아이콘 없음) 추가. `aiWorkflow.ts` 12번째 열 + "11개 → 12개 프로젝트", ADR "41건(10개) → 50건(11개)".
+- **연락 경로** — 사용자가 준 아이디·이메일 4개(`marvel97` · `marvel19971125` · `marvel97@naver.com` · `marvel19971125@gmail.com`)를 demo 콜아웃의 `account` 코드 칩으로 노출.
+  개인정보 제약(CLAUDE.md #4)의 예외 — 사용자가 직접 공개를 지시했다. 운영 서버에 이 계정이 있는지는 로컬 DB 에서만 확인했고(같은 아이디·이메일로 개발), 운영 DB 에는 쓰기를 하지 않았다.
+- **컴포넌트 소폭 수정** — 자체 배포 설치 파일도 '다운로드' 로 잡히게 `isDownload()`(`/releases/download/` 또는 `.exe/.dmg/.msi/.zip`)를 ProjectCard 에 공용으로 두고 상세 페이지도 같이 쓴다.
+  demo 콜아웃은 `url` 없이 `account` 만 있어도 코드 칩을 그리도록 했다(설치형 앱은 접속 URL 이 없다).
+- 검증: `npm run build` 통과(31 페이지, `/projects/sh-messenger` 생성), 로컬 서빙 후 Playwright 로 홈·프로젝트·상세·AI × 라이트/다크 × 1440/390 캡처,
+  **body 가로 넘침 0**·깨진 이미지 0(모바일에서 뜨는 7건은 썸네일 스트립의 `loading="lazy"` 미로드).
+
+**다음에**
+- sh-messenger 가 v0.4/모바일·맥 자동 업데이트로 가면 카드·sections '아직 없는 것' 절과 매트릭스를 갱신(todo P4).
+- 홈 `featured` 가 7개가 되어 앞 4개만 노출된다 — 선정은 사용자 취향(todo P4).
+
 ## 2026-09-09 — sh-web-editor 프로젝트 추가 (라이브 데모 Playwright 전수 검사 33항목 + 스크린샷 22장)
 
 **발단**: 사용자 요청 — 개인 프로젝트 `~/sh-web-editor`(WYSIWYG HTML 웹에디터, v1.0.5, private 저장소, 공개 데모 https://sh-web-editor.coolmarvel.com/)를
