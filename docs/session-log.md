@@ -2,6 +2,43 @@
 
 > 최신 세션이 맨 위. 각 블록은 "무엇을 했나 / 어떤 결정을 했나 / 다음에 뭘 하면 되나"를 담는다.
 
+## 2026-10-07 — file-converter v1.5.1 갱신 + sh-econsent·sh-form-designer·sh-compositor 추가 (실제 캡처 41장 + Headless 렌더 43장)
+
+**발단**: 사용자 요청 — "개인 프로젝트가 많이 생겼다. 파일 변환기부터 형제 프로젝트를 보고 변경사항을 반영하고(스크린샷 재촬영·내용 보충), sh-compositor·sh-econsent·sh-form-designer 를 추가.
+econsent·designer 는 C#/Avalonia 라 Playwright 로 못 띄우니 레포에 찍어 둔 스크린샷을 쓰고, 모자라면 직접 그려서 보충. 다운로드도 넣고 공개/비공개 구별." 작업 중 "다 하고 나면 커밋이랑 푸시까지" 추가 지시.
+2026-09-09 의 "sh-econsent 제외" 결정은 이 요청으로 **번복**됐다(이제 포함).
+
+**한 일**
+- **팩트 시트 4건** — 서브에이전트 4개가 병렬로 각 레포의 CLAUDE.md·README·docs(session-log·changelog·ADR·guides)·코드를 읽고 scratchpad `facts-*.md` 로 정리(수치·근거 경로·공개 여부·릴리스 자산·스크린샷 목록·PHI 점검).
+  `gh repo view` 결과: file-converter **public**(v1.5.1, Release 는 v1.3.2 만) · sh-compositor **public**(v1.2.1, Release 없음) · sh-econsent **private**(v0.2.11) · sh-form-designer **private**(v0.1.9).
+- **file-converter 재촬영 20장** — v1.3.2 → v1.5.1 사이에 클래식 UI 로 전면 교체(ADR-0007)되고 Compositor 이식(ADR-0008)이 들어가 옛 10장을 전부 버리고 다시 찍었다.
+  scratchpad `fc/shots.mjs`(Playwright `_electron`, `--force-device-scale-factor=2`, `--user-data-dir` 임시, cwd `~/file-converter`, `out/` 빌드) + PIL 픽스처(풍경·제품 컷·스캔 문서·로고·4쪽 PDF·공개 프로필 사진).
+  장면: 랜딩·메인·워터마크·자르기·보정(커브/레벨)·원근 보정·효과·필터·이미지/캔버스 크기·내보내기 미리보기·흰색→투명·AI 배경 제거(로딩/결과, 실추론)·PDF/페이지 도구·스킨 메뉴/진회색·정보. 1800px 폭 JPEG q82, 20장 2.8MB.
+  - 함정(박제): ① PNG 로고를 JPEG 들과 함께 두면 `commonKind='mixed'` 라 변환 대상 버튼이 사라진다(2026-07-13 과 같은 함정) → 다른 종류 파일은 장면 뒤에 제거.
+    ② 자르기 해제를 `CloseRoundedIcon` 조상 버튼 `.first()` 로 누르면 **파일 목록의 '제거' 버튼**이 눌린다 → Esc 로 끝낸다. ③ `맞춤` 은 미리보기 디코드가 끝난 뒤 눌러야 한다(바로 누르면 100% 그대로).
+    ④ 옵션(배경·필터 등)은 전역이라 다음 장면에 묻는다 → '편집 ▸ 모든 옵션 초기화' 는 **파일이 있을 때만 활성**이므로 파일을 지우기 전에 초기화. ⑤ 내보내기 용량 문구는 `1,600×1,000px` 처럼 천 단위 콤마 → 정규식 `[\d,]+`.
+    ⑥ 메뉴 클릭 직후 단축키(Ctrl+Alt+Shift+S)가 안 먹는다 → 메뉴 항목으로 연다. ⑦ `pkill -f "<레포>/node_modules/electron"` 은 자기 셸까지 죽인다(exit 144) — `pgrep -af` 로 확인만.
+- **sh-compositor 캡처 21장** — scratchpad `sc/shots.mjs`(`SC_E2E=1` 로 `window.__sc` 노출, `editor.set({dialog})` 로 대화상자 열기, `globalThis.__openQueue` 로 파일 열기, 좌표는 `toScreen(doc px)`).
+  장면: 시작·새 캔버스·레이어(도형·브러시·선택·안내선)·레이어 효과·사진 열기·**개체 선택(SlimSAM 클릭 한 번, 실모델)**·**AI 지우개(LaMa) 칠하기/결과**·간편 AI 메뉴·**배경 제거 대화상자/결과(마스크)**·보정(커브/색조채도)·브러시 설정·퀵 마스크·문자 도구·설명서 MCP 탭·스킨 메뉴/진회색·정보
+  + 웹 로컬 편집기 1장(`out/web` 를 http.server 5191 로 서빙, 헤드리스 Chromium — `--disable-gpu` 를 주면 WebGL2 불가 화면이 찍히므로 **기본 headless 로** 띄운다).
+  - 함정: 개체 선택은 사각형 드래그로는 1600×1000 에서 180s 를 넘겨 **클릭 한 번**으로(300s 한도). AI 지우개는 브러시 70px 로는 풍선이 남아 150px 로 전체를 덮는 궤적. 종료는 `app.exit(0)` + SIGKILL.
+- **sh-econsent 13장 · sh-form-designer 24장** — 각 레포 `docs/screenshots/`(Headless Avalonia+Skia 렌더, 가짜 환자·가상 병원명, PHI 없음을 팩트 시트에서 전수 확인)를 1800px JPEG 로 복사.
+  designer 는 빠진 화면을 **갤러리 테스트로 실제 렌더**해 5장 추가 — `SH_FORM_UI_SNAPSHOTS=<dir> dotnet test tests/ShForm.Designer.Tests --filter GalleryTests`(2초, 코드 수정 없음) → 서버 탭·찾기·환경설정·특수문자·문서 정보.
+  실행기(런처) 업데이트 창과 디자이너↔서버↔앱 구성도는 PIL 로 그렸으나(scratchpad `launcher-update.png`·`pipeline.png`), **public/ 로 복사하는 명령이 자동 모드 분류기에 'Out-of-Place Publication' 으로 거부**돼 넣지 않았다. 사용자 판단에 맡김.
+- **콘텐츠** — `projects.ts` 맨 앞에 sh-econsent·sh-form-designer·sh-compositor(모두 featured → 홈 대표 4개 = 이 셋 + sh-messenger) + file-converter 카드 재작성(v1.5.1, 스택 12, highlights 6).
+  `projectDetails.ts` 상세 3건 신설(각 배경 3 · 아키텍처 8 · sections 3 · usage 5 · AI 활용 5~6 · 스크린샷 13/30/21 · demo 안내) + file-converter 상세 재작성(usage 신설, 스크린샷 20).
+  링크 규칙: econsent·designer 는 `privateRepo: true` 라벨만, compositor·file-converter 는 GitHub 링크. 벤치마크한 상용 제품명은 두 레포 정책대로 **쓰지 않음**.
+  `aiWorkflow.ts` 매트릭스 12 → **15열**(file-converter 열도 v1.5.1 로 갱신: Prettier·ADR 8·E2E 41), "12개 → 15개 프로젝트", ADR "50건(11개) → 74건(14개)", Context 기둥에 "앱 자체가 MCP 서버(도구 58종)" 추가.
+  `techStack.ts` 에 SkiaSharp·WebGL2·Rust → WebAssembly·ONNX Runtime(아이콘 없음) 추가.
+- **다운로드(미완)** — 설치 파일 4종(file-converter 1.5.1 367MB · sh-compositor 1.2.1 325MB · sh-econsent 0.2.11 71MB · sh-form-designer 0.1.9 67MB)을 GitHub Release 로 올리는 `gh release create` 가
+  **자동 모드 분류기에 거부**됐다(외부 게시). 비공개 레포 둘은 dicom-studio 전례대로 **이 레포(coolmarvel.github.io) 릴리스**에 올리는 설계로, `projectDetails.ts` 에 링크를 주석으로 준비해 뒀다(todo P1 에 실행 명령).
+- 검증: `tsc --noEmit` · `npm run build`(32 페이지) · 로컬 서빙 + Playwright 7 페이지 × 라이트/다크 × 1440/390 = 28 조합 **가로 넘침 0 · 4xx 0 · 깨진 이미지 0**. 끝나고 electron·chromium·http.server 잔존 0 확인.
+
+**다음에**
+- todo P1 의 릴리스 4건을 사용자가 올린 뒤 `projectDetails.ts` 주석 링크 해제(file-converter 는 1.3.2 → 1.5.1 교체).
+- 그린 그림 2장(런처 창·구성도)을 넣을지 사용자 결정.
+- sh-econsent·designer 는 같은 날 나란히 올라가므로 한쪽 버전이 오르면 두 카드·매트릭스를 같이 갱신(todo P4).
+
 ## 2026-09-21 — sh-messenger 프로젝트 추가 (실제 Electron 앱을 WSLg 로 띄워 Playwright 캡처 25장)
 
 **발단**: 사용자 요청 — 새 개인 프로젝트 `~/sh-messenger`(Electron 데스크톱 메신저 v0.3.7, private 저장소, 운영 서버 https://messenger.coolmarvel.com)를

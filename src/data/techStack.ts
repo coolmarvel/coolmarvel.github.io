@@ -53,6 +53,9 @@ export const techGroups: TechGroup[] = [
       { name: "Socket.IO", icon: null },
       { name: "Avalonia (MVVM)", icon: "avalonia" },
       { name: "WPF", icon: null },
+      { name: "SkiaSharp", icon: null },
+      { name: "WebGL2", icon: null },
+      { name: "Rust → WebAssembly", icon: null },
     ],
   },
   {
@@ -104,6 +107,7 @@ export const techGroups: TechGroup[] = [
       { name: "MCP 서버", icon: null },
       { name: "Harness Engineering", icon: null },
       { name: "oh-my-design", icon: null },
+      { name: "ONNX Runtime (온디바이스 AI)", icon: null },
     ],
   },
 ];
