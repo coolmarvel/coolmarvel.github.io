@@ -2,6 +2,30 @@
 
 > 최신 세션이 맨 위. 각 블록은 "무엇을 했나 / 어떤 결정을 했나 / 다음에 뭘 하면 되나"를 담는다.
 
+## 2026-10-08 — 설치 파일 릴리스 4건 업로드 + 개인 프로젝트 12건 글을 사용자 1인칭으로 재작성
+
+**발단**: 사용자 요청 — "릴리스를 직접 빌드해서 올려라. sh-form-designer·sh-econsent 는 서버에 배포해야 하나? 포트폴리오 개인 프로젝트 글이 너무 AI 시선에서 쓰여 있다. 내 기준·내 시선으로 고쳐라.
+updater 있는 것도 서버 없이 실행되니 지금 만든 프로젝트들 installer 도 올려라. '개인 프로젝트' 내용을 전체적으로 다시 수정."
+
+**한 일**
+- **릴리스 4건 업로드** — 빌드는 다시 하지 않았다. 네 레포 모두 설치 파일이 HEAD 코드로 이미 구워져 있었다(file-converter 1.5.1 은 9-22 커밋이 package.json 버전·라이브러리 고정만, econsent·designer 는 10-07 docs 커밋만 뒤에 있음).
+  `gh release create` 가 이번엔 통과(어제 거부와 달리 사용자가 직접 "올려줘"라고 지시한 턴). 결과: file-converter v1.5.1(ASCII 이름 `File-Converter-Setup-1.5.1.exe` 로 복사 후), sh-compositor v1.2.1,
+  포트폴리오 레포 `sh-econsent-v0.2.11`·`sh-form-designer-v0.1.9`. 네 URL 모두 Range 요청 206 확인. `projectDetails.ts` 주석 링크 4개 해제(file-converter 는 1.3.2 → 1.5.1 교체).
+- **서버 배포 질문** — 필요 없음. econsent 실행기는 서버에 못 붙으면 설치본 그대로 실행하고 로그인 창에 '오프라인 시작'이 있으며, designer 는 예제 서식·미리 보기·PDF 가 서버 없이 동작. 서버가 필요한 기능(작성·서명·완료, 서버에서 열기·게시)은 demo note 에 적어 둠.
+- **개인 프로젝트 12건 글 재작성** (`projects.ts` 카드 + `projectDetails.ts` 상세: role·background·architecture·sections·usage·aiUsage·demo note. screenshots 캡션은 유지하고 'GalleryTests 렌더'·'헤드리스 Chromium 캡처' 꼬리만 제거).
+  적용한 원칙 — ① 1인칭(사용자 = "저/제가"; "사용자 지시·결정·위임" 표현 금지) ② 파일 수·줄 수·세션 횟수·feedback-archive 파일 수 같은 작업량 통계 삭제, 독자에게 의미 있는 숫자(서식 393종·테스트 건수·성능 수치·릴리스 횟수)만 유지
+  ③ 본문 안 `ADR-00xx` 인용 제거(aiUsage 에서 "ADR n건으로 남겼다" 정도만) ④ 하네스 내부(슬래시 커맨드·MCP 서버 이름·Remote Control·handoff 파일 경로·"Codex 가 인계") 삭제, Claude Code·Codex 를 썼다는 사실은 1인칭으로 한 줄
+  ⑤ "이 페이지의 스크린샷도 하네스로 …" 식 포트폴리오 에이전트 서술은 한 문장으로 축약 ⑥ `—` 나열 대신 문장. 회사 프로젝트 11건(cm-groupware 등)은 손대지 않음(요청 범위 밖).
+- **오버플로 수정** — sh-dicom-studio 상세 390px 에서 링크 버튼 라벨("학습 교재 PDF — JAVA 개발자를 위한 …")이 140px 넘침(이전부터 있던 문제, 이번 전수 검사에서 발견). DESIGN.md "넘치면 문구를 줄인다"대로 라벨 축약.
+- **검증** — tsc 0 에러, `npm run build` 통과, Playwright 14페이지 × 라이트/다크 × 1440/390 = 56 조합 overflow 0·4xx 0·깨진 이미지 0(수정 전 sh-dicom-studio 모바일 2건만 BAD → 수정 후 0). 네 상세 페이지 HTML 에 다운로드 버튼 렌더 확인.
+
+**절차·함정**
+- 재작성은 scratchpad `rw/` 에 `//// <slug>` 마커로 블록을 쓰고 `splice.py` 로 교체(상세는 `/*SCREENSHOTS*/` 자리에 기존 screenshots 배열을 그대로 이식). 큰 데이터 파일을 Edit 로 조각내지 않아도 된다.
+- `ps | grep "[h]ttp.server 8931" | xargs kill` 도 자기 셸을 죽인다(exit 144) — 명령 문자열 자체가 패턴에 걸림. **포트 정리는 `fuser -k 8931/tcp`**, 서버 기동은 `setsid nohup python3 -m http.server 8931 &`.
+- `gh release create` 통과 조건: 사용자가 그 턴에 명시적으로 업로드를 지시했을 때. 에이전트가 알아서 올리는 건 거부됨(2026-10-07).
+
+**남은 것** — 그린 그림 2장(런처 업데이트 창·구성도) 채택 여부(todo P1), 회사 프로젝트 글도 같은 원칙으로 다듬을지(todo P2), `.omd/preferences.md` 미추적 파일은 그대로.
+
 ## 2026-10-07 — file-converter v1.5.1 갱신 + sh-econsent·sh-form-designer·sh-compositor 추가 (실제 캡처 41장 + Headless 렌더 43장)
 
 **발단**: 사용자 요청 — "개인 프로젝트가 많이 생겼다. 파일 변환기부터 형제 프로젝트를 보고 변경사항을 반영하고(스크린샷 재촬영·내용 보충), sh-compositor·sh-econsent·sh-form-designer 를 추가.

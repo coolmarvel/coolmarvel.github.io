@@ -3,16 +3,8 @@
 > P1 = 즉시 / P2 = 다음 세션 / P3 = 여유 있을 때 / P4 = 아이디어
 
 ## P1
-- [ ] **릴리스 업로드 4건 (2026-10-07 자동 모드 분류기 거부 → 사용자가 직접 실행)** — 올린 뒤 `projectDetails.ts` 의 주석 링크 해제. 명령(WSL, gh 인증 완료 상태):
-      ```bash
-      cp -n ~/file-converter/release/파일변환기-Setup-1.5.1.exe ~/file-converter/release/File-Converter-Setup-1.5.1.exe
-      (cd ~/file-converter && gh release create v1.5.1 release/File-Converter-Setup-1.5.1.exe --title "v1.5.1 — 클래식 UI 전환 + Compositor(MIT) 기능 이식" --notes "Windows 인스톨러(NSIS, x64), 완전 오프라인")
-      (cd ~/sh-compositor && gh release create v1.2.1 release/SH-Compositor-Setup-1.2.1.exe --title "v1.2.1 — AI 지우개(LaMa)·간편 AI 메뉴" --notes "Windows 인스톨러(NSIS, x64), AI 모델 동봉")
-      # 비공개 레포 둘은 dicom-studio 전례대로 포트폴리오 레포 릴리스에:
-      gh release create sh-econsent-v0.2.11 ~/sh-econsent/installer/Output/sh-econsent-sign-Setup-0.2.11.exe -R coolmarvel/coolmarvel.github.io --title "sh e-Consent v0.2.11 (Windows 인스톨러)" --notes "저장소 비공개 — 설치 파일만 게시. 서버 없이는 '오프라인 시작'만 가능"
-      gh release create sh-form-designer-v0.1.9 ~/sh-form-designer/installer/Output/sh-form-designer-Setup-0.1.9.exe -R coolmarvel/coolmarvel.github.io --title "sh Form Designer v0.1.9 (Windows 인스톨러)" --notes "저장소 비공개 — 설치 파일만 게시. 예제 서식은 서버 없이 동작"
-      ```
-      해제할 링크: file-converter(1.3.2 → 1.5.1 교체) · sh-compositor · sh-econsent · sh-form-designer 의 `// { label: ... }` / `// links: [...]` 주석.
+- [x] 릴리스 업로드 4건 — 2026-10-08 완료(사용자 지시로 Claude 가 `gh release create` 실행, 네 URL 206 확인, 링크 주석 해제).
+      file-converter v1.5.1 · sh-compositor v1.2.1 · 포트폴리오 레포 `sh-econsent-v0.2.11` · `sh-form-designer-v0.1.9`.
 - [ ] 그린 그림 2장(런처 업데이트 창·디자이너↔서버↔앱 구성도, scratchpad 에만 있음)을 econsent·designer 스크린샷에 넣을지 결정 — 넣으면 캡션에 "그림" 명시.
 - [x] file-converter v1.3.2 GitHub Release 업로드 — 2026-07-13 완료 (WSL에 gh 설치 + 웹 인증 후
       Claude가 릴리스 생성·업로드·배포·링크 200 검증까지 수행).
@@ -32,6 +24,8 @@
       업로드 자산명은 각각 `PDF-Editor-1.5.2-x64.dmg`, `PDF-Editor-1.5.2-arm64.dmg`.
 
 ## P2
+- [ ] 회사 프로젝트 11건(cm-groupware·meeting-todo-mcp·voice-server·pt-schedule·dpp-performance·athometrip-commerce·gaia-backoffice·fireblocks-custody·wcms·kr-esg-nft·magicdid) 글도
+      2026-10-08 개인 프로젝트에 적용한 1인칭 원칙(session-log 2026-10-08)으로 다듬을지 사용자 결정. 현재 본문에 `ADR-000x` 인용이 남아 있음(projectDetails.ts 795·829·850~854).
 - [ ] DESIGN.md Core v2 승격 — 대화형 세션에서 `omd:init` 재실행 → prepare-review/approve/compile --adopt (ADR-0002 대안 C).
 - [ ] 홈 히어로 문구(`profile.headline/subheadline`)·OG 이미지 문구 사용자 검토.
 - [x] pdf-editor GitHub Release 업로드 — 2026-07-09 완료.
