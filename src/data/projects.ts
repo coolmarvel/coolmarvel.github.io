@@ -425,14 +425,14 @@ export const projects: Project[] = [
   {
     slug: "cm-groupware",
     name: "CM병원 그룹웨어",
-    oneLiner: "13개 업무 도메인을 DDD로 모듈화한 병원 통합 업무 시스템",
+    oneLiner: "13개 업무 도메인을 DDD로 모듈화한 병원 통합 업무 시스템. 지금 재직 중인 병원에서 운영하고 있습니다",
     period: "2026.05 ~",
     company: "씨엠병원",
     domain: "의료",
     featured: true,
     description: [
-      "전자결재·근태/연차·게시판·사내 메일/메신저·문서 발급·직무평가·프로젝트 칸반을 단일 플랫폼으로 통합한 사내 그룹웨어. Laravel 12 DDD 구조로 13개 도메인을 분리하고 프로덕션 운영 중입니다.",
-      "AI(Claude Code) 페어 프로그래밍을 핵심 개발 방식으로 채택하고, hooks·슬래시 커맨드·프로젝트 전용 MCP 서버로 AI 행동을 통제·검증하는 자동화 레이어를 직접 설계했습니다.",
+      "전자결재·근태/연차·게시판·사내 메일/메신저·문서 발급·직무평가·프로젝트 칸반을 하나로 합친 사내 그룹웨어입니다. 입사하자마자 종이 결재와 수기 근태, 흩어진 문서 절차를 보고 전부 한 곳에 모으기로 했고, Laravel 12 위에 도메인 주도 설계로 13개 도메인을 나눠 혼자 만들어 운영하고 있습니다.",
+      "Claude Code를 정식 개발 방식으로 쓴 첫 프로젝트이기도 합니다. 훅·슬래시 커맨드·전용 MCP 서버로 AI가 넘지 말아야 할 선을 막고 산출물을 검증하는 장치를 여기서 처음 만들었고, 이후 모든 프로젝트가 이 틀을 이어받았습니다.",
     ],
     stack: [
       "Laravel 12",
@@ -448,42 +448,42 @@ export const projects: Project[] = [
       "MCP",
     ],
     highlights: [
-      "다형성(Polymorphic) 전자결재 엔진 — 이종 문서를 단일 결재 흐름으로 처리",
-      "사용자 생성 시 메일/메신저 계정 자동 프로비저닝 (이벤트-리스너)",
-      "TailAdmin 디자인 시스템을 Blade로 이식, 다크모드 지원",
-      "ADR 7건으로 아키텍처 의사결정 영구 기록",
+      "다형성 전자결재 엔진. 휴가·연장근무·문서결재 같은 이종 문서를 결재 흐름 하나로 처리합니다",
+      "사용자를 만들면 메일(Mailcow)·메신저(Mattermost) 계정이 이벤트로 자동 생성됩니다",
+      "TailAdmin 디자인 시스템을 Blade로 옮기고 다크모드까지 맞췄습니다",
+      "아키텍처 결정 7건을 ADR로 남겨 두었습니다",
     ],
   },
   {
     slug: "meeting-todo-mcp",
     name: "AI 회의록 → TODO 자동 등록 (LLM + MCP)",
-    oneLiner: "그룹웨어를 MCP 서버로 노출해 LLM이 직접 칸반 카드를 등록",
+    oneLiner: "그룹웨어를 MCP 서버로 열어 LLM이 회의록에서 뽑은 할 일을 칸반 카드로 직접 등록합니다",
     period: "2026.05",
     company: "씨엠병원",
     domain: "AI",
     featured: true,
     description: [
-      "전사된 회의록을 LLM으로 요약·분석하고 회의 중 도출된 Action Item을 부서별 칸반 보드에 자동 등록하는 AI 연동 시스템입니다.",
-      "그룹웨어를 HTTP/SSE 기반 MCP 서버로 노출하고 AI 서버가 MCP 클라이언트로 연결되어, LLM이 도구 호출을 자율 판단하도록 tool description과 JSON Schema를 설계했습니다.",
+      "전사된 회의록을 LLM이 요약·분석하고, 회의에서 나온 할 일을 부서별 칸반 보드에 자동으로 카드로 올리는 연동입니다. 회의가 끝나면 누군가 할 일을 정리해 부서마다 전달하던 일을 없애고 싶었습니다.",
+      "그룹웨어를 HTTP/SSE 기반 MCP 서버로 열고 AI 서버가 MCP 클라이언트로 붙습니다. 고정된 RPC를 부르는 대신 LLM이 어떤 도구를 언제 쓸지 스스로 판단하도록 도구 설명과 JSON Schema를 설계했습니다.",
     ],
     stack: ["laravel/mcp", "Claude Code CLI", "Python", "HTTP/SSE", "Bearer + HMAC"],
     highlights: [
-      "회의록 자동화 도구 11종 구현 (조회 + 생성)",
-      "모든 생성 도구 멱등(idempotent) 설계 — 재시도·중복 호출 안전",
-      "부서 책임자 자동 귀속으로 활동 로그 추적성 확보",
-      "REST API·DB 직접 접근 대비 MCP 채택 근거를 ADR로 문서화",
+      "회의록 자동화 도구 11종(조회 + 생성)",
+      "생성 도구는 전부 멱등이라 재시도·중복 호출에도 안전합니다",
+      "봇 계정 대신 부서 책임자에게 행위를 귀속시켜 활동 로그가 사람을 가리킵니다",
+      "REST API·DB 직접 접근과 비교해 MCP를 고른 이유를 ADR로 남겼습니다",
     ],
   },
   {
     slug: "voice-server",
     name: "Voice Server — AI 회의록 전사 파이프라인",
-    oneLiner: "화자분리 → STT → 요약 → 그룹웨어 전송 4단계 AI 파이프라인",
+    oneLiner: "음성 파일을 올리면 화자분리 → STT → 요약 → 그룹웨어 전송까지 자동으로 처리합니다",
     period: "2026.05 ~",
     company: "씨엠병원",
     domain: "AI",
     description: [
-      "음성 파일 업로드부터 화자분리, STT, LLM 요약, 그룹웨어 전송까지 수행하는 회의록 전사 서버입니다. GPU 처리를 원격 API(WhisperX·Claude 래퍼)로 위임하는 thin orchestrator로 아키텍처를 진화시켰고, 그 과정을 ADR 6건으로 추적했습니다.",
-      "회의록 본문은 사용자 패스워드 기반 PBKDF2 → AES-256-GCM으로 암호화되어 서버조차 복호화할 수 없는 zero-knowledge에 가까운 설계입니다.",
+      "부서장 회의 음성을 올리면 화자분리, STT, LLM 요약, 그룹웨어 전송까지 알아서 끝내는 회의록 서버입니다. GPU 한 대(12GB)로 시작했다가 처리 단계를 원격 API(WhisperX·Claude 래퍼)로 넘기는 얇은 오케스트레이터로 구조를 바꿨고, 그 과정을 ADR 6건으로 남겼습니다.",
+      "회의록 본문은 업로드할 때 입력한 패스워드로 PBKDF2 → AES-256-GCM 암호화합니다. 패스워드를 어디에도 저장하지 않아서 서버조차 본문을 풀 수 없습니다.",
     ],
     stack: [
       "Python",
@@ -497,9 +497,9 @@ export const projects: Project[] = [
     ],
     highlights: [
       "queued → converting → diarizing → asr → summarizing → sending 상태머신",
-      "단방향 outbound HTTPS Push + Bearer/HMAC 서명, 지수백오프 재시도",
-      "PII 보호 — 음성 파일 즉시 삭제, 발화 텍스트 로그 미기록",
-      "torch·CUDA 제거로 의존성 수 GB → 수백 MB 경량화",
+      "그룹웨어로는 단방향 outbound HTTPS Push만. Bearer/HMAC 서명과 지수백오프 재시도",
+      "음성 파일은 작업이 끝나면 바로 지우고 발화 텍스트는 로그에 남기지 않습니다",
+      "torch·CUDA를 떼어 내 의존성을 수 GB에서 수백 MB로 줄였습니다",
     ],
   },
   {
@@ -510,8 +510,8 @@ export const projects: Project[] = [
     company: "씨엠병원",
     domain: "의료",
     description: [
-      "물리치료실 치료사별 일일 시간표(08:00~18:00)에 환자를 배정하고, 월간 캘린더 통계와 환자/치료사 검색을 제공하는 운영 시스템입니다. 관리자/치료사 이중 인증을 지원합니다.",
-      "cm_groupware의 문서/하네스 표준(Skills 잠금·MCP 프로젝트 로컬 격리·커밋 컨벤션)을 경량 스택에 이식했습니다.",
+      "물리치료실 치료사별 일일 시간표(08:00~18:00)에 환자를 배정하고, 월간 캘린더 통계와 환자/치료사 검색을 제공하는 운영 시스템입니다. 수기 시간표를 웹으로 옮겼고 관리자와 치료사가 다른 화면을 봅니다.",
+      "그룹웨어에서 만든 문서·작업 규칙을 가벼운 스택(FastAPI + React)에 그대로 옮겨 본 프로젝트이기도 합니다.",
     ],
     stack: [
       "FastAPI",
@@ -526,7 +526,7 @@ export const projects: Project[] = [
     highlights: [
       "schedule·therapist·auth·calendar·search 5개 기능 도메인",
       "치료사별 색상 시간표 + 월간 환자 수 통계",
-      "skills-lock.json 해시 고정으로 AI 도구 재현성 확보",
+      "그룹웨어와 같은 서버에서 Docker Compose로 운영하고 사이드바에서 바로 들어갑니다",
     ],
   },
   {
@@ -537,26 +537,26 @@ export const projects: Project[] = [
     company: "파라메타",
     domain: "블록체인",
     description: [
-      "KISA·부산광역시 주관 블록체인 기반 전기차 배터리 이력관리·DPP 인증 사업에서 성능·부하 시험을 담당했습니다.",
-      "TTA 공식 성능시험에 대응해 nGrinder 부하 시나리오를 설계하고 인증용 성능시험 보고서를 작성했습니다.",
+      "KISA·부산광역시 주관 블록체인 기반 전기차 배터리 이력관리·DPP 인증 사업에서 성능·부하 시험을 맡았습니다.",
+      "TTA 공식 성능시험에 맞춰 nGrinder 부하 시나리오를 설계하고 인증용 성능시험 보고서를 썼습니다.",
     ],
     stack: ["nGrinder", "Groovy", "ICON SDK", "NCP", "MySQL"],
     highlights: [
       "코인 네트워크 READ 3,000 / WRITE 1,000 TPS 측정·검증",
       "토큰 네트워크 READ 1,000 / WRITE 500 TPS 측정·검증",
-      "단계별 부하 인가로 네트워크별 한계 처리량(임계점) 도출",
-      "LFT2(PBFT 기반 BFT) 합의 구조 기반 Mainnet/Testnet 성능 편차 분석",
+      "단계별로 부하를 올려 네트워크별 한계 처리량을 찾았습니다",
+      "LFT2(PBFT 기반 BFT) 합의 구조를 바탕으로 Mainnet/Testnet 성능 편차를 분석했습니다",
     ],
   },
   {
     slug: "athometrip-commerce",
     name: "앳홈트립 주문·결제 서비스",
-    oneLiner: "워드프레스 레거시를 Stripe 연동 자체 플랫폼으로 이관",
+    oneLiner: "워드프레스 레거시를 Stripe 연동 자체 플랫폼으로 옮겼습니다",
     period: "2025.02 ~ 2025.08",
     company: "앳홈트립",
     domain: "커머스",
     description: [
-      "워드프레스 운영 한계와 사업 확장 수요를 해소하기 위한 자체 주문·결제 플랫폼입니다. Stripe 연동 결제 구조를 설계하고 RabbitMQ 비동기 메시징으로 주문 후처리를 분리했습니다.",
+      "워드프레스로 운영하던 여행 상품 판매가 유지보수와 사업 확장 모두에서 한계에 부딪혀, 자체 주문·결제 플랫폼을 새로 만들어 이관했습니다. Stripe 연동 결제 구조를 설계하고 RabbitMQ 비동기 메시징으로 주문 후처리를 떼어 냈습니다.",
     ],
     stack: [
       "Java",
@@ -570,21 +570,21 @@ export const projects: Project[] = [
     ],
     highlights: [
       "Stripe 주문/결제 구조 설계·개발",
-      "RabbitMQ로 알림·정산 후처리 분리, 결제 응답 지연 최소화",
-      "상품 주문 ↔ 가이드/협력사 매칭 로직 구현",
+      "RabbitMQ로 알림·정산 후처리를 분리해 결제 응답 지연을 줄였습니다",
+      "상품 주문과 가이드/협력사 매칭 로직 구현",
     ],
   },
   {
     slug: "gaia-backoffice",
     name: "GAIA 백오피스",
-    oneLiner: "NestJS MSA 6개 서비스를 단독 설계한 여행 상품 운영 시스템",
+    oneLiner: "NestJS MSA 6개 서비스를 혼자 설계한 여행 상품 운영 시스템",
     period: "2024.05 ~ 2025.01",
     company: "앳홈트립",
     domain: "커머스",
     featured: true,
     description: [
-      "내부 CS와 외부 협력사(가이드·발권·셔틀)가 주문 관리와 일정 리마인드를 수행하는 어드민 시스템입니다. 주문/발권/리마인드 도메인을 분리한 NestJS MSA 6개 서비스를 단독 설계·개발했습니다.",
-      "WooCommerce Webhook 이벤트를 WebSocket으로 CS 화면에 실시간 반영해 수기 확인 단계를 제거했습니다.",
+      "내부 CS와 외부 협력사(가이드·발권·셔틀)가 주문 관리와 일정 리마인드를 하는 어드민 시스템입니다. 주문/발권/리마인드 도메인을 나눈 NestJS MSA 6개 서비스를 혼자 설계하고 개발했습니다.",
+      "WooCommerce Webhook 이벤트를 WebSocket으로 CS 화면에 실시간으로 띄워 수기로 확인하던 단계를 없앴습니다.",
     ],
     stack: [
       "TypeScript",
@@ -597,9 +597,9 @@ export const projects: Project[] = [
       "AWS",
     ],
     highlights: [
-      "6개 마이크로서비스 단독 설계·개발",
+      "마이크로서비스 6개를 혼자 설계·개발",
       "Webhook → WebSocket 실시간 주문 반영",
-      "대용량 주문 데이터 어드민 UI (TanStack)",
+      "대용량 주문 데이터 어드민 UI(TanStack)",
       "협력사 역할별 접근 제어",
     ],
   },
@@ -611,7 +611,7 @@ export const projects: Project[] = [
     company: "위메이드",
     domain: "블록체인",
     description: [
-      "사내 권한자(editor·approver·signer)가 역할에 따라 원장을 생성·서명·전송하는 기관용 디지털 자산 관리 시스템입니다. Fireblocks MPC 커스터디 SDK를 연동해 다중 승인 기반 전송 워크플로를 구현했습니다.",
+      "사내 권한자(editor·approver·signer)가 역할에 따라 원장을 만들고 서명하고 전송하는 기관용 디지털 자산 관리 시스템입니다. Fireblocks MPC 커스터디 SDK를 연동해 다중 승인 기반 전송 워크플로를 구현했습니다.",
     ],
     stack: [
       "Node.js (Express)",
@@ -623,20 +623,20 @@ export const projects: Project[] = [
       "Azure",
     ],
     highlights: [
-      "Fireblocks SDK 지갑 생성·서명·전송 API",
-      "RBAC + 다중 승인(Multi-approval) 권한 처리",
+      "Fireblocks SDK로 지갑 생성·서명·전송 API 구현",
+      "RBAC + 다중 승인 권한 처리",
       "기관용 자산/트랜잭션 로그 조회",
     ],
   },
   {
     slug: "wcms",
     name: "WCMS — 온체인 원장 데이터 대시보드",
-    oneLiner: "web3.js 스케줄러 기반 온체인 데이터 수집 자동화",
+    oneLiner: "web3.js 스케줄러로 온체인 데이터를 직접 수집하는 재무 대시보드",
     period: "2023.05 ~ 2023.11",
     company: "위메이드",
     domain: "블록체인",
     description: [
-      "재단 지갑 및 암호화폐의 온체인 원장 데이터를 수집·관리하는 재무 대시보드입니다. 외부 스캐너 데이터의 정합성 한계를 보완하기 위해 원장 데이터를 직접 수집·적재하는 파이프라인을 구축했습니다.",
+      "재단 지갑과 암호화폐의 온체인 원장 데이터를 수집·관리하는 재무 대시보드입니다. 외부 스캐너 데이터로는 정합성을 보장할 수 없어서 원장 데이터를 사내 서버에 직접 수집·적재하는 파이프라인을 만들었습니다.",
     ],
     stack: [
       "Java",
@@ -649,8 +649,8 @@ export const projects: Project[] = [
     ],
     highlights: [
       "일별 블록 범위 수집 + 재단 지갑별 토큰 집계",
-      "FT/NFT 분류 및 tx-log 수집, UTC·KST 동시 산출",
-      "월별 CSV 자동 덤프로 감사·정산 추적성 확보",
+      "FT/NFT 분류와 tx-log 수집, UTC·KST 동시 산출",
+      "배치 로그를 월별 CSV로 남겨 감사·정산 추적이 가능합니다",
     ],
   },
   {
@@ -661,7 +661,7 @@ export const projects: Project[] = [
     company: "드림시큐리티",
     domain: "블록체인",
     description: [
-      "ESG 캠페인(연말 나무 심기)의 식수 좌표를 메타데이터에 담아 NFT로 발행·증여하고, 한국렌탈 ERP에 대시보드로 연동한 서비스입니다.",
+      "ESG 캠페인(연말 나무 심기)의 식수 좌표를 메타데이터에 담아 NFT로 발행·증여하고, 한국렌탈 ERP에 대시보드로 연동한 서비스입니다. 첫 회사에서 스마트 컨트랙트부터 서버까지 맡았던 프로젝트입니다.",
     ],
     stack: [
       "Solidity",
@@ -687,12 +687,12 @@ export const projects: Project[] = [
     company: "드림시큐리티",
     domain: "블록체인",
     description: [
-      "HyperLedger Fabric 기반 분산신원증명(DID) 서비스의 발급·갱신·폐기 현황을 모니터링하는 운영 백오피스입니다. DID 생애주기 지표를 시각화해 운영 가시성을 확보했습니다.",
+      "HyperLedger Fabric 기반 분산신원증명(DID) 서비스의 발급·갱신·폐기 현황을 모니터링하는 운영 백오피스입니다. DID 생애주기 지표를 차트로 보여 줘 운영 상태를 한눈에 볼 수 있게 했습니다.",
     ],
     stack: ["React.js", "Redux-Saga", "ECharts", "MUI", "JWT", "On-Premise"],
     highlights: [
       "DID 발급/갱신/폐기 지표 ECharts 시각화",
-      "LG 모나체인 백오피스 벤치마킹 UI 설계",
+      "LG 모나체인 백오피스를 참고한 UI 설계",
     ],
   },
 

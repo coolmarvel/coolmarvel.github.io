@@ -25,7 +25,7 @@ export default function HomePage() {
       <section>
         <SectionTitle
           title="대표 프로젝트"
-          desc="라이브로 운영 중인 서비스부터 병원 그룹웨어, AI 파이프라인까지"
+          desc="최근에 만든 것부터. 전부 직접 설치하거나 접속해 볼 수 있습니다"
           href="/projects"
           linkLabel={`전체 ${projects.length}개 보기`}
         />

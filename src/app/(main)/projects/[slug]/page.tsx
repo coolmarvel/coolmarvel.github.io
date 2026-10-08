@@ -5,7 +5,8 @@ import { notFound } from "next/navigation";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import Chip, { Tag } from "@/components/ui/Chip";
-import { isDownload, PrivateRepoLabel } from "@/components/sections/ProjectCard";
+import { PrivateRepoLabel } from "@/components/sections/ProjectCard";
+import { isDownload, sortLinks } from "@/lib/links";
 import ScreenshotSlider from "@/components/sections/ScreenshotSlider";
 import { projects } from "@/data/projects";
 import { projectDetails, type ProjectSection } from "@/data/projectDetails";
@@ -88,7 +89,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
         </div>
         <h1 className="mt-3 text-h1-m text-fg md:text-h1">{project.name}</h1>
         <p className="mt-2 text-body text-body md:text-[16px]">{project.oneLiner}</p>
-        {detail?.role && <p className="mt-3 text-body-sm text-muted">담당 — {detail.role}</p>}
+        {detail?.role && <p className="mt-3 text-body-sm text-muted">{detail.role}</p>}
         <div className="mt-5 flex flex-col gap-3 text-body text-body">
           {project.description.map((d, i) => (
             <p key={i}>{d}</p>
@@ -96,7 +97,9 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
         </div>
         {(detail?.links || detail?.privateRepo) && (
           <div className="mt-6 flex flex-wrap items-center gap-2">
-            {detail.links?.map((link, i) => {
+            {/* 순서: 저장소 자리(GitHub 또는 비공개 라벨) → Windows → macOS → 기타 다운로드 → 접속 (src/lib/links.ts) */}
+            {detail.privateRepo && <PrivateRepoLabel className="h-10 bg-surface px-3" />}
+            {sortLinks(detail.links).map((link, i) => {
               const Icon = linkIcon(link.href);
               return (
                 <Button key={link.href} href={link.href} variant={i === 0 && !detail.demo?.url ? "primary" : "weak"} size="sm">
@@ -106,7 +109,6 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
                 </Button>
               );
             })}
-            {detail.privateRepo && <PrivateRepoLabel className="h-10 bg-surface px-3" />}
           </div>
         )}
       </header>
@@ -220,7 +222,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
               <span className="flex size-9 items-center justify-center rounded-inner bg-acc-purple-bg text-acc-purple-fg">
                 <BotIcon className="size-5" />
               </span>
-              AI(Claude Code) 활용
+              Claude Code와 일한 방식
             </span>
           }
         >

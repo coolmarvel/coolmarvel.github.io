@@ -8,7 +8,7 @@ import { BotIcon, ChevronRightIcon } from "@/icons";
 
 export const metadata: Metadata = {
   title: "AI 워크플로우",
-  description: "Claude Code · MCP · hooks · ADR · oh-my-design — AI가 일하는 하네스를 10개 프로젝트에 일관되게 적용한 방법.",
+  description: "Claude Code · MCP · hooks · ADR · oh-my-design — AI가 일하는 하네스를 15개 프로젝트에 같은 틀로 적용한 방법.",
 };
 
 const barColor = {
@@ -42,7 +42,7 @@ export default function AiWorkflowPage() {
       </header>
 
       <section>
-        <SectionTitle title="하네스의 여섯 축" desc="제약 → 검증 → 컨텍스트 → 기록 → 디자인 → 발사대" />
+        <SectionTitle title="하네스의 여섯 축" desc="제약 → 검증 → 컨텍스트 → 기록 → 디자인 → 발사대. 스택이 바뀌어도 이 여섯 가지는 그대로 가져갑니다" />
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {aiPillars.map((pillar) => (
             <Card key={pillar.title} className="h-full">
@@ -81,7 +81,7 @@ export default function AiWorkflowPage() {
 
       <Card
         title="프로젝트별 하네스 적용 현황"
-        desc={`하나의 방법론을 서로 다른 ${aiMatrix.columns.length}개 프로젝트에 일관 적용 (스택 무관)`}
+        desc={`같은 틀을 스택이 다른 ${aiMatrix.columns.length}개 프로젝트에 적용한 현황`}
       >
         <div className="thin-scrollbar -mx-5 overflow-x-auto px-5 md:-mx-6 md:px-6">
           <table className="w-full min-w-[1080px] border-collapse text-left">

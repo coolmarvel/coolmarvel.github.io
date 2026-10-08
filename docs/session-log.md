@@ -2,6 +2,24 @@
 
 > 최신 세션이 맨 위. 각 블록은 "무엇을 했나 / 어떤 결정을 했나 / 다음에 뭘 하면 되나"를 담는다.
 
+## 2026-10-08 (2차) — 링크 순서 규칙 코드화 + 홈·경력·회사 프로젝트·AI 워크플로우까지 1인칭 다듬기
+
+**발단**: 사용자 — "어떤 건 인스톨러 옆에 저장소, 어떤 건 저장소 옆에 인스톨러. 규칙을 정하자: 저장소가 있으면 맨 왼쪽, 없으면 인스톨러(윈도우, 맥 순서). 그리고 프로젝트만 말고 홈~AI 워크플로우까지 전체적으로 한 번 더 다듬어라."
+
+**한 일**
+- **링크 순서 규칙** — `src/lib/links.ts` 신설(`isDownload`·`isRepo`·`linkRank`·`sortLinks`). 등급: 저장소(0) → Windows(1) → macOS Intel(2) → macOS Apple Silicon(3) → 기타 다운로드(PDF, 4) → 접속(5), 같은 등급은 데이터 순서 유지.
+  카드(`ProjectCard.projectLinks`)와 상세(`[slug]/page.tsx`) 양쪽이 이 정렬을 쓰고, 비공개 라벨(`PrivateRepoLabel`)도 저장소 자리라 **맨 왼쪽**으로 옮김(카드 하단 행·상세 헤더 둘 다).
+  `isDownload` 는 ProjectCard 에서 re-export 해 기존 import 호환. 데이터(`projectDetails.ts` links)도 같은 규칙으로 재정렬하고 라벨 통일: "GitHub 저장소" / "Windows 설치 파일 (vX)" / "macOS 설치 파일 (vX, Intel|Apple Silicon)".
+- **회사 프로젝트 11건** 카드·상세를 개인 프로젝트와 같은 1인칭 원칙으로 재작성(ADR 번호 인용 제거, role 을 문장으로). 상세 헤더의 "담당 — " 접두 제거(role 이 문장이라), AI 카드 제목 "AI(Claude Code) 활용" → "Claude Code와 일한 방식".
+- **경력 페이지**(`experience.ts`) — 설명·상세 업무를 명사형 이력서 문체에서 "~했습니다" 문장으로. 사실·수치는 그대로.
+- **AI 워크플로우**(`aiWorkflow.ts`) — intro 3문단과 여섯 축 설명을 "왜 이렇게 하는지" 1인칭으로 다시 씀(도구 목록 나열 → 동기 + 구체 예). 매트릭스는 값 하나만 수정(`ADR-0007` 인용 제거). aiAsProduct 에 개인 프로젝트의 온디바이스 AI·MCP 서버 한 문장 추가.
+- **홈**(`profile.summary`) 세 문단 다듬기(C#/.NET·Electron 데스크톱 언급 추가), 대표 프로젝트 desc(현재 featured 4개가 전부 개인 앱이라 "최근에 만든 것부터…"로), 경력 페이지 desc·숙련도 desc, AI 워크플로우 metadata "10개" → "15개", 프로젝트 목록 metadata 줄표 제거.
+- **검증** — tsc 0, build 통과, Playwright 27페이지(홈·경력·목록·AI 워크플로우 + 상세 23) × 라이트/다크 × 1440/390 = 108 조합 overflow 0·4xx 0·깨진 이미지 0. pdf-editor 상세 헤더에서 GitHub → Windows → macOS Intel → macOS Apple Silicon → 웹 버전 순서를 눈으로 확인.
+
+**절차** — 재작성은 1차와 같은 `rw/splice.py`(unquoted 키 `wcms:`/`magicdid:` 도 잡도록 정규식에 `"?` 추가, screenshots 없는 블록 허용). 링크 재정렬·라벨 통일은 1회성 파이썬 스크립트(session 기록용, 재실행 불필요 — 코드가 정렬함).
+
+**남은 것** — 그린 그림 2장(todo P1), `.omd/preferences.md` 미추적.
+
 ## 2026-10-08 — 설치 파일 릴리스 4건 업로드 + 개인 프로젝트 12건 글을 사용자 1인칭으로 재작성
 
 **발단**: 사용자 요청 — "릴리스를 직접 빌드해서 올려라. sh-form-designer·sh-econsent 는 서버에 배포해야 하나? 포트폴리오 개인 프로젝트 글이 너무 AI 시선에서 쓰여 있다. 내 기준·내 시선으로 고쳐라.

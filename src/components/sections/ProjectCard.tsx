@@ -4,18 +4,16 @@ import Chip, { Tag } from "@/components/ui/Chip";
 import { projectDetails } from "@/data/projectDetails";
 import type { Project } from "@/data/projects";
 import { domainAccent } from "@/lib/domain";
+import { isDownload, isRepo, sortLinks } from "@/lib/links";
 import { ArrowUpRightIcon, CheckIcon, ChevronRightIcon, DownloadIcon, GithubIcon, GlobeIcon } from "@/icons";
 
-/** 설치 파일 링크 — GitHub 릴리스 자산이거나 인스톨러 확장자로 끝나는 주소(자체 배포 서버 포함) */
-export function isDownload(href: string) {
-  return href.includes("/releases/download/") || /\.(exe|dmg|msi|zip)$/i.test(href);
-}
+export { isDownload };
 
 export function projectLinks(slug: string) {
   const detail = projectDetails[slug];
-  const links = detail?.links ?? [];
+  const links = sortLinks(detail?.links);
   const live = detail?.demo?.url;
-  const github = links.find((l) => l.href.includes("github.com") && !l.href.includes("/releases/"))?.href;
+  const github = links.find((l) => isRepo(l.href))?.href;
   const download = links.find((l) => isDownload(l.href))?.href;
   return { live, github, download, all: links, hasShots: (detail?.screenshots?.length ?? 0) > 0, privateRepo: detail?.privateRepo === true };
 }
@@ -27,15 +25,15 @@ function iconFor(href: string) {
 }
 
 /**
- * 프로젝트 카드 — 카드 전체가 상세로 가는 링크이고, 외부 링크(라이브·GitHub·다운로드)는
- * 카드 밖 하단 행에 별도 앵커로 둔다(중첩 앵커 금지·터치 타깃 44px).
+ * 프로젝트 카드 — 카드 전체가 상세로 가는 링크이고, 외부 링크는 카드 밖 하단 행에 별도 앵커로 둔다(중첩 앵커 금지·터치 타깃 44px).
+ * 순서는 저장소 자리(GitHub 또는 비공개 라벨) → 다운로드 → 라이브(`src/lib/links.ts` 규칙과 동일).
  */
 export default function ProjectCard({ project, compact = false }: { project: Project; compact?: boolean }) {
   const { live, github, download, hasShots, privateRepo } = projectLinks(project.slug);
   const external = [
-    live && { href: live, label: "라이브", Icon: GlobeIcon },
     github && { href: github, label: "GitHub", Icon: GithubIcon },
     download && { href: download, label: "다운로드", Icon: DownloadIcon },
+    live && { href: live, label: "라이브", Icon: GlobeIcon },
   ].filter(Boolean) as { href: string; label: string; Icon: typeof GlobeIcon }[];
 
   return (
@@ -89,6 +87,7 @@ export default function ProjectCard({ project, compact = false }: { project: Pro
 
       {(external.length > 0 || privateRepo) && (
         <div className="flex flex-wrap gap-1 border-t border-line/60 px-3 py-2">
+          {privateRepo && <PrivateRepoLabel />}
           {external.map(({ href, label, Icon }) => (
             <a
               key={href}
@@ -102,7 +101,6 @@ export default function ProjectCard({ project, compact = false }: { project: Pro
               <ArrowUpRightIcon className="size-3.5 opacity-70" />
             </a>
           ))}
-          {privateRepo && <PrivateRepoLabel />}
         </div>
       )}
     </article>

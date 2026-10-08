@@ -21,7 +21,7 @@ export default function ExperiencePage() {
         title="경력"
         desc={
           <>
-            총 <CareerDuration /> · 의료 · 커머스 · 블록체인 도메인을 넘나들며 설계부터 운영까지 담당했습니다.
+            총 <CareerDuration />. 블록체인에서 커머스, 의료로 옮겨 오며 설계부터 운영까지 맡았습니다.
           </>
         }
       />
@@ -76,7 +76,7 @@ export default function ExperiencePage() {
       </div>
 
       <section>
-        <SectionTitle title="숙련도" desc="카테고리별 상대 숙련도 — 실무 투입 빈도와 깊이를 기준으로 한 자기 평가입니다." />
+        <SectionTitle title="숙련도" desc="카테고리별 상대 숙련도입니다. 실무에서 쓴 빈도와 깊이를 기준으로 제가 매긴 값입니다." />
         <SkillsSection />
       </section>
     </div>

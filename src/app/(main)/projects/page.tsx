@@ -6,7 +6,7 @@ import { projects } from "@/data/projects";
 
 export const metadata: Metadata = {
   title: "프로젝트",
-  description: "운영 중인 웹 서비스, 데스크톱 앱 인스톨러, 병원 그룹웨어, AI 파이프라인, 블록체인 성능 시험까지 — 설계부터 운영까지 담당한 프로젝트 목록.",
+  description: "운영 중인 웹 서비스, 데스크톱 앱 설치 파일, 병원 그룹웨어, AI 파이프라인, 블록체인 성능 시험까지 설계부터 운영까지 맡은 프로젝트 목록.",
 };
 
 export default function ProjectsPage() {

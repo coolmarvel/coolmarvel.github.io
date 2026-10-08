@@ -24,8 +24,7 @@
       업로드 자산명은 각각 `PDF-Editor-1.5.2-x64.dmg`, `PDF-Editor-1.5.2-arm64.dmg`.
 
 ## P2
-- [ ] 회사 프로젝트 11건(cm-groupware·meeting-todo-mcp·voice-server·pt-schedule·dpp-performance·athometrip-commerce·gaia-backoffice·fireblocks-custody·wcms·kr-esg-nft·magicdid) 글도
-      2026-10-08 개인 프로젝트에 적용한 1인칭 원칙(session-log 2026-10-08)으로 다듬을지 사용자 결정. 현재 본문에 `ADR-000x` 인용이 남아 있음(projectDetails.ts 795·829·850~854).
+- [x] 회사 프로젝트 11건·경력·홈·AI 워크플로우 글 1인칭 다듬기 — 2026-10-08 2차 완료. 링크 순서 규칙은 `src/lib/links.ts` 가 정렬(저장소 → Windows → macOS → 기타 → 접속).
 - [ ] DESIGN.md Core v2 승격 — 대화형 세션에서 `omd:init` 재실행 → prepare-review/approve/compile --adopt (ADR-0002 대안 C).
 - [ ] 홈 히어로 문구(`profile.headline/subheadline`)·OG 이미지 문구 사용자 검토.
 - [x] pdf-editor GitHub Release 업로드 — 2026-07-09 완료.
