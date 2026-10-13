@@ -3,6 +3,9 @@
 > P1 = 즉시 / P2 = 다음 세션 / P3 = 여유 있을 때 / P4 = 아이디어
 
 ## P1
+- [x] PDF 두 프로젝트 재촬영·글 갱신·2.0.0 설치 파일 교체 — 2026-10-13 완료(포트폴리오 레포 릴리스 `pdf-editor-v2.0.0`).
+- [ ] PDF Editor macOS 2.0.0 DMG — 맥에서 `apps/desktop` 의 `dist:mac` 빌드 후 릴리스에 올리면 pdf-editor 상세의 v1.5.2 DMG 링크 2개를 교체.
+- [ ] PDF Editor Live 운영 화면으로 로그인·가입 캡처 — 로컬은 Mock 버튼이 보여 제외함. 운영 계정으로 찍으면 Google·Kakao·Naver 버튼이 보이는 화면을 추가할 수 있다.
 - [x] 릴리스 업로드 4건 — 2026-10-08 완료(사용자 지시로 Claude 가 `gh release create` 실행, 네 URL 206 확인, 링크 주석 해제).
       file-converter v1.5.1 · sh-compositor v1.2.1 · 포트폴리오 레포 `sh-econsent-v0.2.11` · `sh-form-designer-v0.1.9`.
 - [ ] 그린 그림 2장(런처 업데이트 창·디자이너↔서버↔앱 구성도, scratchpad 에만 있음)을 econsent·designer 스크린샷에 넣을지 결정 — 넣으면 캡션에 "그림" 명시.

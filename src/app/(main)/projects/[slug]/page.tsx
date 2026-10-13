@@ -52,7 +52,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const detail = projectDetails[slug];
   const image = detail?.screenshots?.[0]?.src;
   return {
-    title: project?.name ?? "프로젝트",
+    title: project ? [project.name, project.tagline].filter(Boolean).join(" · ") : "프로젝트",
     description: project?.oneLiner,
     openGraph: image ? { images: [{ url: image }] } : undefined,
   };
@@ -87,7 +87,11 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
             {project.company} · {project.period}
           </span>
         </div>
-        <h1 className="mt-3 text-h1-m text-fg md:text-h1">{project.name}</h1>
+        <h1 className="mt-3 text-h1-m text-fg md:text-h1">
+          {project.name}
+          {project.tagline && <span className="ml-2 font-semibold text-body">{project.tagline}</span>}
+          {project.platforms && <span className="ml-2 font-semibold text-muted">({project.platforms})</span>}
+        </h1>
         <p className="mt-2 text-body text-body md:text-[16px]">{project.oneLiner}</p>
         {detail?.role && <p className="mt-3 text-body-sm text-muted">{detail.role}</p>}
         <div className="mt-5 flex flex-col gap-3 text-body text-body">

@@ -14,7 +14,7 @@ export const skillCategories: SkillCategory[] = [
       { name: "PHP · Laravel (DDD)", level: 85 },
       { name: "Python · FastAPI", level: 75 },
       { name: "C# · .NET 8 · ASP.NET Core · Avalonia", level: 70 },
-      { name: "RabbitMQ · WebSocket · RestAPI", level: 85 },
+      { name: "RabbitMQ · WebSocket · REST API", level: 85 },
     ],
   },
   {

@@ -10,7 +10,7 @@ import { CalendarIcon } from "@/icons";
 
 export const metadata: Metadata = {
   title: "경력",
-  description: "씨엠병원 · 파라메타 · 앳홈트립 · 위메이드 · 드림시큐리티 — 의료·커머스·블록체인 도메인의 경력과 상세 업무.",
+  description: "씨엠병원, 파라메타, 앳홈트립, 위메이드, 드림시큐리티에서 쌓은 의료·커머스·블록체인 도메인의 경력과 상세 업무.",
 };
 
 export default function ExperiencePage() {

@@ -54,7 +54,10 @@ export default function ProjectCard({ project, compact = false }: { project: Pro
           <span>{project.name}</span>
           <ChevronRightIcon className="mt-0.5 size-5 shrink-0 text-placeholder transition-colors group-hover:text-body" />
         </h3>
-        <p className="mt-1 text-body-sm text-body">{project.oneLiner}</p>
+        {/* 이름 / 설명 / OS 를 줄을 나눠 쌓는다(상세 헤더는 한 줄) */}
+        {project.tagline && <p className="mt-0.5 text-[15px] font-semibold text-body">{project.tagline}</p>}
+        {project.platforms && <p className="mt-0.5 text-caption text-muted">{project.platforms}</p>}
+        <p className="mt-2 text-body-sm text-body">{project.oneLiner}</p>
 
         {!compact && (
           <div className="mt-4 flex flex-col gap-2.5 text-body-sm text-body">

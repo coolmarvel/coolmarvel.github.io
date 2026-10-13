@@ -55,7 +55,7 @@ export const techGroups: TechGroup[] = [
       { name: "WPF", icon: null },
       { name: "SkiaSharp", icon: null },
       { name: "WebGL2", icon: null },
-      { name: "Rust → WebAssembly", icon: null },
+      { name: "Rust (WebAssembly)", icon: null },
     ],
   },
   {

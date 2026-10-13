@@ -77,7 +77,7 @@ export const experiences: Experience[] = [
           "MySQL",
         ],
         tasks: [
-          "그룹웨어를 MCP 서버로 열고(HTTP/SSE, Bearer 인증) 회의록 자동화 도구 11종을 만들었습니다. 부서·프로젝트·멤버·후보 조회와 프로젝트/컬럼/멤버/보드카드 생성입니다.",
+          "그룹웨어를 MCP 서버로 열고(HTTP/SSE, Bearer 인증) 회의록 자동화 도구 11종을 만들었습니다. 부서·프로젝트·멤버·후보를 조회하고 프로젝트·컬럼·멤버·보드 카드를 만드는 도구입니다.",
           "고정된 RPC 대신 LLM이 어떤 도구를 언제 쓸지 스스로 판단하도록 도구 설명과 JSON Schema를 설계했습니다.",
           "생성 도구는 전부 멱등으로 만들어 재시도·중복 호출에도 안전합니다.",
           "단일 봇 계정 대신 부서 책임자를 자동으로 찾아 카드·프로젝트의 행위자로 삼아 활동 로그가 실제 사람을 가리키게 했습니다.",
@@ -88,7 +88,7 @@ export const experiences: Experience[] = [
         name: "Voice Server (AI 회의록 전사·요약 파이프라인)",
         period: "26.05 ~",
         description: [
-          "부서장 회의 음성 파일을 올리면 화자분리 → STT → LLM 요약 → 그룹웨어 전송까지 자동으로 처리하는 회의록 서버입니다.",
+          "부서장 회의 음성 파일을 올리면 화자분리, STT, LLM 요약을 거쳐 그룹웨어 전송까지 자동으로 처리하는 회의록 서버입니다.",
           "GPU 한 대(12GB VRAM) 제약에서 시작해 처리 단계를 원격 API로 넘기는 얇은 오케스트레이터로 구조를 바꿨고, 그 과정을 ADR 6건으로 남겼습니다.",
         ],
         stack: [
@@ -105,11 +105,11 @@ export const experiences: Experience[] = [
         tasks: [
           "queued → converting → diarizing → asr → summarizing → sending → done 상태머신을 설계하고 단계별 처리 시각을 DB에 남겨 병목을 찾습니다.",
           "로컬 pyannote/faster-whisper GPU 처리를 원격 WhisperX API로, 요약도 원격 Claude 래퍼 API로 넘겨 torch·CUDA 의존성을 떼어 냈습니다. 수 GB가 수백 MB가 됐습니다.",
-          "회의록 본문을 업로드할 때 입력한 패스워드로 PBKDF2 → AES-256-GCM 암호화합니다. 패스워드를 어디에도 저장하지 않아 서버조차 본문을 풀 수 없습니다.",
-          "그룹웨어와는 단방향 outbound HTTPS Push만 씁니다(NAT 뒤에서도 동작). Bearer 토큰 + HMAC-SHA256 서명, 실패 시 지수백오프 5회 재시도.",
+          "회의록 본문을 업로드할 때 입력한 패스워드에서 PBKDF2로 키를 만들어 AES-256-GCM으로 암호화합니다. 패스워드를 어디에도 저장하지 않아 서버조차 본문을 풀 수 없습니다.",
+          "그룹웨어와는 단방향 outbound HTTPS Push만 쓰기 때문에 NAT 뒤에서도 동작합니다. 요청은 Bearer 토큰과 HMAC-SHA256으로 서명하고, 실패하면 지수 백오프로 5회까지 재시도합니다.",
           "개인정보 보호를 위해 음성 파일은 작업이 끝나면 바로 지우고 발화 텍스트는 로그에 남기지 않습니다(job_id까지만).",
           "asyncio.Queue 단일 워커로 직렬 처리해 공유 GPU를 보호하고, 그룹웨어와 DB·자격증명을 분리했습니다.",
-          "[AI] 그룹웨어의 작업 규칙을 그대로 옮겼습니다. 훅 3종(env-guard·git-add-guard·ruff 자동 포맷)과 리뷰 커맨드 3종(파이프라인·보안·배포 전 점검).",
+          "[AI] 그룹웨어에서 쓰던 작업 규칙을 그대로 옮겼습니다. .env 보호·스테이징 검사·ruff 자동 포맷 훅 3종과 파이프라인·보안·배포 전 점검 리뷰 명령 3종을 두었습니다.",
         ],
       },
       {
@@ -266,7 +266,7 @@ export const experiences: Experience[] = [
         ],
       },
       {
-        name: "WCMS — 재단 재무·온체인 원장 데이터 관리 대시보드",
+        name: "WCMS (재단 재무·온체인 원장 데이터 관리 대시보드)",
         period: "23.05 ~ 23.11",
         description: [
           "재단 지갑과 암호화폐(코인·토큰)의 온체인 원장 데이터를 수집·관리하는 재무 대시보드입니다.",
@@ -290,7 +290,7 @@ export const experiences: Experience[] = [
         ],
       },
       {
-        name: "온체인 운영 — 지갑 생성·스마트 컨트랙트 배포·암호화폐 전송",
+        name: "온체인 운영 (지갑 생성·스마트 컨트랙트 배포·암호화폐 전송)",
         period: "23.04 ~ 23.11",
         description: [
           "사업별 지갑 생성(SSS·Multisig·Vault·Ledger 등), 스마트 컨트랙트 배포(FT·NFT·Bridge 등), 암호화폐 전송 같은 블록체인 온체인 운영 업무를 맡았습니다.",
@@ -355,7 +355,7 @@ export const experiences: Experience[] = [
           "On-Premise",
         ],
         tasks: [
-          "웹 인터페이스를 설계·개발했습니다(LG 모나체인 백오피스 참고).",
+          "LG 모나체인 백오피스를 참고해 웹 인터페이스를 설계·개발했습니다.",
           "인증(로그인) 기능을 구현했습니다.",
           "DID 발급/갱신/폐기 지표를 ECharts로 시각화하는 차트 데이터 렌더링을 구현했습니다.",
         ],

@@ -8,7 +8,7 @@ import { BotIcon, ChevronRightIcon } from "@/icons";
 
 export const metadata: Metadata = {
   title: "AI 워크플로우",
-  description: "Claude Code · MCP · hooks · ADR · oh-my-design — AI가 일하는 하네스를 15개 프로젝트에 같은 틀로 적용한 방법.",
+  description: "Claude Code, MCP, hooks, ADR, oh-my-design으로 AI가 일하는 하네스를 만들어 15개 프로젝트에 같은 틀로 적용한 방법.",
 };
 
 const barColor = {
@@ -42,7 +42,7 @@ export default function AiWorkflowPage() {
       </header>
 
       <section>
-        <SectionTitle title="하네스의 여섯 축" desc="제약 → 검증 → 컨텍스트 → 기록 → 디자인 → 발사대. 스택이 바뀌어도 이 여섯 가지는 그대로 가져갑니다" />
+        <SectionTitle title="하네스의 여섯 축" desc="제약, 검증, 컨텍스트, 기록, 디자인, 발사대. 스택이 바뀌어도 이 여섯 가지는 그대로 가져갑니다" />
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {aiPillars.map((pillar) => (
             <Card key={pillar.title} className="h-full">
@@ -61,7 +61,7 @@ export default function AiWorkflowPage() {
         </div>
       </section>
 
-      <Card title={aiAsProduct.title} desc="voice_server ↔ AI 서버 ↔ 그룹웨어 3-시스템 협업">
+      <Card title={aiAsProduct.title} desc="voice_server, AI 서버, 그룹웨어 세 시스템의 협업">
         <p className="text-body-sm text-body md:text-body">{aiAsProduct.description}</p>
         <ol className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
           {aiAsProduct.flow.map((f, i) => (

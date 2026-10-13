@@ -2,6 +2,35 @@
 
 > 최신 세션이 맨 위. 각 블록은 "무엇을 했나 / 어떤 결정을 했나 / 다음에 뭘 하면 되나"를 담는다.
 
+## 2026-10-13 — 전수 검수(줄표 제거) + 프로젝트 이름 3단 표기 + PDF 두 프로젝트 재촬영·갱신 + 2.0.0 설치 파일 교체 + 개인 프로젝트 종료일
+
+**발단**: 사용자 — "pdf-editor·pdf-editor-live 를 업데이트했다(Rust 엔진, 구조 변경). 스크린샷을 다 새로 찍고 이전 건 지워라. — 는 쓰지 마라.
+/projects 카드는 '이름 / 설명 / OS' 세 줄, 상세는 한 줄. 홈·경력·프로젝트·AI 워크플로우 전수 검수. 내 시선으로. 커밋·배포까지."
+작업 중 추가 지시 두 가지: "기존에 올라가 있는 인스톨러도 2.0.0 으로 교체", "개인 프로젝트에 종료 날짜도 기입".
+
+**한 일**
+- **이름 스키마** — `Project` 에 `tagline?`·`platforms?` 추가, `name` 의 "X — Y (OS)" 를 분리. 카드(`ProjectCard`)는 이름 / tagline(15px 600 body) / platforms(13px muted) 세 줄,
+  상세 h1 은 이름 + tagline(body) + (platforms)(muted) 한 줄, 메타 title 은 "이름 · tagline". DICOM Studio·sh DICOM Studio·sh IP Scanner 에 platforms "Windows" 추가.
+- **전수 검수(서브에이전트)** — `src/data` 와 화면 문자열의 `—` 를 문장 단위로 다시 씀(캡션은 "X: Y", 매트릭스 빈칸 "없음"). 산문 속 텍스트 화살표는 말로("134초에서 0.07초로"), 파이프라인·상태머신 표기만 유지.
+  사실 수정: file-converter HEIC·TIFF·AVIF 는 출력이 아니라 입력, sh-dicom-studio 교재 제목, 스킬 칩 "RestAPI"→"REST API". 하네스 내부(훅 이름·CLAUDE.md·handoff·feedback 폴더 경로)와 작업량 통계 제거.
+- **개인 프로젝트 기간** — 12건 모두 "시작 ~ 종료"(종료 = 각 레포 마지막 실작업 월: dicom 계열 3건은 10-08 설정 커밋을 제외하고 session-log 기준).
+- **PDF Editor(1.x, v1.7.2)** — `out/` 재빌드 후 WSLg + Playwright `_electron`(1440×900, DPR 2)으로 20컷: 시작·편집기·텍스트 추가(서체 목록)·텍스트 수정·형광펜/연필·지우개·도형/표시·스탬프 창/배치·서명 창/배치·노트·링크·워터마크·두 쪽 보기·페이지 관리·검색·스킨 4종 띠·완료·영어 UI.
+  예제 문서는 가상의 "시설 개선 계획서"(scratchpad 에서 HTML→PDF). 글은 "1.x 를 v1.7.2 까지, 2.0.0 부터 Live 저장소로 흡수" 이야기로 다시 씀.
+- **PDF Editor Live** — 웹 15컷(로컬 스택 8080: 첫 화면·로그인 후 첫 화면·기능 메뉴·에디터·완료·형식·전송 창·합치기·나누기·압축·요금제·내 정보·관리자·모바일 2) + 데스크톱 2.0.0 7컷(에디터·한글 검색·서체 목록·글자 수정·자르기·페이지 메뉴·암호 PDF).
+  로그인·가입 화면은 로컬 전용 "Mock로 계속하기" 버튼이 보여 운영과 달라 제외. 글은 Rust 엔진(hayro·lopdf, 5단계 교체, 동등성 비교, 워커 재오픈, 64MB 저장 버그), 데스크톱 흡수, 최신 수치(테이블 12·마이그레이션 11·라우트 57·50MB·RSS 37MiB·테스트 57/38/36/120)로 갱신. "데스크톱 원본 저장소" GitHub 링크 제거(비공개 라벨이 저장소 자리).
+- **AI 워크플로우 매트릭스** — live 열: 스택 Rust/WASM, Hooks 5종, 디자인 계약 클래식 UI, ADR 1→5건, 테스트 최신 수치. pdf-editor 열 디자인 계약. ADR 합계 74→78, Record·Design 축 문장 갱신.
+- **설치 파일 2.0.0 교체** — 사용자 지시로 `gh release create pdf-editor-v2.0.0`(포트폴리오 레포, `PDF-Editor-Setup-2.0.0.exe` 195MB, Range 206 확인). pdf-editor·pdf-editor-live 두 상세의 Windows 링크를 2.0.0 으로.
+  macOS 는 2.0.0 빌드가 없어 v1.5.2 DMG 링크를 유지.
+- **검증** — tsc 0, build 통과, Playwright 27페이지 × 라이트/다크 × 1440/390 = 108 조합 overflow 0·4xx 0·깨진 이미지 0. 종료 후 chrome-headless-shell·electron 잔존 0.
+
+**발견(앱 결함, 포트폴리오 밖)** — PDF Editor 1.7.2 의 문서 검색이 이 예제 PDF(Chromium 출력, 한글)에서 한글 검색어를 못 찾음("LED" 는 3건, "공사" 는 결과 없음). pdftotext 와 2.0.0(Rust 엔진)은 같은 파일에서 "공사" 9건을 찾음. 1.x 는 동결이라 기록만.
+
+**절차·함정**
+- Electron 창은 WSLg 디스플레이(960×540 논리)에 막혀 처음에 980×640 으로 뜸 → 로드 후 `BrowserWindow.setContentSize(1440, 900)` 하면 DPR 2 로 2880×1800 캡처가 된다.
+- 파일 열기는 main 에서 `dialog.showOpenDialog` 를 스텁해 "PDF 파일 선택" 버튼을 그대로 누름(드롭 이벤트 불필요).
+- pdf-editor-live 로컬 관리자 계정(`e2e-admin@test.local`)은 비밀번호 `Admin1234!`(e2e admin.spec) 이고 언어가 영어로 저장돼 있어 로그인 후 언어를 한국어로 바꿔야 함. 비로그인 페이지는 localStorage `lang=ko` 를 initScript 로.
+- `pkill -f <패턴>` 은 명령줄이 자기 자신과 매치돼 셸이 죽는다 → `pgrep -f "[p]attern"` 형태로.
+
 ## 2026-10-08 (2차) — 링크 순서 규칙 코드화 + 홈·경력·회사 프로젝트·AI 워크플로우까지 1인칭 다듬기
 
 **발단**: 사용자 — "어떤 건 인스톨러 옆에 저장소, 어떤 건 저장소 옆에 인스톨러. 규칙을 정하자: 저장소가 있으면 맨 왼쪽, 없으면 인스톨러(윈도우, 맥 순서). 그리고 프로젝트만 말고 홈~AI 워크플로우까지 전체적으로 한 번 더 다듬어라."
