@@ -8,7 +8,7 @@ import { BotIcon, ChevronRightIcon } from "@/icons";
 
 export const metadata: Metadata = {
   title: "AI 워크플로우",
-  description: "Claude Code, MCP, hooks, ADR, oh-my-design으로 AI가 일하는 하네스를 만들어 15개 프로젝트에 같은 틀로 적용한 방법.",
+  description: "Claude Code, MCP, hooks, ADR, oh-my-design으로 AI가 일하는 하네스를 만들어 17개 프로젝트에 같은 틀로 적용한 방법.",
 };
 
 const barColor = {

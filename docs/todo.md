@@ -49,6 +49,12 @@
 - [x] sitemap.xml / robots.txt — 2026-08-28 `app/sitemap.ts`·`app/robots.ts` 로 생성.
 
 ## P4
+- [ ] sh-video-editor 갱신 시점 — 개발 중(v0.1.10). 새 설치 파일이 나오면 그 레포 릴리스(`gh release create v<ver> … --repo coolmarvel/sh-video-editor`, 사용자 지시가 있을 때)와 `projectDetails.ts` 링크·글의 버전·테스트 수치 갱신.
+      웹 버전을 공개 배포하면 `demo`·"접속" 링크 추가. 스크린샷은 session-log 2026-10-16 절차(WSLg + `_electron`, 새 user-data-dir). 0.1.10 결함 목록도 같은 항목에 있음.
+- [ ] sh-design-system 갱신 시점 — 버전이 오르거나 WPF·Avalonia 부품 스타일이 생기면 상세 갱신. 쇼케이스는 `npm run deploy:site`(그 레포)로 재배포하고, 캡처는 `FONTCONFIG_FILE` 임시 설정으로 Windows 글꼴을 붙여 찍는다.
+- [ ] 두 레포 LICENSE 가 "All rights reserved / UNLICENSED" 인 채로 public 이다 — 의도한 것인지 사용자 확인(포트폴리오 글에는 영향 없음).
+- [ ] sh-ip-scanner "실제 전산 자산 파악에 쓰고 있다" 문구 — 그 레포 todo 에 Windows 실환경 검증(한글 PC명 포함)이 아직 열려 있음. 실사용 여부 사용자 확인.
+- [ ] file-converter 배경 제거 라이브러리(@imgly/background-removal)가 AGPL-3.0 — 공개 설치 파일 배포 중이라 라이선스 검토(그 레포 todo P3).
 - [x] sh-econsent·sh-form-designer·sh-compositor 카드 — 2026-10-07 추가(featured, 스크린샷 13/30/21, 매트릭스 15열). file-converter 는 v1.5.1 로 재촬영 20장.
 - [ ] sh-econsent·sh-form-designer 갱신 시점 — 두 레포는 같은 날 짝으로 올라간다(엔진 ShForm 0.1.9 ↔ econsent 0.2.11). 한쪽 버전이 오르면 두 카드·매트릭스·설치 파일 링크를 같이 갱신.
       스크린샷은 각 레포 `SH_PORTFOLIO_DIR=docs/screenshots dotnet test … --filter PortfolioScreenshots` 재실행 + designer 는 `SH_FORM_UI_SNAPSHOTS` 갤러리(session-log 2026-10-07).

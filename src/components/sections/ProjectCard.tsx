@@ -58,6 +58,12 @@ export default function ProjectCard({ project, compact = false }: { project: Pro
         {project.tagline && <p className="mt-0.5 text-[15px] font-semibold text-body">{project.tagline}</p>}
         {project.platforms && <p className="mt-0.5 text-caption text-muted">{project.platforms}</p>}
         <p className="mt-2 text-body-sm text-body">{project.oneLiner}</p>
+        {project.problem && (
+          <p className="mt-3 rounded-inner bg-canvas px-3.5 py-3 text-body-sm text-body dark:bg-surface-2">
+            <span className="mb-0.5 block text-caption font-semibold text-weak-fg">해결한 문제</span>
+            {project.problem}
+          </p>
+        )}
 
         {!compact && (
           <div className="mt-4 flex flex-col gap-2.5 text-body-sm text-body">

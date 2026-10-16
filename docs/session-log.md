@@ -2,6 +2,34 @@
 
 > 최신 세션이 맨 위. 각 블록은 "무엇을 했나 / 어떤 결정을 했나 / 다음에 뭘 하면 되나"를 담는다.
 
+## 2026-10-16 — 개인 프로젝트에 "해결한 문제" 절 추가 + sh-video-editor·sh-design-system 추가(공개 전환·릴리스·Vercel 쇼케이스)
+
+**발단**: 사용자 — "sh-video-editor(작업 중)와 sh-design-system 을 개인 프로젝트로 추가하고 스크린샷·인스톨러를 기재해 달라. 쇼케이스는 Vercel 로.
+개인 프로젝트 글에 무엇을 만들었는지뿐 아니라 어떤 문제를 해결했는지도 넣고 싶다." 질문 답변: 카드 한 줄 + 상세 별도 절, 개인 14건 전부, Vercel 바로 배포,
+"sh-video-editor 도 public 으로 바꾸면서 release 도 같이 올려 달라".
+
+**한 일**
+- **스키마·UI** — `Project.problem`(카드 "해결한 문제" 한 줄, oneLiner 아래 안쪽 블록) · `ProjectDetail.problems[]`(problem / approach / result). 상세는 "핵심 성과" 다음·아키텍처 앞에
+  "해결한 문제" 카드(번호 원 + 문제 15/600, 접근·결과 라벨, ≥1280 2열). 안쪽 블록은 AI 워크플로우 페이지와 같은 `bg-canvas dark:bg-surface-2`. DESIGN.md §4 에 "Problem block" 계약 추가.
+- **글** — 개인 프로젝트 14건 모두 problem 1문장 + problems 3~5건(제품이 푼 문제 + 기술 트러블슈팅을 섞음). 서브에이전트 5개가 각 레포 brief·ADR·session-log·changelog 를 근거로 JSON 을 쓰고 스크립트로 병합.
+  병합 스크립트는 scratchpad 1회용(problems 가 있으면 교체하는 방식이라 재실행 가능했음, 레포에 없음).
+- **사실 정정**(에이전트가 레포 문서와 대조해 찾음) — sh-form-designer 성능(1,155개·수 ms → 큰 서식 205ms 에서 25ms, 작은 서식 167ms 에서 22ms), sh-compositor Rust 채택 기준(가우시안 블러는 1.3~1.7배로 채택),
+  sh-messenger(클라이언트는 차등 다운로드를 끔, 브라우저 E2E 36건), sh-web-editor(공개 페이지 Vercel 이전, 정적 파일 4개), dicom-studio(설정 화면 미구현이라 "설정값으로 두도록 설계"), sh-ip-scanner(SendARP 미구현).
+- **sh-video-editor**(v0.1.10, 개발 중, 2026.10 ~) — 이력 전체에서 토큰·키·내부 IP 스캔(0건) 후 **public 전환**, 그 레포에 `v0.1.10` prerelease + `SH-Video-Editor-Setup-0.1.10.exe`(122.7MB, Range 206 확인).
+  스크린샷 18장: WSLg 실물 창 + Playwright `_electron`(새 user-data-dir 필수, setContentSize 1440×900, DPR 2). 데모 영상 버튼으로 만든 편집본(전환·제목 키프레임·자막·음악 덕킹·필터·속도 곡선·PIP·스티커) + 실제 1080p 내보내기.
+- **sh-design-system**(v0.1.2, public) — 쇼케이스를 Vercel 에 배포: https://sh-design-system.vercel.app (그 레포에 `vercel.json`·`.vercelignore`·`deploy:site` 커밋, 푸시는 사용자). `/docs/`·`package.json` 404 확인.
+  스크린샷 14장: 배포 주소를 Playwright 로. **WSL 에 맑은 고딕이 없어** `FONTCONFIG_FILE` 로 `/mnt/c/Windows/Fonts` 를 붙인 임시 fonts.conf 로 재촬영(설치 없음). 굴림(.ttc 비트맵)은 그래도 빈칸이라 타이포그래피 컷에서 그 행만 잘라냄.
+- **AI 워크플로우** — 매트릭스 17열(두 열 추가), "17개 프로젝트", ADR 86건(16개 프로젝트). 홈 대표 프로젝트 앞 4개가 video-editor·design-system·econsent·form-designer 로 바뀜.
+- **검증** — tsc 0, build 통과, Playwright 29페이지 × 라이트/다크 × 1440/390 = 116 조합 overflow 0·4xx 0·깨진 이미지 0. 종료 후 chrome-headless-shell(1234) 잔존 0.
+
+**발견(앱 결함, 포트폴리오 밖 · sh-video-editor 0.1.10)** — 자막 큐가 내보낸 MP4 에 들어가지 않음(9초·21초 프레임 확인, SRT 도 안 생김) · 타임라인 오디오 페이드 블록에 엔진 id "const..." 노출 ·
+소리 크기 맞추기 후 "+0.8506784821410047 dB" 반올림 없음 · 스티커 미디어 이름이 타임스탬프 · 생성 음악이 데모 영상과 같은 이름 · 필터 썸네일이 이전 클립 프레임과 섞임 ·
+키프레임 축소 중에도 선택 상자가 100% · 잠긴 트랙 오류 문구에 영어 섞임 · 템플릿 저장 알림 없음. sh-design-system 쪽은 없음.
+
+**절차·함정**
+- `pgrep chrome-headless-shell` 에 다른 세션(sh-video-editor-wt perf-audit 의 Playwright, chromium 1248)이 잡힌다. 내 것은 버전 경로(1234)로 구분해 확인.
+- `out/projects/<slug>/` 는 폴더(trailingSlash)라 QA 스크립트는 디렉터리 목록으로 slug 를 모은다.
+
 ## 2026-10-13 — 전수 검수(줄표 제거) + 프로젝트 이름 3단 표기 + PDF 두 프로젝트 재촬영·갱신 + 2.0.0 설치 파일 교체 + 개인 프로젝트 종료일
 
 **발단**: 사용자 — "pdf-editor·pdf-editor-live 를 업데이트했다(Rust 엔진, 구조 변경). 스크린샷을 다 새로 찍고 이전 건 지워라. — 는 쓰지 마라.

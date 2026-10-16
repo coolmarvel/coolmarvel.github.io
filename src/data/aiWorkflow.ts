@@ -5,7 +5,7 @@ export const aiPhilosophy = {
   subtitle: "AI를 쓰는 것이 아니라, AI가 일하는 시스템을 설계합니다",
   intro: [
     "Claude Code를 정식 개발 방식으로 씁니다. 몇 주 써 보고 분명해진 것은, 중요한 건 AI가 코드를 내놓는 속도가 아니라 그 코드를 믿을 수 있게 만드는 일이고 그게 제 몫이라는 점이었습니다. 그래서 프로젝트마다 AI가 넘지 말아야 할 선을 코드로 막고(제약), 산출물을 자동으로 검사하고(검증), 틀린 것은 그 자리에서 고치게 하는(교정) 하네스를 직접 설계합니다.",
-    "같은 틀을 Laravel/PHP, FastAPI/Python, Electron/TypeScript, C#/.NET, Spring Boot, WebGL2/Rust까지 스택이 다른 15개 프로젝트에 그대로 적용했습니다. 언어가 바뀌어도 바뀌는 것은 훅과 검증 명령의 내용뿐이고 골격(제약, 검증, 기록)은 같습니다. 재직 중인 병원에서는 이 방식이 그룹웨어·회의록 파이프라인·스케줄 시스템의 작업 표준이 됐습니다.",
+    "같은 틀을 Laravel/PHP, FastAPI/Python, Electron/TypeScript, C#/.NET, Spring Boot, WebGL2/Rust까지 스택이 다른 17개 프로젝트에 그대로 적용했습니다. 언어가 바뀌어도 바뀌는 것은 훅과 검증 명령의 내용뿐이고 골격(제약, 검증, 기록)은 같습니다. 재직 중인 병원에서는 이 방식이 그룹웨어·회의록 파이프라인·스케줄 시스템의 작업 표준이 됐습니다.",
     "새 프로젝트는 project-seed라는 제 템플릿 저장소에서 시작합니다. 브리프, 세션 부팅 프로토콜, 훅, 문서 체계, 라이선스 표기, 디자인 계약이 첫 커밋부터 들어 있어서 프로젝트가 열 개를 넘어도 규율이 흐려지지 않습니다. 한 프로젝트에서 검증된 규칙은 템플릿으로 올려 다음 프로젝트부터 자동으로 적용됩니다.",
   ],
 };
@@ -53,7 +53,7 @@ export const aiPillars: AiPillar[] = [
     accent: "purple",
     description:
       "결정은 버린 대안과 이유까지 ADR로 남깁니다. voice_server가 로컬 GPU 처리에서 원격 API 위임을 거쳐 얇은 오케스트레이터가 되기까지의 과정이 ADR 6건에 있고, pdf-editor-live는 PDF 엔진을 Rust로 바꾸는 결정과 그 다섯 단계 계획을 ADR로 먼저 써 두고 그대로 옮겼습니다. 세션이 바뀌면 AI는 CLAUDE.md가 가리키는 세션 로그, todo, ADR 순서로 맥락을 복구하고, 한 번 밟은 지뢰는 '함정' 항목으로 남겨 같은 실수를 두 번 하지 않게 합니다.",
-    items: ["ADR 78건 (14개 프로젝트)", "CLAUDE.md 세션 부팅 프로토콜", "writing-guide 문서 표준", "session-log SSOT", "함정 기록"],
+    items: ["ADR 86건 (16개 프로젝트)", "CLAUDE.md 세션 부팅 프로토콜", "writing-guide 문서 표준", "session-log SSOT", "함정 기록"],
   },
   {
     title: "Design: oh-my-design 디자인 계약",
@@ -88,6 +88,8 @@ export const aiMatrix = {
     "sh-compositor",
     "sh-econsent",
     "sh-form-designer",
+    "sh-video-editor",
+    "sh-design-system",
   ],
   rows: [
     {
@@ -108,6 +110,8 @@ export const aiMatrix = {
         "Electron · React · WebGL2 · Rust/WASM",
         "C# · .NET 8 · Avalonia · ASP.NET Core · Postgres",
         "C# · .NET 8 · Avalonia · SkiaSharp",
+        "Electron · React · Rust (napi · WASM)",
+        "DTCG · Style Dictionary 5 · 정적 HTML",
       ],
     },
     {
@@ -128,11 +132,13 @@ export const aiMatrix = {
         "3종 (env·git·Prettier)",
         "3종 (env·git·dotnet format)",
         "3종 (env·git·dotnet format)",
+        "3종 (env·git·Prettier·rustfmt)",
+        "3종 (env·git·Prettier)",
       ],
     },
     {
       label: "슬래시 커맨드",
-      values: ["5종", "3종", "없음", "없음", "OmD 스킬 22종", "없음", "2종", "2종", "2종", "2종 + OmD 스킬 22종", "2종 + OmD 스킬 22종", "2종 + OmD 스킬 22종", "2종", "2종", "2종"],
+      values: ["5종", "3종", "없음", "없음", "OmD 스킬 22종", "없음", "2종", "2종", "2종", "2종 + OmD 스킬 22종", "2종 + OmD 스킬 22종", "2종 + OmD 스킬 22종", "2종", "2종", "2종", "2종", "2종"],
     },
     {
       label: "MCP",
@@ -152,19 +158,21 @@ export const aiMatrix = {
         "context7 + playwright · 앱 자체가 MCP 서버(도구 58종), Claude Code 실연결",
         "context7 (playwright는 웹 편집기 시절, 현재 미사용)",
         "context7",
+        "context7 + playwright + 엔진 MCP",
+        "context7 + playwright",
       ],
     },
     {
       label: "Skills (로컬 고정)",
-      values: ["9종", "없음", "5종", "없음", "22종 + 서브에이전트 19", "없음", "없음", "없음", "없음", "22종 + 서브에이전트 19", "22종 + 서브에이전트 19", "22종 + 서브에이전트 19", "없음", "없음", "없음"],
+      values: ["9종", "없음", "5종", "없음", "22종 + 서브에이전트 19", "없음", "없음", "없음", "없음", "22종 + 서브에이전트 19", "22종 + 서브에이전트 19", "22종 + 서브에이전트 19", "없음", "없음", "없음", "없음", "없음"],
     },
     {
       label: "디자인 계약",
-      values: ["TailAdmin 이식", "없음", "없음", "클래식 UI 토큰(웹 버전과 공유) + 스킨 13종", "DESIGN.md (클래식 UI, 데스크톱 앱들과 같은 토큰)", "클래식 UI 토큰 SSOT + 스킨 13종", "없음", "없음", "없음", "DESIGN.md (Upbit + 업무 도구 실측 색, WPF·Avalonia 토큰 쌍둥이)", "DESIGN.md (Upbit + 상용 웹에디터 픽셀 실측 토큰, 자체 SVG 아이콘 64종)", "DESIGN.md (Core v2 그래프 투영, 카카오톡 PC 창 구조)", "DESIGN.md (Compositor 화면 구조 + 클래식 크롬, 스킨 13종)", "DESIGN.md (클래식 돋움 12px·베벨·메뉴바·탭)", "DESIGN.md (클래식 리본·도킹, oh-my-design 미사용)"],
+      values: ["TailAdmin 이식", "없음", "없음", "클래식 UI 토큰(웹 버전과 공유) + 스킨 13종", "DESIGN.md (클래식 UI, 데스크톱 앱들과 같은 토큰)", "클래식 UI 토큰 SSOT + 스킨 13종", "없음", "없음", "없음", "DESIGN.md (Upbit + 업무 도구 실측 색, WPF·Avalonia 토큰 쌍둥이)", "DESIGN.md (Upbit + 상용 웹에디터 픽셀 실측 토큰, 자체 SVG 아이콘 64종)", "DESIGN.md (Core v2 그래프 투영, 카카오톡 PC 창 구조)", "DESIGN.md (Compositor 화면 구조 + 클래식 크롬, 스킨 13종)", "DESIGN.md (클래식 돋움 12px·베벨·메뉴바·탭)", "DESIGN.md (클래식 리본·도킹, oh-my-design 미사용)", "DESIGN.md (sh-design-system 다크 테마 설치 + 편집기 부품)", "그 자체가 레퍼런스: DESIGN.md 16절 + 13개 플랫폼 토큰 + 테마 16종"],
     },
     {
       label: "ADR",
-      values: ["7건", "6건", "없음", "2건", "5건", "8건", "2건", "2건", "3건", "6건", "6건", "9건", "7건", "12건", "3건"],
+      values: ["7건", "6건", "없음", "2건", "5건", "8건", "2건", "2건", "3건", "6건", "6건", "9건", "7건", "12건", "3건", "4건", "4건"],
     },
     {
       label: "테스트 · UI 자가검증",
@@ -184,6 +192,8 @@ export const aiMatrix = {
         "단위 108 + Electron E2E 135 + 웹 E2E 17 + MCP E2E 25 + 스크린샷 문구 감사 88장 + 커널 벤치",
         "xUnit 154 (Core 71 · Server 32 · App 47 Avalonia Headless 전수 스윕·무작위 워크플로 · 실서버 E2E 4) + 서식 393종 E2E",
         "xUnit 111 (엔진 51 · 디자이너 60, 전수 QA 87), Avalonia Headless 전수 스윕·무작위 편집·성능 예산·갤러리 렌더",
+        "단위 784 + 엔진 기능 214 + 웹 E2E 163(1440·390) + 데스크톱 E2E 8 + 이식 엔진 CI 1981",
+        "검증 스크립트(생성물 신선도·문서 동기화·CSS 변수·전 테마 대비) + Playwright 1440·390",
       ],
     },
   ],

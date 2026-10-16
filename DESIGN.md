@@ -177,6 +177,11 @@ Rules:
 - 클릭 가능하면 전체가 하나의 hit area: hover `surface-hover`, pressed scale .985, 우하단에 별도 “상세 보기” 텍스트 없음(제목 옆 chevron으로 표현).
 - 카드 안의 하위 블록은 `card-outlined`(white + 1px border, radius 16)나 `surface-2`.
 
+### Problem block (해결한 문제)
+- 카드: oneLiner 아래 안쪽 블록(`canvas`, 다크 `surface-2`, radius 14, 12/14 padding). 라벨 "해결한 문제" 13/600 `weak-fg` → 문장 14 `body`. 개인 프로젝트만.
+- 상세: "해결한 문제" 카드 안에 항목별 안쪽 블록(`canvas`/다크 `surface-2`, radius 16) 1열(≥1280 2열). 번호 원 28px weak 쌍 + 문제 15/600 `foreground`, 그 아래 `접근`·`결과` 라벨 13/600 muted + 본문 14.
+- 데이터: `Project.problem`(한 문장), `ProjectDetail.problems[]`(problem / approach / result).
+
 ### Metric tile
 - surface 카드. 라벨 14 muted → 숫자 28/700 → 보조 칩. 4열(≥1024) / 2열(≥640) / 1열.
 

@@ -185,6 +185,33 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
         </Card>
       </div>
 
+      {detail?.problems && detail.problems.length > 0 && (
+        <Card title="해결한 문제" desc="무엇이 문제였고, 어떻게 풀었고, 무엇이 달라졌는지">
+          <ol className="grid grid-cols-1 gap-3 xl:grid-cols-2">
+            {detail.problems.map((p, i) => (
+              <li key={p.problem} className="flex flex-col gap-3 rounded-image bg-canvas p-4 md:p-5 dark:bg-surface-2">
+                <div className="flex items-start gap-3">
+                  <span className="tabular flex size-7 shrink-0 items-center justify-center rounded-full bg-weak text-[13px] font-semibold text-weak-fg">
+                    {i + 1}
+                  </span>
+                  <p className="pt-0.5 text-[15px] font-semibold leading-[1.55] text-fg">{p.problem}</p>
+                </div>
+                <dl className="flex flex-col gap-2.5 pl-10 text-body-sm text-body">
+                  <div>
+                    <dt className="text-caption font-semibold text-muted">접근</dt>
+                    <dd className="mt-0.5">{p.approach}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-caption font-semibold text-muted">결과</dt>
+                    <dd className="mt-0.5">{p.result}</dd>
+                  </div>
+                </dl>
+              </li>
+            ))}
+          </ol>
+        </Card>
+      )}
+
       {detail?.architecture && (
         <Card title="아키텍처 & 설계 포인트">
           <ul className="flex list-outside list-disc flex-col gap-2.5 pl-5 text-body-sm text-body marker:text-placeholder md:text-body">
