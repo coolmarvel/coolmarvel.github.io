@@ -266,7 +266,7 @@ export const projectDetails: Record<string, ProjectDetail> = {
     ],
     demo: {
       url: "https://sh-design-system.vercel.app",
-      note: "실제 운영 중인 공개 쇼케이스입니다. 로그인 없이 색·타이포그래피·간격·부품·지침을 보고, 테마(스킨 12종·다크·터치 등)를 바꾸거나 내보내기 패널에서 토큰을 복사할 수 있습니다. 정적 파일만 배포하며 주소로 들어가면 /showcase/ 로 넘어갑니다.",
+      note: "실제 운영 중인 공개 쇼케이스입니다. 로그인 없이 색·타이포그래피·간격·부품·지침을 보고, 테마(스킨 12종·다크·터치 등)를 바꾸거나 내보내기 패널에서 토큰을 복사할 수 있습니다. 정적 파일만 배포합니다.",
     },
     links: [
       { label: "GitHub 저장소", href: "https://github.com/coolmarvel/sh-design-system" },

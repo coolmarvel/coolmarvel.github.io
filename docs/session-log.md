@@ -18,6 +18,7 @@
 - **sh-video-editor**(v0.1.10, 개발 중, 2026.10 ~) — 이력 전체에서 토큰·키·내부 IP 스캔(0건) 후 **public 전환**, 그 레포에 `v0.1.10` prerelease + `SH-Video-Editor-Setup-0.1.10.exe`(122.7MB, Range 206 확인).
   스크린샷 18장: WSLg 실물 창 + Playwright `_electron`(새 user-data-dir 필수, setContentSize 1440×900, DPR 2). 데모 영상 버튼으로 만든 편집본(전환·제목 키프레임·자막·음악 덕킹·필터·속도 곡선·PIP·스티커) + 실제 1080p 내보내기.
 - **sh-design-system**(v0.1.2, public) — 쇼케이스를 Vercel 에 배포: https://sh-design-system.vercel.app (그 레포에 `vercel.json`·`.vercelignore`·`deploy:site` 커밋, 푸시는 사용자). `/docs/`·`package.json` 404 확인.
+  같은 날 후속: 쇼케이스를 루트(`/`)에서 바로 열리게 바꿈(빌드가 showcase 파일을 site 루트로 복사, 예전 `/showcase/` 주소는 308 로 루트로). `../dist` 같은 상대경로는 루트에서 그대로 풀린다.
   스크린샷 14장: 배포 주소를 Playwright 로. **WSL 에 맑은 고딕이 없어** `FONTCONFIG_FILE` 로 `/mnt/c/Windows/Fonts` 를 붙인 임시 fonts.conf 로 재촬영(설치 없음). 굴림(.ttc 비트맵)은 그래도 빈칸이라 타이포그래피 컷에서 그 행만 잘라냄.
 - **AI 워크플로우** — 매트릭스 17열(두 열 추가), "17개 프로젝트", ADR 86건(16개 프로젝트). 홈 대표 프로젝트 앞 4개가 video-editor·design-system·econsent·form-designer 로 바뀜.
 - **검증** — tsc 0, build 통과, Playwright 29페이지 × 라이트/다크 × 1440/390 = 116 조합 overflow 0·4xx 0·깨진 이미지 0. 종료 후 chrome-headless-shell(1234) 잔존 0.
