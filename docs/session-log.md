@@ -2,6 +2,22 @@
 
 > 최신 세션이 맨 위. 각 블록은 "무엇을 했나 / 어떤 결정을 했나 / 다음에 뭘 하면 되나"를 담는다.
 
+## 2026-11-11 — sh e-Consent 개인 프로젝트 비공개 처리(주석)
+
+**발단**: 사용자 — "개인 프로젝트에서 sh e-Consent 는 일단 주석으로 가려 달라. 노출되지 않게, 경로로도 못 들어가게."
+
+**한 일**
+- `src/data/projects.ts` 의 카드 항목과 `src/data/projectDetails.ts` 의 상세 항목을 블록 주석(`/* ... */`)으로 감쌈. 삭제가 아니라 주석이라 다시 노출하려면 주석만 풀면 된다.
+- `generateStaticParams` 가 `projects` 배열에서 slug 를 만들기 때문에 `/projects/sh-econsent/` 는 더 이상 생성되지 않음(로컬 서빙 404 확인, sitemap 에도 없음).
+  홈 대표 프로젝트(featured 앞 4개)는 video-editor·design-system·form-designer 와 그다음 featured 항목으로 바뀜.
+- 검증: tsc 0, build 통과, Playwright `/`·`/projects/` × 라이트/다크 × 1440/390 overflow 0, sh-econsent 로 가는 링크 0. 종료 후 chrome-headless-shell 잔존 0.
+
+**남겨 둔 것(사용자 판단 필요)**
+- 다른 프로젝트 글 속 이름 언급은 그대로 둠: sh-form-designer 카드·상세("sh e-Consent를 만들다 보니…", 서버 연동 설명), sh-design-system 설명, AI 워크플로우 매트릭스의 sh-econsent 열("17개 프로젝트"). 링크는 아님.
+- 스크린샷 `public/images/projects/sh-econsent/` 와 포트폴리오 레포 릴리스 `sh-econsent-v0.2.11` 은 남아 있어 주소를 알면 직접 열 수 있다.
+
+**함정**: CLAUDE.md 에 적힌 크로미움 `chromium_headless_shell-1237` 은 지금 없음. 설치돼 있는 것은 1234·1254(1234 로 실행).
+
 ## 2026-10-16 — 개인 프로젝트에 "해결한 문제" 절 추가 + sh-video-editor·sh-design-system 추가(공개 전환·릴리스·Vercel 쇼케이스)
 
 **발단**: 사용자 — "sh-video-editor(작업 중)와 sh-design-system 을 개인 프로젝트로 추가하고 스크린샷·인스톨러를 기재해 달라. 쇼케이스는 Vercel 로.

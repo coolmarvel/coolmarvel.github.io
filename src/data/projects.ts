@@ -95,6 +95,7 @@ export const projects: Project[] = [
       "피드백은 원천으로. SH Video Editor에서 12px 굵은 글자가 번진 원인이 굵은 글꼴이 없는 돋움이라 UI 글꼴을 맑은 고딕 우선으로 바꿨고, 소비 프로젝트는 update 한 번으로 받습니다",
     ],
   },
+  /* 2026-11-11 사용자 지시로 sh e-Consent 비공개 처리: 카드·상세·/projects/sh-econsent 경로 모두 제외. 다시 노출하려면 이 주석만 풀면 된다.
   {
     slug: "sh-econsent",
     name: "sh e-Consent",
@@ -135,6 +136,7 @@ export const projects: Project[] = [
       "실환자 데이터는 아직 넣지 않았습니다. 보안을 다시 점검하기 전까지 테스트 데이터만 쓰고, 이 페이지의 화면도 전부 가짜 환자와 가상 병원명입니다",
     ],
   },
+  */
   {
     slug: "sh-form-designer",
     name: "sh Form Designer",

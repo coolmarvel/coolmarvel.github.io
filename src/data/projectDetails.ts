@@ -273,6 +273,7 @@ export const projectDetails: Record<string, ProjectDetail> = {
       { label: "쇼케이스 접속", href: "https://sh-design-system.vercel.app" },
     ],
   },
+  /* 2026-11-11 사용자 지시로 sh e-Consent 비공개 처리: 카드·상세·/projects/sh-econsent 경로 모두 제외. 다시 노출하려면 이 주석만 풀면 된다.
   "sh-econsent": {
     role: "기획부터 문서 모델·데스크톱 앱·서버·실행기·인스톨러·서식 변환까지 혼자 만들었습니다",
     background: [
@@ -390,6 +391,7 @@ export const projectDetails: Record<string, ProjectDetail> = {
     links: [{ label: "Windows 설치 파일 (v0.2.11)", href: "https://github.com/coolmarvel/coolmarvel.github.io/releases/download/sh-econsent-v0.2.11/sh-econsent-sign-Setup-0.2.11.exe" }],
     privateRepo: true,
   },
+  */
   "sh-form-designer": {
     role: "서식 모델·엔진·디자이너·뷰어·서버 연동·인스톨러까지 혼자 만들었습니다",
     background: [
