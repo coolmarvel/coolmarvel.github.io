@@ -50,6 +50,7 @@
 - [x] sitemap.xml / robots.txt — 2026-08-28 `app/sitemap.ts`·`app/robots.ts` 로 생성.
 
 ## P4
+- [ ] murim-idle(무림 방치록) v1.0.0 정식 실행기 배포 시점 — 현재 v0.4.0이라 사용자 지시에 따라 설치 파일은 올리지 않음. v1.0.0 업데이트 후 배포 결정 시 릴리스 업로드 및 `projectDetails.ts` 의 `links` 추가.
 - [ ] sh-video-editor 갱신 시점 — 개발 중(v0.1.10). 새 설치 파일이 나오면 그 레포 릴리스(`gh release create v<ver> … --repo coolmarvel/sh-video-editor`, 사용자 지시가 있을 때)와 `projectDetails.ts` 링크·글의 버전·테스트 수치 갱신.
       웹 버전을 공개 배포하면 `demo`·"접속" 링크 추가. 스크린샷은 session-log 2026-10-16 절차(WSLg + `_electron`, 새 user-data-dir). 0.1.10 결함 목록도 같은 항목에 있음.
 - [ ] sh-design-system 갱신 시점 — 버전이 오르거나 WPF·Avalonia 부품 스타일이 생기면 상세 갱신. 쇼케이스는 `npm run deploy:site`(그 레포)로 재배포하고, 캡처는 `FONTCONFIG_FILE` 임시 설정으로 Windows 글꼴을 붙여 찍는다.
