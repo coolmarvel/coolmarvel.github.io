@@ -50,7 +50,7 @@
 - [x] sitemap.xml / robots.txt — 2026-08-28 `app/sitemap.ts`·`app/robots.ts` 로 생성.
 
 ## P4
-- [ ] murim-idle(무림 방치록) v1.0.0 정식 실행기 배포 시점 — 현재 v0.4.0이라 사용자 지시에 따라 설치 파일은 올리지 않음. v1.0.0 업데이트 후 배포 결정 시 릴리스 업로드 및 `projectDetails.ts` 의 `links` 추가.
+- [x] murim-idle(무림 방치록) v0.5.6 갱신 및 취미 복원 배경 반영 — 2026-11-26 완료(스크린샷 47장, 차등 업데이터·Spine 알파 보정·핫패스 최적화·개편 `/admin` 반영, 서비스 종료된 '요괴사냥꾼 키우기' 개인 취미 복원작 안내 및 설치본 비공개 유지).
 - [ ] sh-video-editor 갱신 시점 — 개발 중(v0.1.10). 새 설치 파일이 나오면 그 레포 릴리스(`gh release create v<ver> … --repo coolmarvel/sh-video-editor`, 사용자 지시가 있을 때)와 `projectDetails.ts` 링크·글의 버전·테스트 수치 갱신.
       웹 버전을 공개 배포하면 `demo`·"접속" 링크 추가. 스크린샷은 session-log 2026-10-16 절차(WSLg + `_electron`, 새 user-data-dir). 0.1.10 결함 목록도 같은 항목에 있음.
 - [ ] sh-design-system 갱신 시점 — 버전이 오르거나 WPF·Avalonia 부품 스타일이 생기면 상세 갱신. 쇼케이스는 `npm run deploy:site`(그 레포)로 재배포하고, 캡처는 `FONTCONFIG_FILE` 임시 설정으로 Windows 글꼴을 붙여 찍는다.
@@ -63,9 +63,8 @@
 - [ ] sh-compositor 갱신 시점 — macOS 빌드(가이드만 있음)나 v1.3 이 나오면 상세·매트릭스 갱신. 캡처는 scratchpad `sc/shots.mjs` 절차(session-log 2026-10-07) 재실행.
 - [ ] 홈 대표 프로젝트 — `featured` 가 10개(econsent·designer·compositor·messenger·web-editor·remote-assist·pdf-editor-live·cm-groupware·meeting-todo-mcp·gaia-backoffice)라 앞 4개만 노출. 사용자 취향에 따라 조정.
 - [ ] remote-assist 카드 갱신 — 맥 dmg 가 0.1.15 로 재빌드되거나 M3(지원자 로그인·이력 표)가 들어오면 `projectDetails.ts` 상세·매트릭스 갱신. 맥 앱 스크린샷은 맥 세션에서 캡처(현재 없음).
-- [x] sh-messenger 카드 — 2026-09-21 추가(v0.3.7, featured, 스크린샷 25장, 매트릭스 12열, 친구 추가 아이디 4개 공개).
-- [ ] sh-messenger 갱신 시점 — 모바일 클라이언트가 생기거나(현재 '아직 없는 것' 절에 명시), 맥 자동 업데이트·Developer ID 서명이 붙거나, v0.4 로 올라가면
-      `projectDetails.ts` 상세·매트릭스·설치 파일 링크(현재 0.3.7 exe)를 갱신. 스크린샷은 session-log 2026-09-21 의 Electron 캡처 절차 재실행.
+- [x] sh-messenger 카드 — 2026-09-21 추가(v0.3.7, featured, 스크린샷 25장, 매트릭스 12열, 친구 추가 아이디 4개 공개) → 2026-11-26 v0.4.2 갱신 완료(데스크톱·웹/모바일 PWA 스크린샷 35장, 양측 AES-256-GCM 암호화·180일 보관·예약/멘션/스포·동시 로그인·Windows v0.4.2 설치 파일 및 `/app/` 라이브 링크 반영).
+- [ ] sh-messenger 추후 갱신 시점 — 맥 Developer ID 서명·자동 업데이트가 붙거나 새 마이너 버전이 나오면 `projectDetails.ts` 상세·매트릭스·설치 파일 링크(현재 0.4.2 exe)를 갱신.
 - [x] sh-web-editor 카드 — 2026-09-09 추가(v1.0.5, featured, 스크린샷 22장, 매트릭스 11열). jazz-community(보일러플레이트) 는 완성도가 오르면 카드 후보. sh-econsent 는 2026-10-07 사용자 요청으로 추가됨(아래).
 - [ ] sh-web-editor 갱신 시점 — 양식 서버를 공개 데모에 붙이거나(ADR-0005 후속), 차트·터치 표 편집이 들어오면 상세·매트릭스 갱신. 스크린샷은 scratchpad `test.mjs` 절차(session-log 2026-09-09) 재실행.
 - [ ] 형제 프로젝트에 새 ADR/기능 생기면 `/ai-workflow`·`projects.ts` 반영.

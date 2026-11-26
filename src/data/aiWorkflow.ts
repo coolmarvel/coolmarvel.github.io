@@ -53,7 +53,7 @@ export const aiPillars: AiPillar[] = [
     accent: "purple",
     description:
       "결정은 버린 대안과 이유까지 ADR로 남깁니다. voice_server가 로컬 GPU 처리에서 원격 API 위임을 거쳐 얇은 오케스트레이터가 되기까지의 과정이 ADR 6건에 있고, pdf-editor-live는 PDF 엔진을 Rust로 바꾸는 결정과 그 다섯 단계 계획을 ADR로 먼저 써 두고 그대로 옮겼습니다. 세션이 바뀌면 AI는 CLAUDE.md가 가리키는 세션 로그, todo, ADR 순서로 맥락을 복구하고, 한 번 밟은 지뢰는 '함정' 항목으로 남겨 같은 실수를 두 번 하지 않게 합니다.",
-    items: ["ADR 93건 (17개 프로젝트)", "CLAUDE.md 세션 부팅 프로토콜", "writing-guide 문서 표준", "session-log SSOT", "함정 기록"],
+    items: ["ADR 97건 (17개 프로젝트)", "CLAUDE.md 세션 부팅 프로토콜", "writing-guide 문서 표준", "session-log SSOT", "함정 기록"],
   },
   {
     title: "Design: oh-my-design 디자인 계약",
@@ -107,7 +107,7 @@ export const aiMatrix = {
         "C# · ASP.NET Core · Oracle",
         "C# · .NET 8 · WPF · Avalonia",
         "TS · Tiptap · Vite · Spring Boot 4",
-        "Electron · React · NestJS · Postgres",
+        "Electron · React · PWA · Web Push · NestJS · Postgres",
         "Electron · React · WebGL2 · Rust/WASM",
         "C# · .NET 8 · Avalonia · ASP.NET Core · Postgres",
         "C# · .NET 8 · Avalonia · SkiaSharp",
@@ -176,7 +176,7 @@ export const aiMatrix = {
     },
     {
       label: "ADR",
-      values: ["7건", "6건", "없음", "2건", "5건", "8건", "2건", "2건", "3건", "6건", "6건", "9건", "7건", "12건", "3건", "4건", "4건", "7건"],
+      values: ["7건", "6건", "없음", "2건", "5건", "8건", "2건", "2건", "3건", "6건", "6건", "12건", "7건", "12건", "3건", "4건", "4건", "8건"],
     },
     {
       label: "테스트 · UI 자가검증",
@@ -192,13 +192,13 @@ export const aiMatrix = {
         "xUnit 34 + Avalonia 헤드리스 렌더 + 라이브 서버 E2E",
         "xUnit 217 (Core 192 + Server 25) + 가짜 플랫폼 종단 테스트 + 실서버 스모크 + Windows 콘솔 하네스",
         "Vitest 188 + JUnit 11 + Playwright E2E + Playwright MCP 실물 대조",
-        "서버 332 + 데스크톱 38 + 업데이트 서버 27 + Playwright 브라우저 38(2뷰포트) + 실제 Electron 앱 E2E 5",
+        "서버 351 + 데스크톱 54 + 업데이트 서버 27 + Playwright 46(데스크톱·컴팩트·모바일 PWA) + 실제 Electron 앱 E2E 8",
         "단위 108 + Electron E2E 135 + 웹 E2E 17 + MCP E2E 25 + 스크린샷 문구 감사 88장 + 커널 벤치",
         "xUnit 154 (Core 71 · Server 32 · App 47 Avalonia Headless 전수 스윕·무작위 워크플로 · 실서버 E2E 4) + 서식 393종 E2E",
         "xUnit 111 (엔진 51 · 디자이너 60, 전수 QA 87), Avalonia Headless 전수 스윕·무작위 편집·성능 예산·갤러리 렌더",
         "단위 784 + 엔진 기능 214 + 웹 E2E 163(1440·390) + 데스크톱 E2E 8 + 이식 엔진 CI 1981",
         "검증 스크립트(생성물 신선도·문서 동기화·CSS 변수·전 테마 대비) + Playwright 1440·390",
-        "xUnit 1,690 (Rules 1,211 · Server 425 · Net 42 · ACTk 12) + Roslyn int_cast_audit + 수용 시험 83건(1,870 검문) + Unity -batchmode 컨텐츠 전수 스윕 113종",
+        "xUnit 1,745 (Rules 1,228 · Server 440 · Net 43 · Updater 22 · ACTk 12) + Roslyn int_cast_audit + 수용 시험 83건(1,870 검문) + Unity -batchmode 컨텐츠 전수 스윕 113종",
       ],
     },
   ],
